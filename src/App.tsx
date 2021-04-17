@@ -1,9 +1,9 @@
 import React from "react";
-import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter, Switch, Route, Link } from "react-router-dom";
 
 export const App = () => {
   return (
-    <Router basename="/web-experiments">
+    <HashRouter basename="/web-experiments">
       <div>
         <h1>New routing 3</h1>
         <nav>
@@ -31,6 +31,6 @@ export const App = () => {
           </Route>
         </Switch>
       </div>
-    </Router>
+    </HashRouter>
   );
 };
