@@ -8,24 +8,24 @@ export const App = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/web-experiments">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/web-experiments/about">About</Link>
             </li>
             <li>
-              <Link to="/users">Users</Link>
+              <Link to="/web-experiments/users">Users</Link>
             </li>
           </ul>
         </nav>
         <Switch>
-          <Route path="/about">
+          <Route path="/web-experiments/about">
             <h1>about</h1>
           </Route>
-          <Route path="/users">
+          <Route path="/web-experiments/users">
             <h1>users</h1>
           </Route>
-          <Route path="/">
+          <Route path="/web-experiments">
             <h1>root</h1>
           </Route>
         </Switch>
