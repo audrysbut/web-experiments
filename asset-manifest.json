@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/web-experiments/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/web-experiments/static/js/main.c51d5605.chunk.js",
-    "main.js.map": "/web-experiments/static/js/main.c51d5605.chunk.js.map",
+    "main.js": "/web-experiments/static/js/main.71db7c01.chunk.js",
+    "main.js.map": "/web-experiments/static/js/main.71db7c01.chunk.js.map",
     "runtime-main.js": "/web-experiments/static/js/runtime-main.452e9068.js",
     "runtime-main.js.map": "/web-experiments/static/js/runtime-main.452e9068.js.map",
-    "static/js/2.5d56635a.chunk.js": "/web-experiments/static/js/2.5d56635a.chunk.js",
-    "static/js/2.5d56635a.chunk.js.map": "/web-experiments/static/js/2.5d56635a.chunk.js.map",
+    "static/js/2.dbcb1500.chunk.js": "/web-experiments/static/js/2.dbcb1500.chunk.js",
+    "static/js/2.dbcb1500.chunk.js.map": "/web-experiments/static/js/2.dbcb1500.chunk.js.map",
     "static/js/3.294a3e48.chunk.js": "/web-experiments/static/js/3.294a3e48.chunk.js",
     "static/js/3.294a3e48.chunk.js.map": "/web-experiments/static/js/3.294a3e48.chunk.js.map",
     "index.html": "/web-experiments/index.html",
     "static/css/main.6dea0f05.chunk.css.map": "/web-experiments/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.5d56635a.chunk.js.LICENSE.txt": "/web-experiments/static/js/2.5d56635a.chunk.js.LICENSE.txt"
+    "static/js/2.dbcb1500.chunk.js.LICENSE.txt": "/web-experiments/static/js/2.dbcb1500.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.452e9068.js",
-    "static/js/2.5d56635a.chunk.js",
+    "static/js/2.dbcb1500.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.c51d5605.chunk.js"
+    "static/js/main.71db7c01.chunk.js"
   ]
 }
