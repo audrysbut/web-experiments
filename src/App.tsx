@@ -3,9 +3,9 @@ import { HashRouter, Switch, Route, Link } from "react-router-dom";
 
 export const App = () => {
   return (
-    <HashRouter basename="/web-experiments">
+    <HashRouter basename="/">
       <div>
-        <h1>New routing 3</h1>
+        <h1>New routing 4</h1>
         <nav>
           <ul>
             <li>
