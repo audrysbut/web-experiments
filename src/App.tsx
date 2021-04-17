@@ -1,25 +1,14 @@
-import React, { CSSProperties } from "react";
-import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React from "react";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { RootPage } from "./pages/root/RootPage";
 import { SudokuPage } from "./pages/sudoku-solver/SudokuPage";
-import "./App.css";
+import { NavigationBar } from "./NavigationBar";
 
 export const App = () => {
   return (
     <Router basename="/">
       <div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th className="th">
-                <Link to="/">Home</Link>
-              </th>
-              <th className="th">
-                <Link to="/sudoku">Sudoku solver</Link>
-              </th>
-            </tr>
-          </thead>
-        </table>
+        <NavigationBar />
         <Switch>
           <Route exact path="/">
             <RootPage />
