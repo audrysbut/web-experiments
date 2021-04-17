@@ -5,28 +5,28 @@ export const App = () => {
   return (
     <Router>
       <div>
-        <h1>New router</h1>
+        <h1>New routing 2</h1>
         <nav>
           <ul>
             <li>
-              <Link to="/web-experiments">Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/web-experiments/about">About</Link>
+              <Link to="/about">About</Link>
             </li>
             <li>
-              <Link to="/web-experiments/users">Users</Link>
+              <Link to="/users">Users</Link>
             </li>
           </ul>
         </nav>
         <Switch>
-          <Route exact path="/web-experiments">
+          <Route exact path="/">
             <h1>root</h1>
           </Route>
-          <Route path="/web-experiments/about">
+          <Route path="/about">
             <h1>about</h1>
           </Route>
-          <Route path="/web-experiments/users">
+          <Route path="/users">
             <h1>users</h1>
           </Route>
         </Switch>
