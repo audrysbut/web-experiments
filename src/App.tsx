@@ -11,7 +11,7 @@ function App() {
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <p>
-          Best wishes from Audrius
+          Best wishes from Audrius and his familly
         </p>
         <a
           className="App-link"
