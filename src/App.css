@@ -1,0 +1,14 @@
+.th {
+  border: 2px solid black;
+  background: lightblue;
+  border-radius: 0.2rem;
+  padding: 0.5rem;
+}
+
+.th:hover {
+  background: steelblue;
+}
+
+.table {
+  width: 100%;
+}
