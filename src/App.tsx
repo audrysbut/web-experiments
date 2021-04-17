@@ -1,11 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export const App = () => {
   return (
-    <Router>
+    <Router basename="/web-experiments">
       <div>
-        <h1>New routing 2</h1>
+        <h1>New routing 3</h1>
         <nav>
           <ul>
             <li>
