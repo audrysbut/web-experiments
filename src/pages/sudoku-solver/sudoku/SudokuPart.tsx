@@ -40,7 +40,7 @@ type Matrix = (number | undefined)[][];
 interface SudokuPartProps {
   values: (number | undefined)[];
   part: number;
-  viewOnly: boolean;
+  viewOnly?: boolean;
   onValueChanged?: (index: number, value: number | undefined) => void;
 }
 

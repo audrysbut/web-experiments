@@ -2,7 +2,7 @@ import {  SudokuPart } from "./SudokuPart";
 interface SudokurowProps {
   values: (number | undefined)[];
   sudokuRow: number;
-  viewOnly: boolean;
+  viewOnly?: boolean;
   onValueChanged?: (
     index: number,
     value: number | undefined

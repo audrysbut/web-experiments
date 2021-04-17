@@ -3,7 +3,7 @@ import { Sudokurow } from "./SudokuRow";
 
 interface SudokuProps {
   input: (number | undefined)[];
-  viewOnly: boolean;
+  viewOnly?: boolean;
   onValueChanged?: (
     index: number,
     value: number | undefined
