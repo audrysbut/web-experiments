@@ -1,0 +1,1 @@
+export type SudokuInputs = (number | undefined)[];

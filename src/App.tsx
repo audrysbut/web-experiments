@@ -1,5 +1,6 @@
 import React from "react";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { SudokuPage } from "./pages/sudoku-solver/SudokuPage";
 
 export const App = () => {
   return (
@@ -20,7 +21,7 @@ export const App = () => {
             <h1>root</h1>
           </Route>
           <Route path="/sudoku">
-            <h1>Sudoku</h1>
+            <SudokuPage />
           </Route>
         </Switch>
       </div>
