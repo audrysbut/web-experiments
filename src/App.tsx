@@ -5,6 +5,7 @@ export const App = () => {
   return (
     <Router>
       <div>
+        <h1>New router</h1>
         <nav>
           <ul>
             <li>
@@ -19,7 +20,7 @@ export const App = () => {
           </ul>
         </nav>
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/web-experiments">
             <h1>root</h1>
           </Route>
           <Route path="/web-experiments/about">
