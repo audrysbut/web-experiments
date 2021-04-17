@@ -1,5 +1,6 @@
 import React from "react";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { RootPage } from "./pages/root/RootPage";
 import { SudokuPage } from "./pages/sudoku-solver/SudokuPage";
 
 export const App = () => {
@@ -18,7 +19,7 @@ export const App = () => {
         </nav>
         <Switch>
           <Route exact path="/">
-            <h1>root</h1>
+            <RootPage />
           </Route>
           <Route path="/sudoku">
             <SudokuPage />
