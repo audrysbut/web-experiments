@@ -19,14 +19,14 @@ export const App = () => {
           </ul>
         </nav>
         <Switch>
+          <Route exact path="/">
+            <h1>root</h1>
+          </Route>
           <Route path="/web-experiments/about">
             <h1>about</h1>
           </Route>
           <Route path="/web-experiments/users">
             <h1>users</h1>
-          </Route>
-          <Route path="/web-experiments">
-            <h1>root</h1>
           </Route>
         </Switch>
       </div>
