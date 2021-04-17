@@ -1,21 +1,17 @@
 import React from "react";
-import { HashRouter, Switch, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export const App = () => {
   return (
-    <HashRouter basename="/">
+    <Router basename="/">
       <div>
-        <h1>New routing 4</h1>
         <nav>
           <ul>
             <li>
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
+              <Link to="/sudoku">Sudoku solver</Link>
             </li>
           </ul>
         </nav>
@@ -23,14 +19,11 @@ export const App = () => {
           <Route exact path="/">
             <h1>root</h1>
           </Route>
-          <Route path="/about">
-            <h1>about</h1>
-          </Route>
-          <Route path="/users">
-            <h1>users</h1>
+          <Route path="/sudoku">
+            <h1>Sudoku</h1>
           </Route>
         </Switch>
       </div>
-    </HashRouter>
+    </Router>
   );
 };
