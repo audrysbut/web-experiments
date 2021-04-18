@@ -1,6 +1,7 @@
+import { SudokuInputs } from "./SudokuInputs";
 import {  SudokuPart } from "./SudokuPart";
 interface SudokurowProps {
-  values: (number | undefined)[];
+  values: SudokuInputs;
   sudokuRow: number;
   viewOnly?: boolean;
   onValueChanged?: (

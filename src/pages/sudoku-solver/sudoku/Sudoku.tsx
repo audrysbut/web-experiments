@@ -1,8 +1,9 @@
 import React from "react";
+import { SudokuInputs } from "./SudokuInputs";
 import { Sudokurow } from "./SudokuRow";
 
 interface SudokuProps {
-  input: (number | undefined)[];
+  input: SudokuInputs;
   viewOnly?: boolean;
   onValueChanged?: (
     index: number,

@@ -1,5 +1,6 @@
 import { CSSProperties } from "react";
 import { EditableItem } from "./EditableItem";
+import { SudokuInputs } from "./SudokuInputs";
 
 const brickStyle: CSSProperties = {
   border: "1px solid black",
@@ -38,7 +39,7 @@ const toMatrix = (all: (number | undefined)[], part: number): Matrix => {
 
 type Matrix = (number | undefined)[][];
 interface SudokuPartProps {
-  values: (number | undefined)[];
+  values: SudokuInputs;
   part: number;
   viewOnly?: boolean;
   onValueChanged?: (index: number, value: number | undefined) => void;
