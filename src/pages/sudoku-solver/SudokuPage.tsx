@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { solve } from "./solver/Solve";
 import { Sudoku } from "./sudoku/Sudoku";
+import "./SudokuPage.css";
 
 export const SudokuPage = () => {
   const [state, setState] = useState(new Array<number | undefined>(81));
@@ -30,8 +31,8 @@ export const SudokuPage = () => {
           });
         }}
       />
-      <button onClick={solveSudoku}>Solve</button>
-      <button onClick={clearSolution}>Clear</button>
+      <button className="SudokuButton" onClick={solveSudoku}>Solve</button>
+      <button className="SudokuButton" onClick={clearSolution}>Clear</button>
     </div>
   );
 };
