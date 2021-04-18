@@ -1,0 +1,596 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rubik component should be rendered 1`] = `
+<DocumentFragment>
+  <table
+    style="border-spacing: 0.1rem;"
+  >
+    <tbody>
+      <tr>
+        <td />
+        <td>
+          <table
+            style="border-spacing: 0.1rem;"
+          >
+            <tbody>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: white; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    0
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: white; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    1
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: white; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    2
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: white; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    3
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: white; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    4
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: white; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    5
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: white; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    6
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: white; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    7
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: white; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    8
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td />
+      </tr>
+      <tr>
+        <td>
+          <table
+            style="border-spacing: 0.1rem;"
+          >
+            <tbody>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: DeepSkyBlue; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    9
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: DeepSkyBlue; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    10
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: DeepSkyBlue; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    11
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: DeepSkyBlue; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    12
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: DeepSkyBlue; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    13
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: DeepSkyBlue; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    14
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: DeepSkyBlue; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    15
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: DeepSkyBlue; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    16
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: DeepSkyBlue; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    17
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td>
+          <table
+            style="border-spacing: 0.1rem;"
+          >
+            <tbody>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: orange; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    18
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: orange; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    19
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: orange; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    20
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: orange; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    21
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: orange; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    22
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: orange; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    23
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: orange; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    24
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: orange; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    25
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: orange; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    26
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td>
+          <table
+            style="border-spacing: 0.1rem;"
+          >
+            <tbody>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: lime; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    27
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: lime; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    28
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: lime; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    29
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: lime; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    30
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: lime; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    31
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: lime; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    32
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: lime; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    33
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: lime; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    34
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: lime; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    35
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td />
+        <td>
+          <table
+            style="border-spacing: 0.1rem;"
+          >
+            <tbody>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: yellow; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    36
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: yellow; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    37
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: yellow; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    38
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: yellow; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    39
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: yellow; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    40
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: yellow; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    41
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: yellow; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    42
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: yellow; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    43
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: yellow; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    44
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td />
+      </tr>
+      <tr>
+        <td />
+        <td>
+          <table
+            style="border-spacing: 0.1rem;"
+          >
+            <tbody>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: salmon; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    45
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: salmon; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    46
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: salmon; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    47
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: salmon; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    48
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: salmon; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    49
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: salmon; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    50
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: salmon; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    51
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: salmon; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    52
+                  </div>
+                </td>
+                <td
+                  style="padding: 0.02rem;"
+                >
+                  <div
+                    style="width: 50px; height: 50px; line-height: 50px; border: 3px solid black; background: salmon; text-align: center; border-radius: 4px; user-select: none;"
+                  >
+                    53
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td />
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
