@@ -12,10 +12,11 @@ import { toColor } from "./rubik/Block";
 import { Rubik } from "./rubik/Rubik";
 
 const rubikButton: CSSProperties = {
-  border: "1px solid black",
-  borderRadius: "0.2rem",
+  border: "3px solid black",
+  borderRadius: "0.5rem",
   padding: "10px 25px",
   marginRight: "0.3rem",
+  marginTop: "0.3rem",
   fontSize: "16px",
 };
 const topColor = toColor(4);
