@@ -4,8 +4,8 @@ import { SudokuInputs } from "./SudokuInputs";
 
 const brickStyle: CSSProperties = {
   border: "1px solid black",
-  height: "70px",
-  width: "70px",
+  height: "60px",
+  width: "60px",
   textAlign: "center",
   fontSize: "30px",
 };
