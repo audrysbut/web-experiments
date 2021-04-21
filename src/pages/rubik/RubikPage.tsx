@@ -50,7 +50,7 @@ export const RubikPage = () => {
             background: topColor,
           }}
         >
-          Top
+          top
         </button>
         <button
           onClick={rotateLeft}
