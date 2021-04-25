@@ -19,6 +19,7 @@ const rubikButton: CSSProperties = {
   marginTop: "0.3rem",
   fontSize: "16px",
 };
+
 const topColor = toColor(4);
 const leftColor = toColor(13);
 const frontColor = toColor(22);
