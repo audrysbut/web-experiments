@@ -20,10 +20,9 @@ export const solve = (input: SudokuInputs): SudokuInputs => {
       posibleValues = posibleValues.filter(
         (v) => !columnPosibleValues.includes(v)
       );
-      for (let ind = 0; ind < posibleValues.length; ind++) {
-        const hypotesisValue = posibleValues[ind];
+      for (const row of posibleValues) {
         const hypotesisInput = [...input];
-        hypotesisInput[index] = hypotesisValue;
+        hypotesisInput[index] = row;
         const tempRez = solve(hypotesisInput);
         const tempRezVerified = verify(tempRez);
         if (tempRezVerified) {
