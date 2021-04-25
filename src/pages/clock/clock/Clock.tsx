@@ -98,7 +98,7 @@ const sencondsArrowLength = clockWidth / 2 - 60;
 
 const drawSecondsArrow = (
   svgRef: MutableRefObject<SVGSVGElement | null>,
-  secondInADay: Number
+  time: number
 ) => {
   const svg = select(svgRef.current);
 
@@ -108,9 +108,7 @@ const drawSecondsArrow = (
     .attr("id", "second")
     .attr(
       "transform",
-      `translate(${centerX}, ${centerY}) rotate(${secondArrowScale(
-        secondInADay
-      )})`
+      `translate(${centerX}, ${centerY}) rotate(${secondArrowScale(time)})`
     )
     .append("line")
     .attr("x1", 0)
@@ -125,7 +123,7 @@ const minutesArrowScale = scaleLinear().domain([0, 3600]).range([-180, 180]);
 const minuteArrowLength = clockWidth / 2 - 40;
 const drawMinuteArrow = (
   svgRef: MutableRefObject<SVGSVGElement | null>,
-  secondInADay: Number
+  time: number
 ) => {
   const svg = select(svgRef.current);
 
@@ -135,9 +133,7 @@ const drawMinuteArrow = (
     .attr("id", "minute")
     .attr(
       "transform",
-      `translate(${centerX}, ${centerY}) rotate(${minutesArrowScale(
-        secondInADay
-      )})`
+      `translate(${centerX}, ${centerY}) rotate(${minutesArrowScale(time)})`
     )
     .append("line")
     .attr("x1", 0)
@@ -155,7 +151,7 @@ const hourArrowLength = clockWidth / 2 - 100;
 
 const drawHourArrow = (
   svgRef: MutableRefObject<SVGSVGElement | null>,
-  time: Number
+  time: number
 ) => {
   const svg = select(svgRef.current);
 
