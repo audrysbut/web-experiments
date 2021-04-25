@@ -1,8 +1,8 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { select, scaleLinear } from "d3";
 
-const clockWidth = 480;
-const clockHeight = 480;
+const clockWidth = 420;
+const clockHeight = 420;
 
 const clockCircleThicknes = 3;
 const centerX = clockWidth / 2;
@@ -147,7 +147,7 @@ const drawMinuteArrow = (
 const hourArrowScale = scaleLinear()
   .domain([0, 12 * 3600])
   .range([-180, 180]);
-const hourArrowLength = clockWidth / 2 - 100;
+const hourArrowLength = clockWidth / 2 - 90;
 
 const drawHourArrow = (
   svgRef: MutableRefObject<SVGSVGElement | null>,
@@ -187,9 +187,18 @@ const drawMidleCircle = (svgRef: MutableRefObject<SVGSVGElement | null>) => {
     .attr("stroke", "black");
 };
 
+const getTime = () => {
+  const date = new Date();
+  const second = date.getSeconds();
+  const minute = date.getMinutes();
+  const hour = date.getHours();
+
+  return hour * 3600 + minute * 60 + second;
+};
+
 export const Clock = () => {
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(getTime());
 
   useEffect(() => {
     drawLines(svgRef);
@@ -197,12 +206,7 @@ export const Clock = () => {
 
     //TODO: draw arrows
     const handle = setInterval(() => {
-      const date = new Date();
-      const second = date.getSeconds();
-      const minute = date.getMinutes();
-      const hour = date.getHours();
-
-      const time = hour * 3600 + minute * 60 + second;
+      const time = getTime();
       setTime(time);
     }, 1000);
     return () => {
