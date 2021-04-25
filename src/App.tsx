@@ -4,6 +4,7 @@ import { RootPage } from "./pages/root/RootPage";
 import { SudokuPage } from "./pages/sudoku-solver/SudokuPage";
 import { NavigationBar } from "./NavigationBar";
 import { RubikPage } from "./pages/rubik/RubikPage";
+import { ClockPage } from "./pages/clock/ClockPage";
 
 export const App = () => {
   return (
@@ -19,6 +20,9 @@ export const App = () => {
           </Route>
           <Route path="/rubik">
             <RubikPage />
+          </Route>
+          <Route path="/clock">
+            <ClockPage />
           </Route>
         </Switch>
       </div>

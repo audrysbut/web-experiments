@@ -17,6 +17,9 @@ export const NavigationBar = () => {
           <th className="th" onClick={() => history.push("/sudoku")}>
             Sudoku solver
           </th>
+          <th className="th" onClick={() => history.push("/clock")}>
+            Clock
+          </th>
         </tr>
       </thead>
     </table>
