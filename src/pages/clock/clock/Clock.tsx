@@ -204,10 +204,9 @@ export const Clock = () => {
     drawLines(svgRef);
     drawHourText(svgRef);
 
-    //TODO: draw arrows
     const handle = setInterval(() => {
-      const time = getTime();
-      setTime(time);
+      const currentTime = getTime();
+      setTime(currentTime);
     }, 1000);
     return () => {
       clearInterval(handle);
