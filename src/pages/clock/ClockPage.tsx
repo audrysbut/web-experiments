@@ -9,7 +9,7 @@ const getClockSettings = (): ClockSettings => {
   const centerY = clockHeight / 2;
   const clockRadius = clockWidth / 2 - clockCircleThicknes / 2;
   const sencondsArrowLength = clockWidth / 2 - 60;
-  const minuteArrowLength = clockWidth / 2 - 40;
+  const minuteArrowLength = clockWidth / 2 - 50;
   const hourRadius = clockRadius - 45;
   const hourArrowLength = clockWidth / 2 - 90;
   return {
