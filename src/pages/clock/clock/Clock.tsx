@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef } from "react";
 import { select } from "d3";
 import { drawLines, drawMinuteArrow } from "./Minute";
 import { drawHourArrow, drawHourText } from "./Hours";
@@ -35,42 +35,29 @@ const drawMidleCircle = (
     .attr("stroke", "black");
 };
 
-const getTime = () => {
-  const date = new Date();
-  const second = date.getSeconds();
-  const minute = date.getMinutes();
-  const hour = date.getHours();
-
-  return hour * 3600 + minute * 60 + second;
-};
-
 interface ClockProps {
   settings: ClockSettings;
+  time: number;
 }
 
-export const Clock = ({ settings }: ClockProps) => {
+export const Clock = ({ settings, time }: ClockProps) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [time, setTime] = useState(getTime());
 
   useEffect(() => {
     drawLines(svgRef, settings);
     drawHourText(svgRef, settings);
-
-    const handle = setInterval(() => {
-      const currentTime = getTime();
-      setTime(currentTime);
-    }, 1000);
-    return () => {
-      clearInterval(handle);
-    };
-  }, []);
+  }, 
+  // eslint-disable-next-line
+  []);
 
   useEffect(() => {
     drawHourArrow(svgRef, time, settings);
     drawMinuteArrow(svgRef, time, settings);
     drawSecondsArrow(svgRef, time, settings);
     drawMidleCircle(svgRef, settings);
-  }, [time]);
+  }, 
+  // eslint-disable-next-line
+  [time]);
 
   const {
     centerX,

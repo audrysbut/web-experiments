@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Clock, ClockSettings } from "./clock/Clock";
 
 const getClockSettings = (): ClockSettings => {
@@ -26,7 +26,28 @@ const getClockSettings = (): ClockSettings => {
   };
 };
 
+const getTime = () => {
+  const date = new Date();
+  const second = date.getSeconds();
+  const minute = date.getMinutes();
+  const hour = date.getHours();
+
+  return hour * 3600 + minute * 60 + second;
+};
+
 export const ClockPage = () => {
   const settings = getClockSettings();
-  return <Clock settings={settings} />;
+  const [time, setTime] = useState(getTime());
+
+  useEffect(() => {
+    const handle = setInterval(() => {
+      const currentTime = getTime();
+      setTime(currentTime);
+    }, 1000);
+    return () => {
+      clearInterval(handle);
+    };
+  }, []);
+
+  return <Clock settings={settings} time={time} />;
 };
