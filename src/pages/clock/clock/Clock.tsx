@@ -12,32 +12,8 @@ export interface ClockSettings {
   sencondsArrowLength: number;
   minuteArrowLength: number;
   hourRadius: number;
+  hourArrowLength: number;
 }
-
-const getClockSettings = (): ClockSettings => {
-  const clockWidth = 420;
-  const clockHeight = 420;
-  const clockCircleThicknes = 3;
-  const centerX = clockWidth / 2;
-  const centerY = clockHeight / 2;
-  const clockRadius = clockWidth / 2 - clockCircleThicknes / 2;
-  const sencondsArrowLength = clockWidth / 2 - 60;
-  const minuteArrowLength = clockWidth / 2 - 40;
-  const hourRadius = clockRadius - 45;
-  return {
-    centerX,
-    centerY,
-    clockCircleThicknes,
-    clockRadius,
-    clockHeight,
-    clockWidth,
-    sencondsArrowLength,
-    minuteArrowLength,
-    hourRadius,
-  };
-};
-
-const clockSettings = getClockSettings();
 
 //TODO: move this code related to hour to separate file
 const hoursScale = scaleLinear()
@@ -60,6 +36,7 @@ const hours = Array.from(Array(12).keys()).map((num) => num + 1);
 
 const drawHourText = (
   svgRef: MutableRefObject<SVGSVGElement | null>,
+  settings: ClockSettings
 ) => {
   const svg = select(svgRef.current);
   const hoursLines = svg.selectAll("#text").remove();
@@ -75,8 +52,8 @@ const drawHourText = (
     .attr("alignment-baseline", "middle")
     .attr("font-size", "2.2em")
     .attr("fill", "black")
-    .attr("x", (hour) => hoursToX(hour, clockSettings))
-    .attr("y", (hour) => hoursToY(hour, clockSettings))
+    .attr("x", (hour) => hoursToX(hour, settings))
+    .attr("y", (hour) => hoursToY(hour, settings))
     .text((value) => value);
   hoursLines.exit().remove();
 };
@@ -135,12 +112,11 @@ const drawMinuteArrow = (
 const hourArrowScale = scaleLinear()
   .domain([0, 12 * 3600])
   .range([-180, 180]);
-const hourArrowLength = clockSettings.clockWidth / 2 - 90;
 
 const drawHourArrow = (
   svgRef: MutableRefObject<SVGSVGElement | null>,
   time: number,
-  { centerX, centerY }: ClockSettings
+  { centerX, centerY, hourArrowLength }: ClockSettings
 ) => {
   const svg = select(svgRef.current);
 
@@ -188,13 +164,17 @@ const getTime = () => {
   return hour * 3600 + minute * 60 + second;
 };
 
-export const Clock = () => {
+interface ClockProps {
+  settings: ClockSettings;
+}
+
+export const Clock = ({ settings }: ClockProps) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [time, setTime] = useState(getTime());
 
   useEffect(() => {
-    drawLines(svgRef, clockSettings.clockRadius, clockSettings);
-    drawHourText(svgRef);
+    drawLines(svgRef, settings);
+    drawHourText(svgRef, settings);
 
     const handle = setInterval(() => {
       const currentTime = getTime();
@@ -206,10 +186,10 @@ export const Clock = () => {
   }, []);
 
   useEffect(() => {
-    drawHourArrow(svgRef, time, clockSettings);
-    drawMinuteArrow(svgRef, time, clockSettings);
-    drawSecondsArrow(svgRef, time, clockSettings);
-    drawMidleCircle(svgRef, clockSettings);
+    drawHourArrow(svgRef, time, settings);
+    drawMinuteArrow(svgRef, time, settings);
+    drawSecondsArrow(svgRef, time, settings);
+    drawMidleCircle(svgRef, settings);
   }, [time]);
 
   const {
@@ -219,7 +199,7 @@ export const Clock = () => {
     clockHeight,
     clockRadius,
     clockCircleThicknes,
-  } = clockSettings;
+  } = settings;
   return (
     <svg ref={svgRef} width={clockWidth} height={clockHeight}>
       <circle

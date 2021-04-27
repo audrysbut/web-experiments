@@ -30,9 +30,9 @@ const minuteToY = (
 
 export const drawLines = (
   svgRef: MutableRefObject<SVGSVGElement | null>,
-  clockRadius: number,
   settings: ClockSettings
 ) => {
+  const { clockRadius } = settings;
   const innerRadius = clockRadius - 10;
   const hourInnerRadius = innerRadius - 10;
 
