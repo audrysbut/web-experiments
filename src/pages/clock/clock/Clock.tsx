@@ -11,6 +11,7 @@ export interface ClockSettings {
   clockRadius: number;
   sencondsArrowLength: number;
   minuteArrowLength: number;
+  hourRadius: number;
 }
 
 const getClockSettings = (): ClockSettings => {
@@ -22,6 +23,7 @@ const getClockSettings = (): ClockSettings => {
   const clockRadius = clockWidth / 2 - clockCircleThicknes / 2;
   const sencondsArrowLength = clockWidth / 2 - 60;
   const minuteArrowLength = clockWidth / 2 - 40;
+  const hourRadius = clockRadius - 45;
   return {
     centerX,
     centerY,
@@ -31,6 +33,7 @@ const getClockSettings = (): ClockSettings => {
     clockWidth,
     sencondsArrowLength,
     minuteArrowLength,
+    hourRadius,
   };
 };
 
@@ -41,15 +44,15 @@ const hoursScale = scaleLinear()
   .domain([0, 12])
   .range([0, Math.PI * 2]);
 
-const hoursToX = (centerX: number, hour: number, theRadius: number) => {
+const hoursToX = (hour: number, { centerX, hourRadius }: ClockSettings) => {
   const angle = hoursScale(hour);
-  const length = theRadius * Math.sin(angle);
+  const length = hourRadius * Math.sin(angle);
   return centerX + length;
 };
 
-const hoursToY = (centerY: number, hour: number, theRadius: number) => {
+const hoursToY = (hour: number, { centerY, hourRadius }: ClockSettings) => {
   const angle = hoursScale(hour);
-  const length = theRadius * Math.cos(angle);
+  const length = hourRadius * Math.cos(angle);
   return centerY - length;
 };
 
@@ -57,10 +60,7 @@ const hours = Array.from(Array(12).keys()).map((num) => num + 1);
 
 const drawHourText = (
   svgRef: MutableRefObject<SVGSVGElement | null>,
-  { clockRadius, centerX, centerY }: ClockSettings
 ) => {
-  // const { clockRadius, centerX, centerY } = settings;
-  const hourRadius = clockRadius - 45;
   const svg = select(svgRef.current);
   const hoursLines = svg.selectAll("#text").remove();
 
@@ -75,8 +75,8 @@ const drawHourText = (
     .attr("alignment-baseline", "middle")
     .attr("font-size", "2.2em")
     .attr("fill", "black")
-    .attr("x", (hour) => hoursToX(centerX, hour, hourRadius))
-    .attr("y", (hour) => hoursToY(centerY, hour, hourRadius))
+    .attr("x", (hour) => hoursToX(hour, clockSettings))
+    .attr("y", (hour) => hoursToY(hour, clockSettings))
     .text((value) => value);
   hoursLines.exit().remove();
 };
@@ -194,7 +194,7 @@ export const Clock = () => {
 
   useEffect(() => {
     drawLines(svgRef, clockSettings.clockRadius, clockSettings);
-    drawHourText(svgRef, clockSettings);
+    drawHourText(svgRef);
 
     const handle = setInterval(() => {
       const currentTime = getTime();
