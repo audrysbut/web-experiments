@@ -68,4 +68,7 @@ export const drawHourArrow = (
     .attr("y", 0)
     .attr("width", 8)
     .attr("height", hourArrowLength)
+    .style("stroke", "black")
+    .style("stroke-width", "1px")
+    .style("fill", "steelblue")
 };

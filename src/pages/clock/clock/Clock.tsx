@@ -51,8 +51,8 @@ export const Clock = ({ settings, time }: ClockProps) => {
   []);
 
   useEffect(() => {
-    drawHourArrow(svgRef, time, settings);
     drawMinuteArrow(svgRef, time, settings);
+    drawHourArrow(svgRef, time, settings);
     drawSecondsArrow(svgRef, time, settings);
     drawMidleCircle(svgRef, settings);
   }, 
