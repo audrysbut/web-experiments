@@ -22,8 +22,6 @@ export const drawSecondsArrow = (
     .append("rect")
     .attr("x", -1.5)
     .attr("y", 0)
-    .attr("ry", 1.5)
-    .attr("rx", 1.5)
     .attr("width", 3)
     .attr("height", sencondsArrowLength)
     .style("fill", "red")

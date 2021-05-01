@@ -66,8 +66,6 @@ export const drawHourArrow = (
     .append("rect")
     .attr("x", -4)
     .attr("y", 0)
-    .attr("ry", 4)
-    .attr("rx", 4)
     .attr("width", 8)
     .attr("height", hourArrowLength)
 };

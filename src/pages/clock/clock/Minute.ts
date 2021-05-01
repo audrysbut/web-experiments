@@ -47,8 +47,6 @@ export const drawMinuteArrow = (
     .append("rect")
     .attr("x", -2.5)
     .attr("y", 0)
-    .attr("ry", 2.5)
-    .attr("rx", 2.5)
     .attr("width", 5)
     .attr("height", minuteArrowLength)
 };
