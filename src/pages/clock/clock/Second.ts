@@ -19,11 +19,12 @@ export const drawSecondsArrow = (
       "transform",
       `translate(${centerX}, ${centerY}) rotate(${secondArrowScale(time)})`
     )
-    .append("line")
-    .attr("x1", 0)
-    .attr("y1", 0)
-    .attr("x2", 0)
-    .attr("y2", sencondsArrowLength)
-    .attr("stroke", "red")
-    .attr("stroke-width", 3);
+    .append("rect")
+    .attr("x", -1.5)
+    .attr("y", 0)
+    .attr("ry", 1.5)
+    .attr("rx", 1.5)
+    .attr("width", 3)
+    .attr("height", sencondsArrowLength)
+    .style("fill", "red")
 };

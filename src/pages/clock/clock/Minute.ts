@@ -44,13 +44,13 @@ export const drawMinuteArrow = (
       "transform",
       `translate(${centerX}, ${centerY}) rotate(${minutesArrowScale(time)})`
     )
-    .append("line")
-    .attr("x1", 0)
-    .attr("y1", 0)
-    .attr("x2", 0)
-    .attr("y2", minuteArrowLength)
-    .attr("stroke", "black")
-    .attr("stroke-width", 5);
+    .append("rect")
+    .attr("x", -2.5)
+    .attr("y", 0)
+    .attr("ry", 2.5)
+    .attr("rx", 2.5)
+    .attr("width", 5)
+    .attr("height", minuteArrowLength)
 };
 
 export const drawLines = (

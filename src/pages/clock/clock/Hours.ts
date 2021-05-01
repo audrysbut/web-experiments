@@ -63,11 +63,11 @@ export const drawHourArrow = (
       "transform",
       `translate(${centerX}, ${centerY}) rotate(${hourArrowScale(time)})`
     )
-    .append("line")
-    .attr("x1", 0)
-    .attr("y1", 0)
-    .attr("x2", 0)
-    .attr("y2", hourArrowLength)
-    .attr("stroke", "black")
-    .attr("stroke-width", 8);
+    .append("rect")
+    .attr("x", -4)
+    .attr("y", 0)
+    .attr("ry", 4)
+    .attr("rx", 4)
+    .attr("width", 8)
+    .attr("height", hourArrowLength)
 };
