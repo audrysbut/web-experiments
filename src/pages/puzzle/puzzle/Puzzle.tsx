@@ -36,7 +36,7 @@ function shuffle<T>(array: T[]): T[] {
   return array;
 }
 
-const getPostion = (
+const getPosition = (
   part: number
 ): {
   row: number;
@@ -61,42 +61,43 @@ export const Puzzle = ({ imageUrl }: PuzzleProps) => {
     setState(newState);
   };
 
-  const partClick = (partIndex: number) => {
-    const actualPart = getPostion(partIndex);
+  const partClick = (partValue: number) => {
+    const partIndex = state.findIndex((val) => val === partValue);
+    const actualPart = getPosition(partIndex);
 
     const emptyIndex = state.findIndex((val) => val === 0);
-    const emptySlot = getPostion(emptyIndex);
+    const emptySlot = getPosition(emptyIndex);
 
     const rowDiff = actualPart.row - emptySlot.row;
     const colDiff = actualPart.col - emptySlot.col;
 
     if (rowDiff === 0 && colDiff === 1) {
       // alert(`move left`);
-      swap(partIndex, emptyIndex);
+      swap(partValue, emptyIndex);
       return;
     }
 
     if (rowDiff === 0 && colDiff === -1) {
       // alert(`move right`);
-      swap(partIndex, emptyIndex);
+      swap(partValue, emptyIndex);
       return;
     }
 
     if (colDiff === 0 && rowDiff === 1) {
       // alert(`move up`);
-      swap(partIndex, emptyIndex);
+      swap(partValue, emptyIndex);
       return;
     }
 
     if (colDiff === 0 && rowDiff === -1) {
       // alert(`move down`);
-      swap(partIndex, emptyIndex);
+      swap(partValue, emptyIndex);
       return;
     }
   };
   return (
     <div>
-      {split(state).map((chunk) => {
+      {split(state).map((chunk, row) => {
         return (
           <div
             style={{
@@ -104,10 +105,11 @@ export const Puzzle = ({ imageUrl }: PuzzleProps) => {
               flexDirection: "row",
             }}
           >
-            {chunk.map((part) => {
+            {chunk.map((part, col) => {
               if (part) {
                 return (
                   <PuzzlePart
+                    key={`${row}_${col}`}
                     index={part}
                     imageUrl={imageUrl}
                     onClick={() => partClick(part)}
