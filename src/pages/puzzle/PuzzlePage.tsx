@@ -1,3 +1,5 @@
+import { Puzzle } from "./puzzle/Puzzle";
+
 export const PuzzlePage = () => {
-  return <h1>Puzzle</h1>;
+  return <Puzzle />;
 };
