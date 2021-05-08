@@ -36,11 +36,67 @@ function shuffle<T>(array: T[]): T[] {
   return array;
 }
 
+const getPostion = (
+  part: number
+): {
+  row: number;
+  col: number;
+} => {
+  const row = Math.floor(part / xParts);
+  const col = part - row * xParts;
+  return {
+    col,
+    row,
+  };
+};
+
 export const Puzzle = ({ imageUrl }: PuzzleProps) => {
-  const chunks = split(parts);
+  const [state, setState] = useState(parts);
+  const swap = (actualValue: number, emptyIndex: number) => {
+    const actualIndex = state.findIndex((val) => val === actualValue);
+
+    const newState = [...state];
+    newState[actualIndex] = 0;
+    newState[emptyIndex] = actualValue;
+    setState(newState);
+  };
+
+  const partClick = (partIndex: number) => {
+    const actualPart = getPostion(partIndex);
+
+    const emptyIndex = state.findIndex((val) => val === 0);
+    const emptySlot = getPostion(emptyIndex);
+
+    const rowDiff = actualPart.row - emptySlot.row;
+    const colDiff = actualPart.col - emptySlot.col;
+
+    if (rowDiff === 0 && colDiff === 1) {
+      // alert(`move left`);
+      swap(partIndex, emptyIndex);
+      return;
+    }
+
+    if (rowDiff === 0 && colDiff === -1) {
+      // alert(`move right`);
+      swap(partIndex, emptyIndex);
+      return;
+    }
+
+    if (colDiff === 0 && rowDiff === 1) {
+      // alert(`move up`);
+      swap(partIndex, emptyIndex);
+      return;
+    }
+
+    if (colDiff === 0 && rowDiff === -1) {
+      // alert(`move down`);
+      swap(partIndex, emptyIndex);
+      return;
+    }
+  };
   return (
     <div>
-      {chunks.map((chunk) => {
+      {split(state).map((chunk) => {
         return (
           <div
             style={{
@@ -50,9 +106,15 @@ export const Puzzle = ({ imageUrl }: PuzzleProps) => {
           >
             {chunk.map((part) => {
               if (part) {
-                return <PuzzlePart index={part} imageUrl={imageUrl} />;
+                return (
+                  <PuzzlePart
+                    index={part}
+                    imageUrl={imageUrl}
+                    onClick={() => partClick(part)}
+                  />
+                );
               }
-              return <Container />
+              return <Container />;
             })}
           </div>
         );

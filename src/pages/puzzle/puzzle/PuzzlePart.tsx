@@ -7,11 +7,7 @@ export const yParts = 5;
 const partWidth = imageWidth / xParts;
 const partHeight = imageHeight / yParts;
 
-interface PuzzlePartProps {
-  index: number;
-  imageUrl: string;
-}
-
+//TODO: move this calculations elsewhere
 interface Positions {
   top: number;
   left: number;
@@ -19,6 +15,7 @@ interface Positions {
   right: number;
 }
 
+//TODO: move this calculations elsewhere
 const calculatePositions = (index: number): Positions => {
   const rowIndex = Math.floor(index / xParts);
   const colIndex = index - xParts * rowIndex;
@@ -31,6 +28,7 @@ const calculatePositions = (index: number): Positions => {
   return { top, left, bottom, right };
 };
 
+//TODO: move this component elsewhere
 export const Container = ({ children }: React.PropsWithChildren<{}>) => {
   return (
     <div
@@ -46,7 +44,13 @@ export const Container = ({ children }: React.PropsWithChildren<{}>) => {
   );
 };
 
-export const PuzzlePart = ({ index, imageUrl }: PuzzlePartProps) => {
+interface PuzzlePartProps {
+  index: number;
+  imageUrl: string;
+  onClick: () => void;
+}
+
+export const PuzzlePart = ({ index, imageUrl, onClick }: PuzzlePartProps) => {
   const { top, left, bottom, right } = calculatePositions(index);
   return (
     <Container>
@@ -60,6 +64,7 @@ export const PuzzlePart = ({ index, imageUrl }: PuzzlePartProps) => {
           clipPath: `inset(${top}rem ${right}rem ${bottom}rem ${left}rem)`,
         }}
         alt="Death queen"
+        onClick={onClick}
       />
     </Container>
   );
