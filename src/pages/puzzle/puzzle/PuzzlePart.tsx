@@ -31,17 +31,25 @@ const calculatePositions = (index: number): Positions => {
   return { top, left, bottom, right };
 };
 
-export const PuzzlePart = ({ index, imageUrl }: PuzzlePartProps) => {
-  const { top, left, bottom, right } = calculatePositions(index);
+export const Container = ({ children }: React.PropsWithChildren<{}>) => {
   return (
     <div
       style={{
         width: `${partWidth}rem`,
         height: `${partHeight}rem`,
-        marginRight: "0.1rem",
-        marginBottom: "0.1rem",
+        marginRight: "0.02rem",
+        marginBottom: "0.02rem",
       }}
     >
+      {children}
+    </div>
+  );
+};
+
+export const PuzzlePart = ({ index, imageUrl }: PuzzlePartProps) => {
+  const { top, left, bottom, right } = calculatePositions(index);
+  return (
+    <Container>
       <img
         src={imageUrl}
         style={{
@@ -53,6 +61,6 @@ export const PuzzlePart = ({ index, imageUrl }: PuzzlePartProps) => {
         }}
         alt="Death queen"
       />
-    </div>
+    </Container>
   );
 };

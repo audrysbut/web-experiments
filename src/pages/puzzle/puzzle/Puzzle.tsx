@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PuzzlePart, xParts, yParts } from "./PuzzlePart";
+import { Container, PuzzlePart, xParts, yParts } from "./PuzzlePart";
 
 const split = <T,>(input: T[]): T[][] => {
   var arrayOfArrays: T[][] = [];
@@ -37,8 +37,7 @@ function shuffle<T>(array: T[]): T[] {
 }
 
 export const Puzzle = ({ imageUrl }: PuzzleProps) => {
-  // const [chunks] = useState(split(shuffle(parts)));
-  const [chunks] = useState(split(parts));
+  const chunks = split(parts);
   return (
     <div>
       {chunks.map((chunk) => {
@@ -50,7 +49,10 @@ export const Puzzle = ({ imageUrl }: PuzzleProps) => {
             }}
           >
             {chunk.map((part) => {
-              return <PuzzlePart index={part} imageUrl={imageUrl} />;
+              if (part) {
+                return <PuzzlePart index={part} imageUrl={imageUrl} />;
+              }
+              return <Container />
             })}
           </div>
         );

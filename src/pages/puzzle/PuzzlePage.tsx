@@ -12,6 +12,7 @@ export const PuzzlePage = () => {
           width: `${imageWidth}rem`,
           height: `${imageHeight}rem`,
         }}
+        alt="Death queen"
       ></img>
       <Puzzle imageUrl={imageUrl} />
     </>
