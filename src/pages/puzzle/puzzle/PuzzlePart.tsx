@@ -38,6 +38,7 @@ export const Container = ({ children }: React.PropsWithChildren<{}>) => {
         height: `${partHeight}rem`,
         marginRight: "0.02rem",
         marginBottom: "0.02rem",
+        userSelect: "none",
       }}
     >
       {children}
