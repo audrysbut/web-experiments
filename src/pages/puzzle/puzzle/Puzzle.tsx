@@ -14,27 +14,28 @@ const parts = Array.from(Array(xParts * yParts).keys());
 
 interface PuzzleProps {
   imageUrl: string;
+  shuffle?: boolean;
 }
 
-// function shuffle<T>(array: T[]): T[] {
-//   let currentIndex = array.length,
-//     temporaryValue,
-//     randomIndex;
+function shuffle<T>(array: T[]): T[] {
+  let currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
 
-//   // While there remain elements to shuffle...
-//   while (0 !== currentIndex) {
-//     // Pick a remaining element...
-//     randomIndex = Math.floor(Math.random() * currentIndex);
-//     currentIndex -= 1;
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
 
-//     // And swap it with the current element.
-//     temporaryValue = array[currentIndex];
-//     array[currentIndex] = array[randomIndex];
-//     array[randomIndex] = temporaryValue;
-//   }
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-//   return array;
-// }
+  return array;
+}
 
 const getPosition = (
   part: number
@@ -50,8 +51,12 @@ const getPosition = (
   };
 };
 
-export const Puzzle = ({ imageUrl }: PuzzleProps) => {
-  const [state, setState] = useState(parts);
+const initState = (shuffleParts?: boolean): number[] => {
+  return shuffleParts ? shuffle(parts) : parts;
+};
+
+export const Puzzle = ({ imageUrl, shuffle }: PuzzleProps) => {
+  const [state, setState] = useState(initState(shuffle));
   const swap = (actualValue: number, emptyIndex: number) => {
     const actualIndex = state.findIndex((val) => val === actualValue);
 

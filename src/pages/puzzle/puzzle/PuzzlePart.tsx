@@ -56,18 +56,34 @@ export const PuzzlePart = ({ index, imageUrl, onClick }: PuzzlePartProps) => {
   const { top, left, bottom, right } = calculatePositions(index);
   return (
     <Container>
-      <img
-        src={imageUrl}
+      <div
         style={{
-          width: `${imageWidth}rem`,
-          height: `${imageHeight}rem`,
-          marginLeft: `-${left}rem`,
-          marginTop: `-${top}rem`,
-          clipPath: `inset(${top}rem ${right}rem ${bottom}rem ${left}rem)`,
+          position: "absolute",
         }}
-        alt="Death queen"
-        onClick={onClick}
-      />
+      >
+        <img
+          src={imageUrl}
+          style={{
+            width: `${imageWidth}rem`,
+            height: `${imageHeight}rem`,
+            marginLeft: `-${left}rem`,
+            marginTop: `-${top}rem`,
+            clipPath: `inset(${top}rem ${right}rem ${bottom}rem ${left}rem)`,
+          }}
+          alt="Death queen"
+          onClick={onClick}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: 30,
+            left: 38,
+            color: "white",
+          }}
+        >
+          {index}
+        </div>
+      </div>
     </Container>
   );
 };
