@@ -15,7 +15,8 @@ const parts = Array.from(Array(xParts * yParts).keys());
 interface PuzzleProps {
   imageUrl: string;
   shuffle?: boolean;
-  onSolved?: (solved: boolean) => void;
+  onSolved: (solved: boolean) => void;
+  isSolved: boolean;
 }
 
 function shuffle<T>(array: T[]): T[] {
@@ -56,7 +57,7 @@ const initState = (shuffleParts?: boolean): number[] => {
   return shuffleParts ? shuffle(parts) : parts;
 };
 
-export const Puzzle = ({ imageUrl, shuffle, onSolved }: PuzzleProps) => {
+export const Puzzle = ({ imageUrl, shuffle, onSolved, isSolved }: PuzzleProps) => {
   const [state, setState] = useState(initState(shuffle));
   const swap = (actualValue: number, emptyIndex: number) => {
     const actualIndex = state.findIndex((val) => val === actualValue);
@@ -64,10 +65,10 @@ export const Puzzle = ({ imageUrl, shuffle, onSolved }: PuzzleProps) => {
     const newState = [...state];
     newState[actualIndex] = 0;
     newState[emptyIndex] = actualValue;
-    if (onSolved) {
-      const solved = newState.every((value, index) => value === index);
-      onSolved(solved);
-    }
+
+    const solved = newState.every((value, index) => value === index);
+    onSolved(solved);
+
     setState(newState);
   };
 
@@ -118,6 +119,7 @@ export const Puzzle = ({ imageUrl, shuffle, onSolved }: PuzzleProps) => {
                     key={`${row}_${col}`}
                     index={part}
                     imageUrl={imageUrl}
+                    isSolved={isSolved}
                     onClick={() => partClick(part)}
                   />
                 );

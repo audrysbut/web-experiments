@@ -19,8 +19,7 @@ export const PuzzlePage = () => {
   return (
     <div>
       {/* <img src={imageUrl}></img> */}
-      <Puzzle imageUrl={imageUrl} shuffle={true} onSolved={onSolved} />
-      {solved && <h1>Solved</h1>}
+      <Puzzle imageUrl={imageUrl} shuffle={true} onSolved={onSolved} isSolved={solved} />
     </div>
   );
 };
