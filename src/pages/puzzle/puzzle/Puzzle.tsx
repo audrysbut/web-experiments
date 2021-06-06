@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Container, PuzzlePart, xParts, yParts } from "./PuzzlePart";
+import { Container, PuzzlePart, xParts } from "./PuzzlePart";
+import { init, shuffle } from "./shufle";
 
 const split = <T,>(input: T[]): T[][] => {
   var arrayOfArrays: T[][] = [];
@@ -10,33 +11,11 @@ const split = <T,>(input: T[]): T[][] => {
   return arrayOfArrays;
 };
 
-const parts = Array.from(Array(xParts * yParts).keys());
-
 interface PuzzleProps {
   imageUrl: string;
   shuffle?: boolean;
-  onSolved?: (solved: boolean) => void;
+  onSolved: (solved: boolean) => void;
   isSolved: boolean;
-}
-
-function shuffle<T>(array: T[]): T[] {
-  let currentIndex = array.length;
-  let temporaryValue;
-  let randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
 }
 
 const getPosition = (
@@ -54,7 +33,7 @@ const getPosition = (
 };
 
 const initState = (shuffleParts?: boolean): number[] => {
-  return shuffleParts ? shuffle(parts) : parts;
+  return shuffleParts ? shuffle() : init();
 };
 
 export const Puzzle = ({
@@ -71,10 +50,8 @@ export const Puzzle = ({
     newState[actualIndex] = 0;
     newState[emptyIndex] = actualValue;
 
-    if (onSolved) {
-      const solved = newState.every((value, index) => value === index);
-      onSolved(solved);
-    }
+    const solved = newState.every((value, index) => value === index);
+    onSolved(solved);
 
     setState(newState);
   };
