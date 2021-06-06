@@ -1,6 +1,6 @@
 //TODO: remove exports
-const imageWidth = 25;
-const imageHeight = 20;
+const imageWidth = 30;
+const imageHeight = 25;
 
 export const xParts = 5;
 export const yParts = 5;
