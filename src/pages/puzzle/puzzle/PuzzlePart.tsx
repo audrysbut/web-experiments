@@ -86,7 +86,7 @@ export const PuzzlePart = ({
             marginTop: `-${top}rem`,
             clipPath: `inset(${top}rem ${right}rem ${bottom}rem ${left}rem)`,
           }}
-          alt="Death queen"
+          alt="part"
           onClick={onClick}
         />
         {!isSolved && showNumbers && (
