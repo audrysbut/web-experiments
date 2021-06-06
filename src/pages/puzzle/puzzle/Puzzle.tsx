@@ -120,7 +120,7 @@ export const Puzzle = ({
             }}
           >
             {chunk.map((part, col) => {
-              if (part) {
+              if (part || isSolved) {
                 return (
                   <PuzzlePart
                     key={`${row}_${col}`}
