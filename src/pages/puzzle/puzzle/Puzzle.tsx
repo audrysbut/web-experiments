@@ -104,7 +104,7 @@ export const Puzzle = ({
                     index={part}
                     imageUrl={imageUrl}
                     isSolved={isSolved}
-                    onClick={() => partClick(part)}
+                    onClick={() => !isSolved && partClick(part)}
                   />
                 );
               }
