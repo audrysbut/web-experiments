@@ -29,15 +29,23 @@ const calculatePositions = (index: number): Positions => {
   return { top, left, bottom, right };
 };
 
+interface ContainerProps {
+  isSolved: boolean;
+}
 //TODO: move this component elsewhere
-export const Container = ({ children }: React.PropsWithChildren<{}>) => {
+export const Container = ({
+  children,
+  isSolved,
+}: React.PropsWithChildren<ContainerProps>) => {
+  const right = isSolved ? "0rem" : "0.02rem";
+  const bottom = isSolved ? "0rem" : "0.02rem";
   return (
     <div
       style={{
         width: `${partWidth}rem`,
         height: `${partHeight}rem`,
-        marginRight: "0.02rem",
-        marginBottom: "0.02rem",
+        marginRight: right,
+        marginBottom: bottom,
         userSelect: "none",
       }}
     >
@@ -61,7 +69,7 @@ export const PuzzlePart = ({
 }: PuzzlePartProps) => {
   const { top, left, bottom, right } = calculatePositions(index);
   return (
-    <Container>
+    <Container isSolved={isSolved}>
       <div
         style={{
           position: "absolute",

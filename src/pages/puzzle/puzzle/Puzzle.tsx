@@ -15,7 +15,7 @@ const parts = Array.from(Array(xParts * yParts).keys());
 interface PuzzleProps {
   imageUrl: string;
   shuffle?: boolean;
-  onSolved: (solved: boolean) => void;
+  onSolved?: (solved: boolean) => void;
   isSolved: boolean;
 }
 
@@ -57,7 +57,12 @@ const initState = (shuffleParts?: boolean): number[] => {
   return shuffleParts ? shuffle(parts) : parts;
 };
 
-export const Puzzle = ({ imageUrl, shuffle, onSolved, isSolved }: PuzzleProps) => {
+export const Puzzle = ({
+  imageUrl,
+  shuffle,
+  onSolved,
+  isSolved,
+}: PuzzleProps) => {
   const [state, setState] = useState(initState(shuffle));
   const swap = (actualValue: number, emptyIndex: number) => {
     const actualIndex = state.findIndex((val) => val === actualValue);
@@ -66,8 +71,10 @@ export const Puzzle = ({ imageUrl, shuffle, onSolved, isSolved }: PuzzleProps) =
     newState[actualIndex] = 0;
     newState[emptyIndex] = actualValue;
 
-    const solved = newState.every((value, index) => value === index);
-    onSolved(solved);
+    if (onSolved) {
+      const solved = newState.every((value, index) => value === index);
+      onSolved(solved);
+    }
 
     setState(newState);
   };
@@ -124,7 +131,7 @@ export const Puzzle = ({ imageUrl, shuffle, onSolved, isSolved }: PuzzleProps) =
                   />
                 );
               }
-              return <Container />;
+              return <Container isSolved={isSolved} />;
             })}
           </div>
         );
