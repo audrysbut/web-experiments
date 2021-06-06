@@ -80,8 +80,9 @@ export const PuzzlePart = ({ index, imageUrl, onClick }: PuzzlePartProps) => {
             left: 38,
             color: "white",
           }}
+          onClick={onClick}
         >
-          {index}
+          {index + 1}
         </div>
       </div>
     </Container>

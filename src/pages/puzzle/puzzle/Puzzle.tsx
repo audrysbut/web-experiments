@@ -15,12 +15,13 @@ const parts = Array.from(Array(xParts * yParts).keys());
 interface PuzzleProps {
   imageUrl: string;
   shuffle?: boolean;
+  onSolved?: (solved: boolean) => void;
 }
 
 function shuffle<T>(array: T[]): T[] {
-  let currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
+  let currentIndex = array.length;
+  let temporaryValue;
+  let randomIndex;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
@@ -55,7 +56,7 @@ const initState = (shuffleParts?: boolean): number[] => {
   return shuffleParts ? shuffle(parts) : parts;
 };
 
-export const Puzzle = ({ imageUrl, shuffle }: PuzzleProps) => {
+export const Puzzle = ({ imageUrl, shuffle, onSolved }: PuzzleProps) => {
   const [state, setState] = useState(initState(shuffle));
   const swap = (actualValue: number, emptyIndex: number) => {
     const actualIndex = state.findIndex((val) => val === actualValue);
@@ -63,6 +64,10 @@ export const Puzzle = ({ imageUrl, shuffle }: PuzzleProps) => {
     const newState = [...state];
     newState[actualIndex] = 0;
     newState[emptyIndex] = actualValue;
+    if (onSolved) {
+      const solved = newState.every((value, index) => value === index);
+      onSolved(solved);
+    }
     setState(newState);
   };
 
@@ -79,25 +84,21 @@ export const Puzzle = ({ imageUrl, shuffle }: PuzzleProps) => {
     if (rowDiff === 0 && colDiff === 1) {
       // alert(`move left`);
       swap(partValue, emptyIndex);
-      return;
     }
 
     if (rowDiff === 0 && colDiff === -1) {
       // alert(`move right`);
       swap(partValue, emptyIndex);
-      return;
     }
 
     if (colDiff === 0 && rowDiff === 1) {
       // alert(`move up`);
       swap(partValue, emptyIndex);
-      return;
     }
 
     if (colDiff === 0 && rowDiff === -1) {
       // alert(`move down`);
       swap(partValue, emptyIndex);
-      return;
     }
   };
   return (
