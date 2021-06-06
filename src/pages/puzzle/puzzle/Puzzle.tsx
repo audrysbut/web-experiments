@@ -108,7 +108,7 @@ export const Puzzle = ({
                   />
                 );
               }
-              return <Container isSolved={isSolved} />;
+              return <Container key={`${row}_${col}`} isSolved={isSolved} />;
             })}
           </div>
         );

@@ -11,7 +11,7 @@ export function shuffle(): number[] {
     parts = singeShuffle(parts);
   }
 
-  return parts;
+  return parts.filter((value) => value !== undefined);
 }
 
 function singeShuffle(state: number[]): number[] {
@@ -53,8 +53,8 @@ function swap(
   emptyIndex: number,
   state: number[]
 ): number[] {
-  const actualValue = state[actualIndex];
   const newState = [...state];
+  const actualValue = newState[actualIndex];
   newState[actualIndex] = 0;
   newState[emptyIndex] = actualValue;
 
