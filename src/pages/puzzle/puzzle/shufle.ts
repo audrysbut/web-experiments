@@ -11,7 +11,7 @@ export function shuffle(): number[] {
     parts = singeShuffle(parts);
   }
 
-  return parts.filter((value) => value !== undefined);
+  return parts;
 }
 
 function singeShuffle(state: number[]): number[] {
@@ -29,7 +29,7 @@ function getSwappableIndex(zeroIndex: number): number {
     values.push(zeroIndex - xParts);
   }
 
-  const moveDownAvailable = zeroIndex <= (xParts - 1) * yParts;
+  const moveDownAvailable = zeroIndex < (xParts - 1) * yParts;
   if (moveDownAvailable) {
     values.push(zeroIndex + xParts);
   }
