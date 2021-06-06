@@ -16,6 +16,7 @@ interface PuzzleProps {
   shuffle?: boolean;
   onSolved: (solved: boolean) => void;
   isSolved: boolean;
+  showNumbers: boolean;
 }
 
 const getPosition = (
@@ -41,6 +42,7 @@ export const Puzzle = ({
   shuffle,
   onSolved,
   isSolved,
+  showNumbers,
 }: PuzzleProps) => {
   const [state, setState] = useState(initState(shuffle));
   const swap = (actualValue: number, emptyIndex: number) => {
@@ -104,6 +106,7 @@ export const Puzzle = ({
                     index={part}
                     imageUrl={imageUrl}
                     isSolved={isSolved}
+                    showNumbers={showNumbers}
                     onClick={() => !isSolved && partClick(part)}
                   />
                 );

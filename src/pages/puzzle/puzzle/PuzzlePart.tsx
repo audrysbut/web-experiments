@@ -59,6 +59,7 @@ interface PuzzlePartProps {
   imageUrl: string;
   onClick: () => void;
   isSolved: boolean;
+  showNumbers: boolean;
 }
 
 export const PuzzlePart = ({
@@ -66,6 +67,7 @@ export const PuzzlePart = ({
   imageUrl,
   onClick,
   isSolved,
+  showNumbers,
 }: PuzzlePartProps) => {
   const { top, left, bottom, right } = calculatePositions(index);
   return (
@@ -87,7 +89,7 @@ export const PuzzlePart = ({
           alt="Death queen"
           onClick={onClick}
         />
-        {!isSolved && (
+        {!isSolved && showNumbers && (
           <div
             style={{
               position: "absolute",
