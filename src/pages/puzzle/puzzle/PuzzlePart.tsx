@@ -2,11 +2,11 @@
 const imageWidth = 25;
 const imageHeight = 20;
 
-export const xParts = 5;
-export const yParts = 5;
+export const columns = 5;
+export const rows = 5;
 
-const partWidth = imageWidth / xParts;
-const partHeight = imageHeight / yParts;
+const partWidth = imageWidth / columns;
+const partHeight = imageHeight / rows;
 
 //TODO: move this calculations elsewhere
 interface Positions {
@@ -18,8 +18,8 @@ interface Positions {
 
 //TODO: move this calculations elsewhere
 const calculatePositions = (index: number): Positions => {
-  const rowIndex = Math.floor(index / xParts);
-  const colIndex = index - xParts * rowIndex;
+  const rowIndex = Math.floor(index / columns);
+  const colIndex = index - columns * rowIndex;
 
   const top = rowIndex * partHeight;
   const left = colIndex * partWidth;

@@ -1,7 +1,7 @@
-import { xParts, yParts } from "./PuzzlePart";
+import { columns, rows } from "./PuzzlePart";
 
 export function init(): number[] {
-  return Array.from(Array(xParts * yParts).keys());
+  return Array.from(Array(columns * rows).keys());
 }
 
 export function shuffle(): number[] {
@@ -24,22 +24,22 @@ function singeShuffle(state: number[]): number[] {
 function getSwappableIndex(zeroIndex: number): number {
   const values: number[] = [];
 
-  const moveUpAvailable = zeroIndex >= xParts;
+  const moveUpAvailable = zeroIndex >= columns;
   if (moveUpAvailable) {
-    values.push(zeroIndex - xParts);
+    values.push(zeroIndex - columns);
   }
 
-  const moveDownAvailable = zeroIndex < (xParts - 1) * yParts;
+  const moveDownAvailable = zeroIndex < (columns - 1) * rows;
   if (moveDownAvailable) {
-    values.push(zeroIndex + xParts);
+    values.push(zeroIndex + columns);
   }
 
-  const moveLeftAvailable = zeroIndex % xParts !== 0;
+  const moveLeftAvailable = zeroIndex % columns !== 0;
   if (moveLeftAvailable) {
     values.push(zeroIndex - 1);
   }
 
-  const moveRightAvailable = (zeroIndex + 1) % xParts !== 0;
+  const moveRightAvailable = (zeroIndex + 1) % columns !== 0;
   if (moveRightAvailable) {
     values.push(zeroIndex + 1);
   }

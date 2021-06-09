@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Container, PuzzlePart, xParts } from "./PuzzlePart";
+import { Container, PuzzlePart, columns } from "./PuzzlePart";
 import { init, shuffle } from "./shufle";
 
 const split = <T,>(input: T[]): T[][] => {
   var arrayOfArrays: T[][] = [];
-  for (var i = 0; i < input.length; i += xParts) {
-    const chunk = input.slice(i, i + xParts);
+  for (var i = 0; i < input.length; i += columns) {
+    const chunk = input.slice(i, i + columns);
     arrayOfArrays.push(chunk);
   }
   return arrayOfArrays;
@@ -25,8 +25,8 @@ const getPosition = (
   row: number;
   col: number;
 } => {
-  const row = Math.floor(part / xParts);
-  const col = part - row * xParts;
+  const row = Math.floor(part / columns);
+  const col = part - row * columns;
   return {
     col,
     row,
