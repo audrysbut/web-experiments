@@ -24,24 +24,30 @@ function singeShuffle(state: number[]): number[] {
 function getSwappableIndex(zeroIndex: number): number {
   const values: number[] = [];
 
-  const moveUpAvailable = zeroIndex >= columns;
+  const moveUpAvailable = zeroIndex > columns - 1;
   if (moveUpAvailable) {
-    values.push(zeroIndex - columns);
+    const index = zeroIndex - columns;
+    values.push(index);
   }
 
-  const moveDownAvailable = zeroIndex < (columns - 1) * rows;
+  const totalBlocks = columns * rows;
+  const totalBlocksWithoutLastRow = totalBlocks - columns;
+  const moveDownAvailable = zeroIndex < totalBlocksWithoutLastRow;
   if (moveDownAvailable) {
-    values.push(zeroIndex + columns);
+    const index = zeroIndex + columns;
+    values.push(index);
   }
 
   const moveLeftAvailable = zeroIndex % columns !== 0;
   if (moveLeftAvailable) {
-    values.push(zeroIndex - 1);
+    const index = zeroIndex - 1;
+    values.push(index);
   }
 
   const moveRightAvailable = (zeroIndex + 1) % columns !== 0;
   if (moveRightAvailable) {
-    values.push(zeroIndex + 1);
+    const index = zeroIndex + 1;
+    values.push(index);
   }
 
   const randomValue = values[Math.floor(Math.random() * values.length)];
