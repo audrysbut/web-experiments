@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 //TODO: remove exports
 const imageWidth = 25;
 const imageHeight = 20;
@@ -7,6 +9,17 @@ export const rows = 5;
 
 const partWidth = imageWidth / columns;
 const partHeight = imageHeight / rows;
+
+const getTemplateColumn = (): string => {
+  let str = "";
+  for (let i = 0; i < columns; i++) {
+    //TODO: extract separation constant
+    str += `${partWidth + 0.02}rem `;
+  }
+  return str;
+};
+
+export const gridTemplateColumns = getTemplateColumn();
 
 //TODO: move this calculations elsewhere
 interface Positions {
@@ -40,7 +53,12 @@ export const Container = ({
   const right = isSolved ? "0rem" : "0.02rem";
   const bottom = isSolved ? "0rem" : "0.02rem";
   return (
-    <div
+    <motion.div
+      layout
+      transition={{
+        duration: 0.06,
+        type: "tween",
+      }}
       style={{
         width: `${partWidth}rem`,
         height: `${partHeight}rem`,
@@ -50,7 +68,7 @@ export const Container = ({
       }}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 

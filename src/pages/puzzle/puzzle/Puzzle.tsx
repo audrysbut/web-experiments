@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import { Container, PuzzlePart, columns } from "./PuzzlePart";
+import {
+  Container,
+  PuzzlePart,
+  columns,
+  gridTemplateColumns,
+} from "./PuzzlePart";
 import { init, shuffle } from "./shufle";
-
-const split = <T,>(input: T[]): T[][] => {
-  var arrayOfArrays: T[][] = [];
-  for (var i = 0; i < input.length; i += columns) {
-    const chunk = input.slice(i, i + columns);
-    arrayOfArrays.push(chunk);
-  }
-  return arrayOfArrays;
-};
 
 interface PuzzleProps {
   imageUrl: string;
@@ -68,53 +64,34 @@ export const Puzzle = ({
     const rowDiff = actualPart.row - emptySlot.row;
     const colDiff = actualPart.col - emptySlot.col;
 
-    if (rowDiff === 0 && colDiff === 1) {
-      // alert(`move left`);
-      swap(partValue, emptyIndex);
-    }
-
-    if (rowDiff === 0 && colDiff === -1) {
-      // alert(`move right`);
-      swap(partValue, emptyIndex);
-    }
-
-    if (colDiff === 0 && rowDiff === 1) {
-      // alert(`move up`);
-      swap(partValue, emptyIndex);
-    }
-
-    if (colDiff === 0 && rowDiff === -1) {
-      // alert(`move down`);
+    if (
+      (rowDiff === 0 && Math.abs(colDiff) === 1) ||
+      (colDiff === 0 && Math.abs(rowDiff) === 1)
+    ) {
       swap(partValue, emptyIndex);
     }
   };
   return (
-    <div>
-      {split(state).map((chunk, row) => {
-        return (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            {chunk.map((part, col) => {
-              if (part || isSolved) {
-                return (
-                  <PuzzlePart
-                    key={`${row}_${col}`}
-                    index={part}
-                    imageUrl={imageUrl}
-                    isSolved={isSolved}
-                    showNumbers={showNumbers}
-                    onClick={() => !isSolved && partClick(part)}
-                  />
-                );
-              }
-              return <Container key={`${row}_${col}`} isSolved={isSolved} />;
-            })}
-          </div>
-        );
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns,
+      }}
+    >
+      {state.map((part) => {
+        if (part || isSolved) {
+          return (
+            <PuzzlePart
+              key={part}
+              index={part}
+              imageUrl={imageUrl}
+              isSolved={isSolved}
+              showNumbers={showNumbers}
+              onClick={() => !isSolved && partClick(part)}
+            />
+          );
+        }
+        return <Container key={part} isSolved={isSolved} />;
       })}
     </div>
   );
