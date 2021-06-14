@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Puzzle, PuzzleSettings } from "./puzzle/Puzzle";
 
 const pickRandomImage = () => {
-  return "https://picsum.photos/800/1024";
+  return "https://picsum.photos/1080/1920";
 };
 
 const getTemplateColumn = (columns: number, collumnOffset: number): string => {

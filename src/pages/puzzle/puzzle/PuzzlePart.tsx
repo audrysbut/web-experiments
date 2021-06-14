@@ -39,7 +39,7 @@ export const Container = ({
     <motion.div
       layout
       transition={{
-        duration: 0.1,
+        duration: 0.08,
         type: "tween",
       }}
       style={{
