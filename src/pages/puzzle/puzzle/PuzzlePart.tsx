@@ -87,6 +87,7 @@ export const PuzzlePart = ({
             clipPath: `inset(${top}rem ${right}rem ${bottom}rem ${left}rem)`,
           }}
           alt="part"
+          onDragStart={(e) => e.preventDefault()}
           onClick={onClick}
         />
         {showNumbers && (
