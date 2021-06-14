@@ -33,8 +33,7 @@ export const Container = ({
   children,
   settings,
 }: React.PropsWithChildren<ContainerProps>) => {
-  const { partWidth, partHeight, offset } = settings;
-  const bottom = `${offset}rem`;
+  const { partWidth, partHeight } = settings;
   return (
     <motion.div
       layout
@@ -45,7 +44,6 @@ export const Container = ({
       style={{
         width: `${partWidth}rem`,
         height: `${partHeight}rem`,
-        marginBottom: bottom,
         userSelect: "none",
       }}
     >

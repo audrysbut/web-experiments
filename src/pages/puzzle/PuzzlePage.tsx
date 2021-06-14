@@ -5,14 +5,6 @@ const pickRandomImage = () => {
   return "https://picsum.photos/1080/1920";
 };
 
-const getTemplateColumn = (columns: number, collumnOffset: number): string => {
-  let str = "";
-  for (let i = 0; i < columns; i++) {
-    str += `${collumnOffset}rem `;
-  }
-  return str;
-};
-
 const getSettings = (): PuzzleSettings => {
   const columns = 5;
   const rows = 5;
@@ -21,7 +13,7 @@ const getSettings = (): PuzzleSettings => {
   const offset = 0.02;
   const partWidth = imageWidth / columns;
   const partHeight = imageHeight / rows;
-  const gridTemplateColumns = getTemplateColumn(columns, offset + partWidth);
+  const gridTemplateColumns = `repeat(${columns}, ${partWidth + offset}rem)`;
 
   return {
     columns,

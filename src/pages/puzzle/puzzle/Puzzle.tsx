@@ -85,6 +85,7 @@ export const Puzzle = ({
       style={{
         display: "grid",
         gridTemplateColumns: settings.gridTemplateColumns,
+        gridRowGap: `${settings.offset}rem`,
       }}
     >
       {state.map((part) => {
