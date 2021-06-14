@@ -1,27 +1,30 @@
-import { columns, rows } from "./PuzzlePart";
+import { PuzzleSettings } from "./Puzzle";
 
-export function init(): number[] {
+export function init({ columns, rows }: PuzzleSettings): number[] {
   return Array.from(Array(columns * rows).keys());
 }
 
-export function shuffle(): number[] {
-  let parts = init();
+export function shuffle(settings: PuzzleSettings): number[] {
+  let parts = init(settings);
 
   for (let i = 0; i < 500; i++) {
-    parts = singeShuffle(parts);
+    parts = singeShuffle(parts, settings);
   }
 
   return parts;
 }
 
-function singeShuffle(state: number[]): number[] {
+function singeShuffle(state: number[], settings: PuzzleSettings): number[] {
   const zeroIndex = state.findIndex((value) => value === 0);
-  const swappableIndex = getSwappableIndex(zeroIndex);
+  const swappableIndex = getSwappableIndex(zeroIndex, settings);
 
   return swap(swappableIndex, zeroIndex, state);
 }
 
-function getSwappableIndex(zeroIndex: number): number {
+function getSwappableIndex(
+  zeroIndex: number,
+  { columns, rows }: PuzzleSettings
+): number {
   const values: number[] = [];
 
   const moveUpAvailable = zeroIndex > columns - 1;

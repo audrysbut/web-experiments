@@ -1,25 +1,5 @@
 import { motion } from "framer-motion";
-
-//TODO: remove exports
-const imageWidth = 25;
-const imageHeight = 20;
-
-export const columns = 5;
-export const rows = 5;
-
-const partWidth = imageWidth / columns;
-const partHeight = imageHeight / rows;
-
-const getTemplateColumn = (): string => {
-  let str = "";
-  for (let i = 0; i < columns; i++) {
-    //TODO: extract separation constant
-    str += `${partWidth + 0.02}rem `;
-  }
-  return str;
-};
-
-export const gridTemplateColumns = getTemplateColumn();
+import { PuzzleSettings } from "./Puzzle";
 
 //TODO: move this calculations elsewhere
 interface Positions {
@@ -30,7 +10,10 @@ interface Positions {
 }
 
 //TODO: move this calculations elsewhere
-const calculatePositions = (index: number): Positions => {
+const calculatePositions = (
+  index: number,
+  { columns, partHeight, partWidth, imageWidth, imageHeight }: PuzzleSettings
+): Positions => {
   const rowIndex = Math.floor(index / columns);
   const colIndex = index - columns * rowIndex;
 
@@ -44,14 +27,17 @@ const calculatePositions = (index: number): Positions => {
 
 interface ContainerProps {
   isSolved: boolean;
+  settings: PuzzleSettings;
 }
 //TODO: move this component elsewhere
 export const Container = ({
   children,
   isSolved,
+  settings,
 }: React.PropsWithChildren<ContainerProps>) => {
   const right = isSolved ? "0rem" : "0.02rem";
   const bottom = isSolved ? "0rem" : "0.02rem";
+  const { partWidth, partHeight } = settings;
   return (
     <motion.div
       layout
@@ -78,6 +64,7 @@ interface PuzzlePartProps {
   onClick: () => void;
   isSolved: boolean;
   showNumbers: boolean;
+  settings: PuzzleSettings;
 }
 
 export const PuzzlePart = ({
@@ -86,10 +73,11 @@ export const PuzzlePart = ({
   onClick,
   isSolved,
   showNumbers,
+  settings,
 }: PuzzlePartProps) => {
-  const { top, left, bottom, right } = calculatePositions(index);
+  const { top, left, bottom, right } = calculatePositions(index, settings);
   return (
-    <Container isSolved={isSolved}>
+    <Container isSolved={isSolved} settings={settings}>
       <div
         style={{
           position: "absolute",
@@ -98,8 +86,8 @@ export const PuzzlePart = ({
         <img
           src={imageUrl}
           style={{
-            width: `${imageWidth}rem`,
-            height: `${imageHeight}rem`,
+            width: `${settings.imageWidth}rem`,
+            height: `${settings.imageHeight}rem`,
             marginLeft: `-${left}rem`,
             marginTop: `-${top}rem`,
             clipPath: `inset(${top}rem ${right}rem ${bottom}rem ${left}rem)`,

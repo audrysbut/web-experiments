@@ -1,22 +1,28 @@
 import React, { useState } from "react";
-import {
-  Container,
-  PuzzlePart,
-  columns,
-  gridTemplateColumns,
-} from "./PuzzlePart";
+import { Container, PuzzlePart } from "./PuzzlePart";
 import { init, shuffle } from "./shufle";
 
+export interface PuzzleSettings {
+  columns: number;
+  rows: number;
+  partWidth: number;
+  partHeight: number;
+  imageWidth: number;
+  imageHeight: number;
+  gridTemplateColumns: string;
+}
 interface PuzzleProps {
   imageUrl: string;
   shuffle?: boolean;
   onSolved: (solved: boolean) => void;
   isSolved: boolean;
   showNumbers: boolean;
+  settings: PuzzleSettings;
 }
 
 const getPosition = (
-  part: number
+  part: number,
+  columns: number
 ): {
   row: number;
   col: number;
@@ -29,8 +35,11 @@ const getPosition = (
   };
 };
 
-const initState = (shuffleParts?: boolean): number[] => {
-  return shuffleParts ? shuffle() : init();
+const initState = (
+  settings: PuzzleSettings,
+  shuffleParts: boolean | undefined
+): number[] => {
+  return shuffleParts ? shuffle(settings) : init(settings);
 };
 
 export const Puzzle = ({
@@ -39,8 +48,9 @@ export const Puzzle = ({
   onSolved,
   isSolved,
   showNumbers,
+  settings,
 }: PuzzleProps) => {
-  const [state, setState] = useState(initState(shuffle));
+  const [state, setState] = useState(initState(settings, shuffle));
   const swap = (actualValue: number, emptyIndex: number) => {
     const actualIndex = state.findIndex((val) => val === actualValue);
 
@@ -54,12 +64,12 @@ export const Puzzle = ({
     setState(newState);
   };
 
-  const partClick = (partValue: number) => {
+  const partClick = (partValue: number, { columns }: PuzzleSettings) => {
     const partIndex = state.findIndex((val) => val === partValue);
-    const actualPart = getPosition(partIndex);
+    const actualPart = getPosition(partIndex, columns);
 
     const emptyIndex = state.findIndex((val) => val === 0);
-    const emptySlot = getPosition(emptyIndex);
+    const emptySlot = getPosition(emptyIndex, columns);
 
     const rowDiff = actualPart.row - emptySlot.row;
     const colDiff = actualPart.col - emptySlot.col;
@@ -75,7 +85,7 @@ export const Puzzle = ({
     <div
       style={{
         display: "grid",
-        gridTemplateColumns,
+        gridTemplateColumns: settings.gridTemplateColumns,
       }}
     >
       {state.map((part) => {
@@ -87,11 +97,12 @@ export const Puzzle = ({
               imageUrl={imageUrl}
               isSolved={isSolved}
               showNumbers={showNumbers}
-              onClick={() => !isSolved && partClick(part)}
+              settings={settings}
+              onClick={() => !isSolved && partClick(part, settings)}
             />
           );
         }
-        return <Container key={part} isSolved={isSolved} />;
+        return <Container key={part} isSolved={isSolved} settings={settings} />;
       })}
     </div>
   );
