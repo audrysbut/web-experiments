@@ -26,18 +26,15 @@ const calculatePositions = (
 };
 
 interface ContainerProps {
-  isSolved: boolean;
   settings: PuzzleSettings;
 }
 //TODO: move this component elsewhere
 export const Container = ({
   children,
-  isSolved,
   settings,
 }: React.PropsWithChildren<ContainerProps>) => {
-  const right = isSolved ? "0rem" : "0.02rem";
-  const bottom = isSolved ? "0rem" : "0.02rem";
-  const { partWidth, partHeight } = settings;
+  const { partWidth, partHeight, offset } = settings;
+  const bottom = `${offset}rem`;
   return (
     <motion.div
       layout
@@ -48,7 +45,6 @@ export const Container = ({
       style={{
         width: `${partWidth}rem`,
         height: `${partHeight}rem`,
-        marginRight: right,
         marginBottom: bottom,
         userSelect: "none",
       }}
@@ -62,7 +58,6 @@ interface PuzzlePartProps {
   index: number;
   imageUrl: string;
   onClick: () => void;
-  isSolved: boolean;
   showNumbers: boolean;
   settings: PuzzleSettings;
 }
@@ -71,13 +66,12 @@ export const PuzzlePart = ({
   index,
   imageUrl,
   onClick,
-  isSolved,
   showNumbers,
   settings,
 }: PuzzlePartProps) => {
   const { top, left, bottom, right } = calculatePositions(index, settings);
   return (
-    <Container isSolved={isSolved} settings={settings}>
+    <Container settings={settings}>
       <div
         style={{
           position: "absolute",
@@ -95,7 +89,7 @@ export const PuzzlePart = ({
           alt="part"
           onClick={onClick}
         />
-        {!isSolved && showNumbers && (
+        {showNumbers && (
           <div
             style={{
               position: "absolute",

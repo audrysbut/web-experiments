@@ -5,11 +5,10 @@ const pickRandomImage = () => {
   return "https://picsum.photos/800/1024";
 };
 
-const getTemplateColumn = (columns: number, partWidth: number): string => {
+const getTemplateColumn = (columns: number, collumnOffset: number): string => {
   let str = "";
   for (let i = 0; i < columns; i++) {
-    //TODO: extract separation constant
-    str += `${partWidth + 0.02}rem `;
+    str += `${collumnOffset}rem `;
   }
   return str;
 };
@@ -19,9 +18,11 @@ const getSettings = (): PuzzleSettings => {
   const rows = 5;
   const imageWidth = 25;
   const imageHeight = 20;
+  const offset = 0.02;
   const partWidth = imageWidth / columns;
   const partHeight = imageHeight / rows;
-  const gridTemplateColumns = getTemplateColumn(columns, partWidth);
+  const gridTemplateColumns = getTemplateColumn(columns, offset + partWidth);
+
   return {
     columns,
     rows,
@@ -30,6 +31,7 @@ const getSettings = (): PuzzleSettings => {
     imageHeight,
     imageWidth,
     gridTemplateColumns,
+    offset,
   };
 };
 
@@ -45,14 +47,23 @@ export const PuzzlePage = () => {
 
   return (
     <div>
-      <Puzzle
-        imageUrl={imageUrl}
-        shuffle={true}
-        onSolved={onSolved}
-        isSolved={solved}
-        showNumbers={true}
-        settings={settings}
-      />
+      {solved ? (
+        <img
+          src={imageUrl}
+          style={{
+            height: `${settings.imageHeight}rem`,
+            width: `${settings.imageWidth}rem`,
+          }}
+        />
+      ) : (
+        <Puzzle
+          imageUrl={imageUrl}
+          shuffle={true}
+          onSolved={onSolved}
+          showNumbers={true}
+          settings={settings}
+        />
+      )}
     </div>
   );
 };

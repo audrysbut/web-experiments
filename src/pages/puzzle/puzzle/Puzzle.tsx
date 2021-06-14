@@ -9,13 +9,13 @@ export interface PuzzleSettings {
   partHeight: number;
   imageWidth: number;
   imageHeight: number;
+  offset: number;
   gridTemplateColumns: string;
 }
 interface PuzzleProps {
   imageUrl: string;
   shuffle?: boolean;
   onSolved: (solved: boolean) => void;
-  isSolved: boolean;
   showNumbers: boolean;
   settings: PuzzleSettings;
 }
@@ -46,7 +46,6 @@ export const Puzzle = ({
   imageUrl,
   shuffle,
   onSolved,
-  isSolved,
   showNumbers,
   settings,
 }: PuzzleProps) => {
@@ -89,20 +88,19 @@ export const Puzzle = ({
       }}
     >
       {state.map((part) => {
-        if (part || isSolved) {
+        if (part) {
           return (
             <PuzzlePart
               key={part}
               index={part}
               imageUrl={imageUrl}
-              isSolved={isSolved}
               showNumbers={showNumbers}
               settings={settings}
-              onClick={() => !isSolved && partClick(part, settings)}
+              onClick={() => partClick(part, settings)}
             />
           );
         }
-        return <Container key={part} isSolved={isSolved} settings={settings} />;
+        return <Container key={part} settings={settings} />;
       })}
     </div>
   );
