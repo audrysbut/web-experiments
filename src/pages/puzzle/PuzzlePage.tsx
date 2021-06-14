@@ -54,6 +54,7 @@ export const PuzzlePage = () => {
             height: `${settings.imageHeight}rem`,
             width: `${settings.imageWidth}rem`,
           }}
+          alt="Solved"
         />
       ) : (
         <Puzzle
