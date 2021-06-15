@@ -1,31 +1,8 @@
 import React from "react";
 import { PartContainer } from "./PartContainer";
 import { PartIndexIndicator } from "./PartIndexIndicator";
+import { calculatePositions } from "./PositionCalculator";
 import { PuzzleSettings } from "./Puzzle";
-
-//TODO: move this calculations elsewhere
-interface Positions {
-  top: number;
-  left: number;
-  bottom: number;
-  right: number;
-}
-
-//TODO: move this calculations elsewhere
-const calculatePositions = (
-  index: number,
-  { columns, partHeight, partWidth, imageWidth, imageHeight }: PuzzleSettings
-): Positions => {
-  const rowIndex = Math.floor(index / columns);
-  const colIndex = index - columns * rowIndex;
-
-  const top = rowIndex * partHeight;
-  const left = colIndex * partWidth;
-  const right = imageWidth - left - partWidth;
-  const bottom = imageHeight - top - partHeight;
-
-  return { top, left, bottom, right };
-};
 
 interface PuzzlePartProps {
   index: number;
