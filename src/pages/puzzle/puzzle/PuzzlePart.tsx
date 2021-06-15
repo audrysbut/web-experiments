@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { PartIndexIndicator } from "./PartIndexIndicator";
 import { PuzzleSettings } from "./Puzzle";
 
 //TODO: move this calculations elsewhere
@@ -88,22 +89,7 @@ export const PuzzlePart = ({
           onDragStart={(e) => e.preventDefault()}
           onClick={onClick}
         />
-        {showNumbers && (
-          <div
-            style={{
-              position: "absolute",
-              top: '5px',
-              left: '5px',
-              color: "white",
-              background: "rgba(0,0,0,0.2)",
-              borderRadius: "4px",
-              padding: "4px",
-            }}
-            onClick={onClick}
-          >
-            {index + 1}
-          </div>
-        )}
+        {showNumbers && <PartIndexIndicator index={index} onClick={onClick} />}
       </div>
     </Container>
   );
