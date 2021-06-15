@@ -92,8 +92,8 @@ export const PuzzlePart = ({
           <div
             style={{
               position: "absolute",
-              top: 0,
-              left: 0,
+              top: '5px',
+              left: '5px',
               color: "white",
               background: "rgba(0,0,0,0.2)",
               borderRadius: "4px",
