@@ -74,12 +74,13 @@ export const Puzzle = ({
       swap(partValue, emptyIndex);
     }
   };
+  const {gridTemplateColumns, offset } = settings;
   return (
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: settings.gridTemplateColumns,
-        gridRowGap: `${settings.offset}px`,
+        gridTemplateColumns: gridTemplateColumns,
+        gridRowGap: `${offset}px`,
       }}
     >
       {state.map((part) => {
