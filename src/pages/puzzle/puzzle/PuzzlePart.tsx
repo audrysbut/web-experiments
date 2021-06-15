@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import React from "react";
+import { PartContainer } from "./PartContainer";
 import { PartIndexIndicator } from "./PartIndexIndicator";
 import { PuzzleSettings } from "./Puzzle";
 
@@ -26,33 +27,6 @@ const calculatePositions = (
   return { top, left, bottom, right };
 };
 
-interface ContainerProps {
-  settings: PuzzleSettings;
-}
-//TODO: move this component elsewhere
-export const Container = ({
-  children,
-  settings,
-}: React.PropsWithChildren<ContainerProps>) => {
-  const { partWidth, partHeight } = settings;
-  return (
-    <motion.div
-      layout
-      transition={{
-        duration: 0.08,
-        type: "tween",
-      }}
-      style={{
-        width: `${partWidth}px`,
-        height: `${partHeight}px`,
-        userSelect: "none",
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-};
-
 interface PuzzlePartProps {
   index: number;
   imageUrl: string;
@@ -70,7 +44,7 @@ export const PuzzlePart = ({
 }: PuzzlePartProps) => {
   const { top, left, bottom, right } = calculatePositions(index, settings);
   return (
-    <Container settings={settings}>
+    <PartContainer settings={settings}>
       <div
         style={{
           position: "absolute",
@@ -91,6 +65,6 @@ export const PuzzlePart = ({
         />
         {showNumbers && <PartIndexIndicator index={index} onClick={onClick} />}
       </div>
-    </Container>
+    </PartContainer>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, PuzzlePart } from "./PuzzlePart";
+import { PartContainer } from "./PartContainer";
+import { PuzzlePart } from "./PuzzlePart";
 
 export interface PuzzleSettings {
   columns: number;
@@ -94,7 +95,7 @@ export const Puzzle = ({
             />
           );
         }
-        return <Container key={part} settings={settings} />;
+        return <PartContainer key={part} settings={settings} />;
       })}
     </div>
   );
