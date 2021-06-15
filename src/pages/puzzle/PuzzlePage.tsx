@@ -72,8 +72,8 @@ export const PuzzlePage = () => {
 
   return (
     <div>
-      <button onClick={updateImage}>{"Refresh"}</button>
-      {renderPuzzle()}
+      <div>{renderPuzzle()}</div>
+      <button onClick={updateImage}>Refresh</button>
     </div>
   );
 };
