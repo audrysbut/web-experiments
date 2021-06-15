@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { Puzzle, PuzzleSettings } from "./puzzle/Puzzle";
+import { shuffle } from "./puzzle/shufle";
 
-const pickRandomImage = () => {
-  return "https://picsum.photos/1080/1920";
+const pickRandomImage = ({ imageWidth, imageHeight }: PuzzleSettings) => {
+  const randomId = Math.floor(Math.random() * 1028) + 1;
+  return `https://picsum.photos/id/${randomId}/${imageHeight}/${imageWidth}`;
 };
 
 const getSettings = (): PuzzleSettings => {
   const columns = 5;
   const rows = 5;
-  const imageWidth = 25;
-  const imageHeight = 20;
-  const offset = 0.02;
+  const imageWidth = 1024;
+  const imageHeight = 800;
+  const offset = 0.5;
   const partWidth = imageWidth / columns;
   const partHeight = imageHeight / rows;
-  const gridTemplateColumns = `repeat(${columns}, ${partWidth + offset}rem)`;
+  const gridTemplateColumns = `repeat(${columns}, ${partWidth + offset}px)`;
 
   return {
     columns,
@@ -28,35 +30,50 @@ const getSettings = (): PuzzleSettings => {
 };
 
 export const PuzzlePage = () => {
+  const settings = getSettings();
   const [solved, setSolved] = useState(false);
+  const [url, setUrl] = useState(pickRandomImage(settings));
+  const [state, setState] = useState(shuffle(settings));
 
-  const imageUrl = pickRandomImage();
   const onSolved = (isSolved: boolean) => {
     setSolved(isSolved);
   };
 
-  const settings = getSettings();
+  const updateImage = () => {
+    setUrl(pickRandomImage(settings));
+    setState(shuffle(settings));
+    setSolved(false);
+  };
 
-  return (
-    <div>
-      {solved ? (
+  const renderPuzzle = () => {
+    if (solved) {
+      return (
         <img
-          src={imageUrl}
+          src={url}
           style={{
-            height: `${settings.imageHeight}rem`,
-            width: `${settings.imageWidth}rem`,
+            height: `${settings.imageHeight}px`,
+            width: `${settings.imageWidth}px`,
           }}
           alt="Solved"
         />
-      ) : (
-        <Puzzle
-          imageUrl={imageUrl}
-          shuffle={true}
-          onSolved={onSolved}
-          showNumbers={true}
-          settings={settings}
-        />
-      )}
+      );
+    }
+    return (
+      <Puzzle
+        imageUrl={url}
+        onSolved={onSolved}
+        showNumbers={true}
+        settings={settings}
+        state={state}
+        setState={setState}
+      />
+    );
+  };
+
+  return (
+    <div>
+      <button onClick={updateImage}>{"Refresh"}</button>
+      {renderPuzzle()}
     </div>
   );
 };

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, PuzzlePart } from "./PuzzlePart";
-import { init, shuffle } from "./shufle";
 
 export interface PuzzleSettings {
   columns: number;
@@ -13,8 +12,9 @@ export interface PuzzleSettings {
   gridTemplateColumns: string;
 }
 interface PuzzleProps {
+  state: number[];
+  setState: React.Dispatch<number[]>;
   imageUrl: string;
-  shuffle?: boolean;
   onSolved: (solved: boolean) => void;
   showNumbers: boolean;
   settings: PuzzleSettings;
@@ -35,21 +35,14 @@ const getPosition = (
   };
 };
 
-const initState = (
-  settings: PuzzleSettings,
-  shuffleParts: boolean | undefined
-): number[] => {
-  return shuffleParts ? shuffle(settings) : init(settings);
-};
-
 export const Puzzle = ({
   imageUrl,
-  shuffle,
   onSolved,
   showNumbers,
   settings,
+  state,
+  setState
 }: PuzzleProps) => {
-  const [state, setState] = useState(initState(settings, shuffle));
   const swap = (actualValue: number, emptyIndex: number) => {
     const actualIndex = state.findIndex((val) => val === actualValue);
 
@@ -85,7 +78,7 @@ export const Puzzle = ({
       style={{
         display: "grid",
         gridTemplateColumns: settings.gridTemplateColumns,
-        gridRowGap: `${settings.offset}rem`,
+        gridRowGap: `${settings.offset}px`,
       }}
     >
       {state.map((part) => {

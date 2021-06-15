@@ -42,8 +42,8 @@ export const Container = ({
         type: "tween",
       }}
       style={{
-        width: `${partWidth}rem`,
-        height: `${partHeight}rem`,
+        width: `${partWidth}px`,
+        height: `${partHeight}px`,
         userSelect: "none",
       }}
     >
@@ -78,11 +78,11 @@ export const PuzzlePart = ({
         <img
           src={imageUrl}
           style={{
-            width: `${settings.imageWidth}rem`,
-            height: `${settings.imageHeight}rem`,
-            marginLeft: `-${left}rem`,
-            marginTop: `-${top}rem`,
-            clipPath: `inset(${top}rem ${right}rem ${bottom}rem ${left}rem)`,
+            width: `${settings.imageWidth}px`,
+            height: `${settings.imageHeight}px`,
+            marginLeft: `-${left}px`,
+            marginTop: `-${top}px`,
+            clipPath: `inset(${top}px ${right}px ${bottom}px ${left}px)`,
           }}
           alt="part"
           onDragStart={(e) => e.preventDefault()}
