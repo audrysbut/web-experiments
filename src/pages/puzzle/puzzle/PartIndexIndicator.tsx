@@ -1,3 +1,4 @@
+import "./PartIndicator.css";
 interface PartIndexIndicatorProps {
   index: number;
   onClick: () => void;
@@ -8,18 +9,7 @@ export const PartIndexIndicator = ({
   index,
 }: PartIndexIndicatorProps) => {
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: "5px",
-        left: "5px",
-        color: "white",
-        background: "rgba(0,0,0,0.2)",
-        borderRadius: "4px",
-        padding: "4px",
-      }}
-      onClick={onClick}
-    >
+    <div className="PartIndexIndicator" onClick={onClick}>
       {index + 1}
     </div>
   );
