@@ -42,7 +42,7 @@ export const Puzzle = ({
   showNumbers,
   settings,
   state,
-  setState
+  setState,
 }: PuzzleProps) => {
   const swap = (actualValue: number, emptyIndex: number) => {
     const actualIndex = state.findIndex((val) => val === actualValue);
@@ -74,13 +74,17 @@ export const Puzzle = ({
       swap(partValue, emptyIndex);
     }
   };
-  const {gridTemplateColumns, offset } = settings;
+  const { gridTemplateColumns, offset } = settings;
+  const totalOffset = (settings.columns - 1) * settings.offset;
   return (
     <div
       style={{
+        height: `${settings.imageHeight + totalOffset}px`,
+        width: `${settings.imageWidth + totalOffset}px`,
         display: "grid",
         gridTemplateColumns: gridTemplateColumns,
         gridRowGap: `${offset}px`,
+        border: "2px solid black",
       }}
     >
       {state.map((part) => {
