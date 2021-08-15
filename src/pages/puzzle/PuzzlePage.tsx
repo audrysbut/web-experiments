@@ -10,8 +10,8 @@ const pickRandomImage = ({ imageWidth, imageHeight }: PuzzleSettings) => {
 const getSettings = (): PuzzleSettings => {
   const columns = 5;
   const rows = 5;
-  const imageWidth = 640;
-  const imageHeight = 480;
+  const imageWidth = 640*0.8;
+  const imageHeight = 480*0.8;
   const offset = 0.5;
   const partWidth = imageWidth / columns;
   const partHeight = imageHeight / rows;
