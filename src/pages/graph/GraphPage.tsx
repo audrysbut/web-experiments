@@ -1,11 +1,12 @@
-import { select } from "d3";
-import { useEffect, useRef, useState } from "react";
+import { select, Selection, BaseType } from "d3";
+import { useEffect, useRef, useState, SetStateAction, Dispatch } from "react";
 import {
   calculateGraph,
   GraphParams,
   Node,
   NodeDataConnection,
   NodeDataPoint,
+  NodeTree,
 } from "./graph-calculation";
 
 const graph: Node = {
@@ -152,76 +153,12 @@ export const GraphPage = () => {
       widthConst: 100,
     };
     const nodes = calculateGraph(graph, params);
-
     const g = select("g");
-    const circles = g.selectAll("circle").data(nodes.dataPoints);
-    const text = g.selectAll("text").data(nodes.dataPoints);
 
-    // insert circles
-    circles
-      .enter()
-      .append("circle")
-      .attr("r", radius(params))
-      .attr("cx", (d) => centerX(d))
-      .attr("cy", (d) => centerY(d, params))
-      .attr("stroke", "black")
-      .attr("stroke-width", 4)
-      .attr("fill", "white")
-      .on("mouseover", (_, d) => setSelected(d.id))
-      .on("mouseout", (_, d) => selected !== d.id ?? setSelected(""));
+    drawCircles(g, nodes, params, setSelected, selected);
+    drawLines(g, nodes, params);
 
-    // update circles
-    circles
-      .attr("r", radius(params))
-      .attr("cx", (d) => centerX(d))
-      .attr("cy", (d) => centerY(d, params))
-      .attr("stroke", "black")
-      .attr("stroke-width", 4)
-      .attr("fill", (d) => (selected === d.id ? "Red" : "white"))
-      .on("mouseover", (_, d) => setSelected(d.id))
-      .on("mouseout", (_, d) => setSelected(""));
-
-    const lines = g.selectAll("line").data(nodes.connections);
-    lines
-      .enter()
-      .append("line")
-      .attr("x1", (d) => x1(d, params))
-      .attr("y1", (d) => y1(d, params))
-      .attr("x2", (d) => x2(d, params))
-      .attr("y2", (d) => y2(d, params))
-      .style("stroke", "black")
-      .style("stroke-width", 4);
-
-    // append text
-    text
-      .enter()
-      .append("text")
-      .attr("x", (d) => centerX(d))
-      .attr("y", (d) => centerY(d, params))
-      .attr("fill", "black")
-      .attr("font-size", "2em")
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "middle")
-      .style("user-select", "none")
-      .text((d) => d.id)
-      .on("mouseover", (_, d) => setSelected(d.id));
-    // .on("mouseout", (_, d) => setSelected(""));
-
-    // update text
-    text
-      .attr("x", (d) => centerX(d))
-      .attr("y", (d) => centerY(d, params))
-      .attr("fill", "black")
-      .attr("font-size", "2em")
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "middle")
-      .style("user-select", "none")
-      .text((d) => d.id)
-      .on("mouseover", (_, d) => setSelected(d.id));
-
-    return () => {
-      circles.exit().remove();
-    };
+    drawText(g, nodes, params);
   }, [selected]);
   return (
     <div>
@@ -231,3 +168,93 @@ export const GraphPage = () => {
     </div>
   );
 };
+
+function drawText(
+  g: Selection<BaseType, unknown, HTMLElement, any>,
+  nodes: NodeTree,
+  params: GraphParams
+) {
+  const text = g.selectAll("text").data(nodes.dataPoints);
+  // append text
+  text
+    .enter()
+    .append("text")
+    .attr("x", (d) => centerX(d))
+    .attr("y", (d) => centerY(d, params))
+    .attr("fill", "black")
+    .attr("font-size", "2em")
+    .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "middle")
+    .style("user-select", "none")
+    .style("pointer-events", "none")
+    .text((d) => d.id);
+  // update text
+  text
+    .attr("x", (d) => centerX(d))
+    .attr("y", (d) => centerY(d, params))
+    .attr("fill", "black")
+    .attr("font-size", "2em")
+    .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "middle")
+    .style("user-select", "none")
+    .style("pointer-events", "none")
+    .text((d) => d.id);
+}
+
+function drawLines(
+  g: Selection<BaseType, unknown, HTMLElement, any>,
+  nodes: NodeTree,
+  params: GraphParams
+) {
+  const lines = g.selectAll("line").data(nodes.connections);
+  lines
+    .enter()
+    .append("line")
+    .attr("x1", (d) => x1(d, params))
+    .attr("y1", (d) => y1(d, params))
+    .attr("x2", (d) => x2(d, params))
+    .attr("y2", (d) => y2(d, params))
+    .style("stroke", "black")
+    .style("stroke-width", 4);
+
+  lines
+    .attr("x1", (d) => x1(d, params))
+    .attr("y1", (d) => y1(d, params))
+    .attr("x2", (d) => x2(d, params))
+    .attr("y2", (d) => y2(d, params))
+    .style("stroke", "black")
+    .style("stroke-width", 4);
+}
+
+function drawCircles(
+  g: Selection<BaseType, unknown, HTMLElement, any>,
+  nodes: NodeTree,
+  params: GraphParams,
+  setSelected: Dispatch<SetStateAction<string>>,
+  selected: string
+) {
+  const circles = g.selectAll("circle").data(nodes.dataPoints);
+  // insert circles
+  circles
+    .enter()
+    .append("circle")
+    .attr("r", radius(params))
+    .attr("cx", (d) => centerX(d))
+    .attr("cy", (d) => centerY(d, params))
+    .attr("stroke", "black")
+    .attr("stroke-width", 4)
+    .attr("fill", "lightblue")
+    .on("mouseover", (_, d) => setSelected(d.id))
+    .on("mouseout", (_, d) => setSelected(""));
+
+  // update circles
+  circles
+    .attr("r", radius(params))
+    .attr("cx", (d) => centerX(d))
+    .attr("cy", (d) => centerY(d, params))
+    .attr("stroke", "black")
+    .attr("stroke-width", 4)
+    .attr("fill", (d) => (selected === d.id ? "blue" : "lightblue"))
+    .on("mouseover", (_, d) => setSelected(d.id))
+    .on("mouseout", (_, d) => setSelected(""));
+}

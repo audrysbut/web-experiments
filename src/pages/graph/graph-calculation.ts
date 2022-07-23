@@ -16,7 +16,7 @@ export interface NodeDataConnection {
   parent: NodeDataPoint;
   child: NodeDataPoint;
 }
-class NodeTree {
+export class NodeTree {
   constructor(
     public readonly dataPoints: NodeDataPoint[],
     public readonly connections: NodeDataConnection[]
