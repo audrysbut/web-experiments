@@ -57,7 +57,7 @@ const graph: Node = {
 };
 
 function centerX(node: NodeDataPoint): number {
-  return node.startPosition + node.width! / 2;
+  return node.startPosition + node.width / 2;
 }
 
 function centerY(node: NodeDataPoint, params: GraphParams): number {
@@ -245,7 +245,7 @@ function drawCircles(
     .attr("stroke-width", 4)
     .attr("fill", "lightblue")
     .on("mouseover", (_, d) => setSelected(d.id))
-    .on("mouseout", (_, d) => setSelected(""));
+    .on("mouseout", () => setSelected(""));
 
   // update circles
   circles
@@ -256,5 +256,5 @@ function drawCircles(
     .attr("stroke-width", 4)
     .attr("fill", (d) => (selected === d.id ? "blue" : "lightblue"))
     .on("mouseover", (_, d) => setSelected(d.id))
-    .on("mouseout", (_, d) => setSelected(""));
+    .on("mouseout", () => setSelected(""));
 }
