@@ -55,15 +55,15 @@ const graph: Node = {
 };
 
 function calculateCenterX(node: NodeDataPoint): number {
-  return node.startPosition + node.width! / 2
+  return node.startPosition + node.width! / 2;
 }
 
 function calculateCenterY(node: NodeDataPoint, params: GraphParams): number {
-  return params.widthConst * node.level * 1.5
+  return params.widthConst * node.level * 1.5;
 }
 
 function calculateRadius(params: GraphParams): number {
-  return params.widthConst / 2
+  return params.widthConst / 2;
 }
 
 export const GraphPage = () => {
@@ -71,11 +71,11 @@ export const GraphPage = () => {
 
   useEffect(() => {
     const params: GraphParams = {
-      widthConst: 100
-    }
+      widthConst: 100,
+    };
     const nodes = calculateGraph(graph, params);
 
-    const update = select("g").selectAll("circle").data(nodes.data);
+    const update = select("g").selectAll("circle").data(nodes.dataPoints);
     update.exit().remove();
     update
       .enter()
