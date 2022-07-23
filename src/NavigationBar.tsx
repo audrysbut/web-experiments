@@ -23,6 +23,9 @@ export const NavigationBar = () => {
           <th className="th" onClick={() => history.push("/puzzle")}>
             Puzzle
           </th>
+          <th className="th" onClick={() => history.push("/graph")}>
+            Graph
+          </th>
         </tr>
       </thead>
     </table>
