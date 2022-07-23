@@ -3,7 +3,7 @@ export class Node {
   nodes?: Node[];
 }
 
-class NodeDataPoint {
+export class NodeDataPoint {
   constructor(
     public readonly id: string,
     public readonly width: number,
@@ -26,7 +26,7 @@ interface GraphInternalParams {
 }
 
 export function calculateGraph(node: Node, params: GraphParams): NodeTree {
-  const nodeDataPoints = calculateNodeData(
+  return calculateNodeTree(
     node,
     [],
     0,
@@ -36,16 +36,15 @@ export function calculateGraph(node: Node, params: GraphParams): NodeTree {
     },
     0
   );
-  return new NodeTree(nodeDataPoints);
 }
 
-function calculateNodeData(
+function calculateNodeTree(
   o: Node,
   nodePoints: NodeDataPoint[],
   level: number,
   params: GraphInternalParams,
   startPosition: number
-): NodeDataPoint[] {
+): NodeTree {
   const nodesCount = o.nodes?.length || 0;
   if (nodesCount === 0) {
     nodePoints.push({
@@ -54,7 +53,7 @@ function calculateNodeData(
       startPosition,
       width: params.widthConst,
     });
-    return nodePoints;
+    return new NodeTree(nodePoints);
   }
 
   let childNodesWidth = 0;
@@ -63,7 +62,7 @@ function calculateNodeData(
     if (i > 0) {
       params.globalStart += params.widthConst * 1.5;
     }
-    calculateNodeData(n, nodePoints, level + 1, params, params.globalStart);
+    calculateNodeTree(n, nodePoints, level + 1, params, params.globalStart);
     childNodesWidth += nodePoints[nodePoints.length - 1].width;
   }
 
@@ -73,5 +72,5 @@ function calculateNodeData(
     startPosition,
     width: childNodesWidth + (nodesCount - 1) * 0.5 * params.widthConst,
   });
-  return nodePoints;
+  return new NodeTree(nodePoints);
 }

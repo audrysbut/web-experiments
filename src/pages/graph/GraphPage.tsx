@@ -4,6 +4,7 @@ import {
   calculateGraph,
   GraphParams,
   Node,
+  NodeDataPoint,
 } from "./graph-calculation";
 
 const graph: Node = {
@@ -53,6 +54,18 @@ const graph: Node = {
   ],
 };
 
+function calculateCenterX(node: NodeDataPoint): number {
+  return node.startPosition + node.width! / 2
+}
+
+function calculateCenterY(node: NodeDataPoint, params: GraphParams): number {
+  return params.widthConst * node.level * 1.5
+}
+
+function calculateRadius(params: GraphParams): number {
+  return params.widthConst / 2
+}
+
 export const GraphPage = () => {
   const containerRef = useRef(null);
 
@@ -67,9 +80,9 @@ export const GraphPage = () => {
     update
       .enter()
       .append("circle")
-      .attr("r", params.widthConst / 2)
-      .attr("cx", (d) => d.startPosition! + d.width! / 2)
-      .attr("cy", (d) => params.widthConst * d.level! * 1.5)
+      .attr("r", calculateRadius(params))
+      .attr("cx", (d) => calculateCenterX(d))
+      .attr("cy", (d) => calculateCenterY(d, params))
       .attr("stroke", "black")
       .attr("stroke-width", 4)
       .attr("fill", "white");
@@ -77,8 +90,8 @@ export const GraphPage = () => {
     update
       .enter()
       .append("text")
-      .attr("x", (d) => d.startPosition! + d.width! / 2)
-      .attr("y", (d) => params.widthConst * d.level! * 1.5)
+      .attr("x", (d) => calculateCenterX(d))
+      .attr("y", (d) => calculateCenterY(d, params))
       .attr("fill", "black")
       .attr("font-size", "2em")
       .attr("text-anchor", "middle")
@@ -86,9 +99,9 @@ export const GraphPage = () => {
       .text((d) => d.id);
 
     update
-      .attr("r", params.widthConst / 2)
-      .attr("cx", (d) => d.startPosition! + d.width! / 2)
-      .attr("cy", (d) => params.widthConst * d.level! * 1.5)
+      .attr("r", calculateRadius(params))
+      .attr("cx", (d) => calculateCenterX(d))
+      .attr("cy", (d) => calculateCenterY(d, params))
       .attr("stroke", "black")
       .attr("stroke-width", 4)
       .attr("fill", "white");
