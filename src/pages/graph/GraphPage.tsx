@@ -1,9 +1,10 @@
 import { select } from "d3";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   calculateGraph,
   GraphParams,
   Node,
+  NodeDataConnection,
   NodeDataPoint,
 } from "./graph-calculation";
 
@@ -54,20 +55,97 @@ const graph: Node = {
   ],
 };
 
-function calculateCenterX(node: NodeDataPoint): number {
+function centerX(node: NodeDataPoint): number {
   return node.startPosition + node.width! / 2;
 }
 
-function calculateCenterY(node: NodeDataPoint, params: GraphParams): number {
+function centerY(node: NodeDataPoint, params: GraphParams): number {
   return params.widthConst * node.level * 1.5;
 }
 
-function calculateRadius(params: GraphParams): number {
+function radius(params: GraphParams): number {
   return params.widthConst / 2;
+}
+
+function x1(connection: NodeDataConnection, params: GraphParams) {
+  const { parent, child } = connection;
+  const parentCenterY = centerY(parent, params);
+  const parentCenterX = centerX(parent);
+
+  const childCenterX = centerX(child);
+  const childCenterY = centerY(child, params);
+
+  const dX = parentCenterX - childCenterX;
+  const dY = parentCenterY - childCenterY;
+
+  const angle = Math.atan(dY / dX);
+  let length = params.widthConst * 0.5 * Math.cos(angle);
+  if (dX < 0) {
+    length = length * -1;
+  }
+  return parentCenterX - length;
+}
+
+function x2(connection: NodeDataConnection, params: GraphParams) {
+  const { parent, child } = connection;
+  const parentCenterY = centerY(parent, params);
+  const parentCenterX = centerX(parent);
+
+  const childCenterX = centerX(child);
+  const childCenterY = centerY(child, params);
+
+  const dX = parentCenterX - childCenterX;
+  const dY = parentCenterY - childCenterY;
+
+  const angle = Math.atan(dY / dX);
+  let length = params.widthConst * 0.5 * Math.cos(angle);
+  if (dX < 0) {
+    length = length * -1;
+  }
+  return childCenterX + length;
+}
+
+function y1(connection: NodeDataConnection, params: GraphParams) {
+  const { parent, child } = connection;
+  const parentCenterY = centerY(parent, params);
+  const parentCenterX = centerX(parent);
+
+  const childCenterX = centerX(child);
+  const childCenterY = centerY(child, params);
+
+  const dX = parentCenterX - childCenterX;
+  const dY = parentCenterY - childCenterY;
+
+  const angle = Math.atan(dY / dX);
+  let length = params.widthConst * 0.5 * Math.sin(angle);
+  if (dX < 0) {
+    length = length * -1;
+  }
+  return parentCenterY - length;
+}
+
+function y2(connection: NodeDataConnection, params: GraphParams) {
+  const { parent, child } = connection;
+  const parentCenterY = centerY(parent, params);
+  const parentCenterX = centerX(parent);
+
+  const childCenterX = centerX(child);
+  const childCenterY = centerY(child, params);
+
+  const dX = parentCenterX - childCenterX;
+  const dY = parentCenterY - childCenterY;
+
+  const angle = Math.atan(dY / dX);
+  let length = params.widthConst * 0.5 * Math.sin(angle);
+  if (dX < 0) {
+    length = length * -1;
+  }
+  return childCenterY + length;
 }
 
 export const GraphPage = () => {
   const containerRef = useRef(null);
+  const [selected, setSelected] = useState("");
 
   useEffect(() => {
     const params: GraphParams = {
@@ -75,41 +153,76 @@ export const GraphPage = () => {
     };
     const nodes = calculateGraph(graph, params);
 
-    const update = select("g").selectAll("circle").data(nodes.dataPoints);
-    update.exit().remove();
-    update
+    const g = select("g");
+    const circles = g.selectAll("circle").data(nodes.dataPoints);
+    const text = g.selectAll("text").data(nodes.dataPoints);
+
+    // insert circles
+    circles
       .enter()
       .append("circle")
-      .attr("r", calculateRadius(params))
-      .attr("cx", (d) => calculateCenterX(d))
-      .attr("cy", (d) => calculateCenterY(d, params))
+      .attr("r", radius(params))
+      .attr("cx", (d) => centerX(d))
+      .attr("cy", (d) => centerY(d, params))
       .attr("stroke", "black")
       .attr("stroke-width", 4)
-      .attr("fill", "white");
+      .attr("fill", "white")
+      .on("mouseover", (_, d) => setSelected(d.id))
+      .on("mouseout", (_, d) => selected !== d.id ?? setSelected(""));
 
-    update
+    // update circles
+    circles
+      .attr("r", radius(params))
+      .attr("cx", (d) => centerX(d))
+      .attr("cy", (d) => centerY(d, params))
+      .attr("stroke", "black")
+      .attr("stroke-width", 4)
+      .attr("fill", (d) => (selected === d.id ? "Red" : "white"))
+      .on("mouseover", (_, d) => setSelected(d.id))
+      .on("mouseout", (_, d) => setSelected(""));
+
+    const lines = g.selectAll("line").data(nodes.connections);
+    lines
+      .enter()
+      .append("line")
+      .attr("x1", (d) => x1(d, params))
+      .attr("y1", (d) => y1(d, params))
+      .attr("x2", (d) => x2(d, params))
+      .attr("y2", (d) => y2(d, params))
+      .style("stroke", "black")
+      .style("stroke-width", 4);
+
+    // append text
+    text
       .enter()
       .append("text")
-      .attr("x", (d) => calculateCenterX(d))
-      .attr("y", (d) => calculateCenterY(d, params))
+      .attr("x", (d) => centerX(d))
+      .attr("y", (d) => centerY(d, params))
       .attr("fill", "black")
       .attr("font-size", "2em")
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "middle")
-      .text((d) => d.id);
+      .style("user-select", "none")
+      .text((d) => d.id)
+      .on("mouseover", (_, d) => setSelected(d.id));
+    // .on("mouseout", (_, d) => setSelected(""));
 
-    update
-      .attr("r", calculateRadius(params))
-      .attr("cx", (d) => calculateCenterX(d))
-      .attr("cy", (d) => calculateCenterY(d, params))
-      .attr("stroke", "black")
-      .attr("stroke-width", 4)
-      .attr("fill", "white");
+    // update text
+    text
+      .attr("x", (d) => centerX(d))
+      .attr("y", (d) => centerY(d, params))
+      .attr("fill", "black")
+      .attr("font-size", "2em")
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .style("user-select", "none")
+      .text((d) => d.id)
+      .on("mouseover", (_, d) => setSelected(d.id));
 
     return () => {
-      // update.exit().remove();
+      circles.exit().remove();
     };
-  }, []);
+  }, [selected]);
   return (
     <div>
       <svg id="content" width="100%" height="1000" ref={containerRef}>

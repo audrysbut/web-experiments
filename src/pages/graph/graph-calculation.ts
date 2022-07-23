@@ -1,5 +1,5 @@
-export class Node {
-  id: string = "";
+export interface Node {
+  id: string;
   nodes?: Node[];
 }
 
@@ -12,8 +12,15 @@ export class NodeDataPoint {
   ) {}
 }
 
+export interface NodeDataConnection {
+  parent: NodeDataPoint;
+  child: NodeDataPoint;
+}
 class NodeTree {
-  constructor(public readonly dataPoints: NodeDataPoint[]) {}
+  constructor(
+    public readonly dataPoints: NodeDataPoint[],
+    public readonly connections: NodeDataConnection[]
+  ) {}
 }
 
 export interface GraphParams {
@@ -25,40 +32,61 @@ interface GraphInternalParams {
   widthConst: number;
 }
 
+interface NodeConnection {
+  parentId: string;
+  childId: string;
+}
+
+interface CalculationResult {
+  dataPoints: NodeDataPoint[];
+  connections: NodeConnection[];
+}
+
 export function calculateGraph(node: Node, params: GraphParams): NodeTree {
-  const dataPoints: NodeDataPoint[] = [];
   const level = 0;
   const internalParams: GraphInternalParams = {
     globalStart: 0,
     widthConst: params.widthConst,
   };
   const startPosition = 0;
+  const calculationResult: CalculationResult = {
+    dataPoints: [],
+    connections: [],
+  };
 
-  return calculateNodeTree(
+  const { dataPoints, connections } = calculate(
     node,
-    dataPoints,
+    calculationResult,
     level,
     internalParams,
     startPosition
   );
+  var nodes = new Map(dataPoints.map((i) => [i.id, i]));
+  const nodeDataConnections: NodeDataConnection[] = connections.map(
+    ({ parentId, childId }) => ({
+      parent: nodes.get(parentId)!,
+      child: nodes.get(childId)!,
+    })
+  );
+  return new NodeTree(dataPoints, nodeDataConnections);
 }
 
-function calculateNodeTree(
+function calculate(
   parentNode: Node,
-  nodePoints: NodeDataPoint[],
+  calculationResult: CalculationResult,
   level: number,
   params: GraphInternalParams,
   startPosition: number
-): NodeTree {
+): CalculationResult {
   const nodesCount = parentNode.nodes?.length || 0;
   if (nodesCount === 0) {
-    nodePoints.push({
+    calculationResult.dataPoints.push({
       id: parentNode.id,
       level,
       startPosition,
       width: params.widthConst,
     });
-    return new NodeTree(nodePoints);
+    return calculationResult;
   }
 
   let childNodesWidth = 0;
@@ -67,17 +95,23 @@ function calculateNodeTree(
     if (i > 0) {
       params.globalStart += params.widthConst * 1.5;
     }
-    calculateNodeTree(n, nodePoints, level + 1, params, params.globalStart);
+    calculate(n, calculationResult, level + 1, params, params.globalStart);
 
-    const childNode = nodePoints[nodePoints.length - 1];
+    const childNode =
+      calculationResult.dataPoints[calculationResult.dataPoints.length - 1];
     childNodesWidth += childNode.width;
+
+    calculationResult.connections.push({
+      parentId: parentNode.id,
+      childId: childNode.id,
+    });
   }
 
-  nodePoints.push({
+  calculationResult.dataPoints.push({
     id: parentNode.id,
     level,
     startPosition,
     width: childNodesWidth + (nodesCount - 1) * 0.5 * params.widthConst,
   });
-  return new NodeTree(nodePoints);
+  return calculationResult;
 }
