@@ -61,7 +61,7 @@ export function calculateGraph(node: Node, params: GraphParams): NodeTree {
     internalParams,
     startPosition
   );
-  var nodes = new Map(dataPoints.map((i) => [i.id, i]));
+  const nodes = new Map(dataPoints.map((i) => [i.id, i]));
   const nodeDataConnections: NodeDataConnection[] = connections.map(
     ({ parentId, childId }) => ({
       parent: nodes.get(parentId)!,
