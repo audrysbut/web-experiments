@@ -1,46 +1,77 @@
 export class Node {
   id: string = "";
-  nodes?: Node[] = [];
-  width?: number;
-  level?: number;
-  startPosition?: number;
+  nodes?: Node[];
 }
 
-export const widthConst = 100;
-let globalStart = 0;
-
-export function updateNode(node: Node) {
-  globalStart = 0;
-  return updateNodeInternal(node, 0, 0);
+class NodeDataPoint {
+  constructor(
+    public readonly id: string,
+    public readonly width: number,
+    public readonly level: number,
+    public readonly startPosition: number
+  ) {}
 }
 
-function updateNodeInternal(node: Node, level: number, startPosition: number) {
-  const nodesCount = node.nodes ? node.nodes.length : 0;
+class NodeTree {
+  constructor(public readonly data: NodeDataPoint[]) {}
+}
+
+export interface GraphParams {
+  widthConst: number;
+}
+
+interface GraphInternalParams {
+  globalStart: number;
+  widthConst: number;
+}
+
+export function calculateGraph(node: Node, params: GraphParams): NodeTree {
+  const nodeDataPoints = calculateNodeData(
+    node,
+    [],
+    0,
+    {
+      globalStart: 0,
+      widthConst: params.widthConst,
+    },
+    0
+  );
+  return new NodeTree(nodeDataPoints);
+}
+
+function calculateNodeData(
+  o: Node,
+  nodePoints: NodeDataPoint[],
+  level: number,
+  params: GraphInternalParams,
+  startPosition: number
+): NodeDataPoint[] {
+  const nodesCount = o.nodes?.length || 0;
   if (nodesCount === 0) {
-    node.width = widthConst;
-    node.level = level;
-    node.startPosition = startPosition;
-    return;
+    nodePoints.push({
+      id: o.id,
+      level,
+      startPosition,
+      width: params.widthConst,
+    });
+    return nodePoints;
   }
 
   let childNodesWidth = 0;
   for (let i = 0; i < nodesCount; i++) {
-    const n = node.nodes![i];
+    const n = o.nodes![i];
     if (i > 0) {
-      globalStart += widthConst * 1.5;
+      params.globalStart += params.widthConst * 1.5;
     }
-    updateNodeInternal(n, level + 1, globalStart);
-    childNodesWidth += n.width!;
+    calculateNodeData(n, nodePoints, level + 1, params, params.globalStart);
+    childNodesWidth += nodePoints[nodePoints.length - 1].width;
   }
-  node.width = childNodesWidth + (nodesCount - 1) * 0.5 * widthConst;
-  node.level = level;
-  node.startPosition = startPosition;
-}
 
-export function getListNode(o: Node, nodeList: Node[] = []): Node[] {
-  for (const n of o.nodes || []) {
-    getListNode(n, nodeList);
-  }
-  nodeList.push(o);
-  return nodeList;
+  nodePoints.push({
+    id: o.id,
+    level,
+    startPosition,
+    width: childNodesWidth + (nodesCount - 1) * 0.5 * params.widthConst,
+  });
+  return nodePoints;
 }
