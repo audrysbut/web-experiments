@@ -43,6 +43,13 @@ const graph: Node = {
         {
           id: "114",
         },
+        {
+          id: "115",
+          nodes: [{ id: "1151" }, { id: "1152" }],
+        },
+        {
+          id: "116",
+        },
       ],
     },
     {
@@ -198,7 +205,7 @@ function drawConnections(
       const dy = _y2 - _y1;
       const dx = _x2 - _x1;
       const minD = Math.min(dx, dy);
-      const radius = Math.abs(minD) * 0.5;
+      const radius = Math.abs(minD) * 0.2;
       const xOffset = getOffset(dx, radius);
       const m1x = _x2 - xOffset;
       const m1y = _y1;
