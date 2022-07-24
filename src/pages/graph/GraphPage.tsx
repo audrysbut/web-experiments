@@ -135,7 +135,7 @@ export const GraphPage = () => {
 
   useEffect(() => {
     const params: GraphParams = {
-      widthConst: 100,
+      widthConst: 50,
     };
     const nodes = calculateGraph(graph, params);
     const g = select("g");
@@ -167,7 +167,7 @@ function drawText(
     .attr("x", (d) => centerX(d))
     .attr("y", (d) => centerY(d, params))
     .attr("fill", "black")
-    .attr("font-size", "2em")
+    .attr("font-size", "1em")
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "middle")
     .style("user-select", "none")
@@ -178,7 +178,7 @@ function drawText(
     .attr("x", (d) => centerX(d))
     .attr("y", (d) => centerY(d, params))
     .attr("fill", "black")
-    .attr("font-size", "2em")
+    .attr("font-size", "1em")
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "middle")
     .style("user-select", "none")
@@ -200,7 +200,7 @@ function drawLines(
     .attr("x2", (d) => x2(d, params))
     .attr("y2", (d) => y2(d, params))
     .style("stroke", "black")
-    .style("stroke-width", 4);
+    .style("stroke-width", 2);
 
   lines
     .attr("x1", (d) => x1(d, params))
@@ -208,7 +208,7 @@ function drawLines(
     .attr("x2", (d) => x2(d, params))
     .attr("y2", (d) => y2(d, params))
     .style("stroke", "black")
-    .style("stroke-width", 4);
+    .style("stroke-width", 2);
 }
 
 function drawCircles(
@@ -227,7 +227,7 @@ function drawCircles(
     .attr("cx", (d) => centerX(d))
     .attr("cy", (d) => centerY(d, params))
     .attr("stroke", "black")
-    .attr("stroke-width", 4)
+    .attr("stroke-width", 2)
     .attr("fill", "lightblue")
     .on("mouseover", (_, d) => setSelected(d.id))
     .on("mouseout", () => setSelected(""));
@@ -238,7 +238,7 @@ function drawCircles(
     .attr("cx", (d) => centerX(d))
     .attr("cy", (d) => centerY(d, params))
     .attr("stroke", "black")
-    .attr("stroke-width", 4)
+    .attr("stroke-width", 2)
     .attr("fill", (d) => (selected === d.id ? "blue" : "lightblue"))
     .on("mouseover", (_, d) => setSelected(d.id))
     .on("mouseout", () => setSelected(""));
