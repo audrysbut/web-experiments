@@ -88,7 +88,6 @@ function drawCircles(
   selected: string
 ) {
   const circles = g.selectAll("#circles").data(nodes.dataPoints);
-  // insert circles
   circles
     .enter()
     .append("circle")
@@ -102,7 +101,6 @@ function drawCircles(
     .on("mouseover", (_, d) => setSelected(d.id))
     .on("mouseout", () => setSelected(""));
 
-  // update circles
   circles
     .attr("r", radius(params))
     .attr("id", "circles")
@@ -198,7 +196,6 @@ function drawText(
   params: GraphParams
 ) {
   const text = g.selectAll("#nodeText").data(nodes.dataPoints);
-  // append text
   text
     .enter()
     .append("text")
