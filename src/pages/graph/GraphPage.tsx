@@ -60,9 +60,9 @@ const graph: Node = {
 
 export const GraphPage = () => {
   return (
-    <div>
-      <Graph graph={graph} />
-      <Graph graph={graph} />
-    </div>
+    <>
+      <Graph graph={graph} widthConst={50} />
+      <Graph graph={graph} widthConst={50} />
+    </>
   );
 };

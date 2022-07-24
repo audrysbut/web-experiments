@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import {
   calculateGraph,
-  GraphParams,
   Node,
   NodeDataConnection,
   NodeDataPoint,
@@ -9,40 +8,42 @@ import {
 } from "./graph-calculation";
 import { select, Selection, BaseType } from "d3";
 
-interface GraphInputParams {
+export interface GraphParams {
   graph: Node;
+  widthConst: number;
 }
 
 let graphIndex = 0;
-export const Graph = ({ graph }: GraphInputParams) => {
+export const Graph = (params: GraphParams) => {
   const containerRef = useRef(null);
   const [selected, setSelected] = useState("");
   const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
   const [gIndex] = useState(`g${graphIndex++}`);
 
   useEffect(() => {
-    const params: GraphParams = {
-      widthConst: 50,
-    };
-    const nodes = calculateGraph(graph, params);
-    const rootWidth = nodes.dataPoints[nodes.dataPoints.length - 1].width;
-    setWidth(rootWidth + 5);
+    const graphData = calculateGraph(params);
+    setWidth(graphData.width);
+    setHeight(graphData.height);
     const g = select(`#${gIndex}`);
 
-    drawCircles(g, nodes, params, setSelected, selected);
-    drawConnections(g, nodes, params);
+    drawCircles(g, graphData, params, setSelected, selected);
+    drawConnections(g, graphData, params);
 
-    drawText(g, nodes, params);
-  }, [gIndex, graph, selected]);
+    drawText(g, graphData, params);
+  }, [gIndex, params, selected]);
   return (
     <div
       style={{
-        height: "300px",
+        height: `${height}px`,
         width: `${width}px`,
       }}
     >
       <svg id="content" width="100%" height="100%" ref={containerRef}>
-        <g id={gIndex} transform="translate(0, 30)" />
+        <g
+          id={gIndex}
+          transform={`translate(0, ${params.widthConst * 0.52})`}
+        />
       </svg>
     </div>
   );
@@ -203,7 +204,7 @@ function drawText(
     .attr("x", (d) => centerX(d))
     .attr("y", (d) => centerY(d, params))
     .attr("fill", "black")
-    .attr("font-size", "1em")
+    .attr("font-size", `${params.widthConst * 0.33}`)
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "middle")
     .style("user-select", "none")

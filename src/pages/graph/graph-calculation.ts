@@ -1,3 +1,5 @@
+import { GraphParams } from "./Graph";
+
 export interface Node {
   id: string;
   nodes?: Node[];
@@ -19,12 +21,10 @@ export interface NodeDataConnection {
 export class NodeTree {
   constructor(
     public readonly dataPoints: NodeDataPoint[],
-    public readonly connections: NodeDataConnection[]
+    public readonly connections: NodeDataConnection[],
+    public readonly width: number,
+    public readonly height: number
   ) {}
-}
-
-export interface GraphParams {
-  widthConst: number;
 }
 
 interface GraphInternalParams {
@@ -42,7 +42,7 @@ interface CalculationResult {
   connections: NodeConnection[];
 }
 
-export function calculateGraph(node: Node, params: GraphParams): NodeTree {
+export function calculateGraph(params: GraphParams): NodeTree {
   const level = 0;
   const internalParams: GraphInternalParams = {
     globalStart: 0,
@@ -55,7 +55,7 @@ export function calculateGraph(node: Node, params: GraphParams): NodeTree {
   };
 
   const { dataPoints, connections } = calculate(
-    node,
+    params.graph,
     calculationResult,
     level,
     internalParams,
@@ -68,7 +68,13 @@ export function calculateGraph(node: Node, params: GraphParams): NodeTree {
       child: nodes.get(childId)!,
     })
   );
-  return new NodeTree(dataPoints, nodeDataConnections);
+  const lastDataPoint = dataPoints[dataPoints.length - 1];
+  const rootWidth = lastDataPoint.width;
+
+  const maxLevel = Math.max(...dataPoints.map((r) => r.level));
+  const height =
+    (maxLevel + 1) * params.widthConst + 0.53 * maxLevel * params.widthConst;
+  return new NodeTree(dataPoints, nodeDataConnections, rootWidth + 5, height);
 }
 
 function calculate(
