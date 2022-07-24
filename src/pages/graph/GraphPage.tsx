@@ -68,15 +68,6 @@ function radius(params: GraphParams): number {
   return params.widthConst / 2;
 }
 
-function x1(connection: NodeDataConnection, params: GraphParams) {
-  const { angle, dX, parentCenterX } = genericCalculation(connection, params);
-  let length = params.widthConst * 0.5 * Math.cos(angle);
-  if (dX < 0) {
-    length = length * -1;
-  }
-  return parentCenterX - length;
-}
-
 function genericCalculation(
   connection: NodeDataConnection,
   params: GraphParams
@@ -89,11 +80,8 @@ function genericCalculation(
   const childCenterY = centerY(child, params);
 
   const dX = parentCenterX - childCenterX;
-  const dY = parentCenterY - childCenterY;
 
-  const angle = Math.atan(dY / dX);
   return {
-    angle,
     dX,
     parentCenterX,
     childCenterX,
@@ -102,30 +90,35 @@ function genericCalculation(
   };
 }
 
-function x2(connection: NodeDataConnection, params: GraphParams) {
-  const { angle, dX, childCenterX } = genericCalculation(connection, params);
-  let length = params.widthConst * 0.5 * Math.cos(angle);
+function x1(connection: NodeDataConnection, params: GraphParams) {
+  const { dX, parentCenterX } = genericCalculation(connection, params);
+  let length = params.widthConst * 0.5; // * Math.cos(angle);
   if (dX < 0) {
     length = length * -1;
+  } else if (dX === 0) {
+    length = 0;
   }
+  return parentCenterX - length;
+}
+
+function x2(connection: NodeDataConnection, params: GraphParams) {
+  const { childCenterX } = genericCalculation(connection, params);
+  let length = params.widthConst * 0.5 * Math.cos(Math.PI * 0.5);
   return childCenterX + length;
 }
 
 function y1(connection: NodeDataConnection, params: GraphParams) {
-  const { angle, dX, parentCenterY } = genericCalculation(connection, params);
-  let length = params.widthConst * 0.5 * Math.sin(angle);
-  if (dX < 0) {
-    length = length * -1;
+  const { dX, parentCenterY } = genericCalculation(connection, params);
+  let length = params.widthConst * 0 * Math.sin(-Math.PI / 2);
+  if (dX === 0) {
+    length = -params.widthConst / 2;
   }
   return parentCenterY - length;
 }
 
 function y2(connection: NodeDataConnection, params: GraphParams) {
-  const { angle, dX, childCenterY } = genericCalculation(connection, params);
-  let length = params.widthConst * 0.5 * Math.sin(angle);
-  if (dX < 0) {
-    length = length * -1;
-  }
+  const { childCenterY } = genericCalculation(connection, params);
+  let length = params.widthConst * 0.5 * Math.sin(-Math.PI / 2);
   return childCenterY + length;
 }
 
