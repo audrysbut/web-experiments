@@ -7,12 +7,13 @@ import { RubikPage } from "./pages/rubik/RubikPage";
 import { ClockPage } from "./pages/clock/ClockPage";
 import { PuzzlePage } from "./pages/puzzle/PuzzlePage";
 import { GraphPage } from "./pages/graph/GraphPage";
+import { SportPage } from "./pages/sport/SportPage";
 
 export const App = () => {
   return (
     <Router basename="/">
       <div>
-        { /* TODO: export those router parameters and reuse them in Navigation bar */}
+        {/* TODO: export those router parameters and reuse them in Navigation bar */}
         <NavigationBar />
         <Switch>
           <Route exact path="/">
@@ -32,6 +33,9 @@ export const App = () => {
           </Route>
           <Route path="/graph">
             <GraphPage />
+          </Route>
+          <Route path="/sport">
+            <SportPage />
           </Route>
         </Switch>
       </div>

@@ -11,20 +11,23 @@ export const NavigationBar = () => {
           <th className="th" onClick={() => history.push("/")}>
             Home
           </th>
-          <th className="th" onClick={() => history.push("/rubik")}>
+          {/* <th className="th" onClick={() => history.push("/rubik")}>
             Rubik
-          </th>
-          <th className="th" onClick={() => history.push("/sudoku")}>
+          </th> */}
+          {/* <th className="th" onClick={() => history.push("/sudoku")}>
             Sudoku solver
-          </th>
+          </th> */}
           <th className="th" onClick={() => history.push("/clock")}>
             Clock
           </th>
           <th className="th" onClick={() => history.push("/puzzle")}>
             Puzzle
           </th>
-          <th className="th" onClick={() => history.push("/graph")}>
+          {/* <th className="th" onClick={() => history.push("/graph")}>
             Graph
+          </th> */}
+          <th className="th" onClick={() => history.push("/sport")}>
+            Sport
           </th>
         </tr>
       </thead>
