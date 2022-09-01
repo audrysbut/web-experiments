@@ -1,94 +1,88 @@
 import "./SportPage.css";
 
-interface NavigationComponentProps {
-  second: number;
+interface SportData {
+  muscleGroup: string;
+  exercise: string;
+  series: string[];
 }
-const NavigationComponent = ({ second }: NavigationComponentProps) => {
-  const openInNewTab = () => {
-    window.open(
-      `https://youtu.be/gPwouYwa8Lk?t=${second}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
-  return <div onClick={() => openInNewTab()}>Navigate</div>;
+
+const day1: SportData[] = [
+  {
+    muscleGroup: "Apšilimas",
+    exercise: "Ėjimas",
+    series: ["5 min"],
+  },
+  {
+    muscleGroup: "Presas",
+    exercise: "Susirietimas su kamuolio uždėjimo ant kojų",
+    series: ["4x10"],
+  },
+  {
+    muscleGroup: "Krutinė",
+    exercise: "Spausti laisva štanga nuo lygaus",
+    series: ["10 x 10 Kg", "8 x 15 Kg", "6 x 20 Kg", "5 x 25 Kg"],
+  },
+  {
+    muscleGroup: "Krūtinė",
+    exercise: "Spausti įtvirtinta štanga kampu + suvedimai staklėse",
+    series: ["4x10 30 Kg", "4x12 20 KG"],
+  },
+  {
+    muscleGroup: "Nugara",
+    exercise: "Viršutinio torso trauka už galvos",
+    series: ["4x12 20 Kg"],
+  },
+  {
+    muscleGroup: "Nugara",
+    exercise: "Trauka sėdint treniruoklyje plačiai",
+    series: ["4x12 20 Kg"],
+  },
+  {
+    muscleGroup: "Bicepsas",
+    exercise: "Lenkimas treniruoklyje+lenkimas su štanga",
+    series: ["4x12 15Kg", "4x10 15 Kg"],
+  },
+];
+const day2: SportData[] = [];
+const day3: SportData[] = [];
+
+interface ExerciseTableProps {
+  data: SportData[];
+}
+
+const ExerciseTable = ({ data }: ExerciseTableProps) => {
+  const rowData = data.map((r) => (
+    <tr>
+      <td className="sport">{r.muscleGroup}</td>
+      <td className="sport">{r.exercise}</td>
+      <td className="sport">
+        {r.series.map((t) => (
+          <div>{t}</div>
+        ))}
+      </td>
+    </tr>
+  ));
+  return (
+    <table className="tableSport">
+      <thead>
+        <th className="sport">Raumenų grupė</th>
+        <th className="sport">Pratimas</th>
+        <th className="sport">Serijos / Kartojimai</th>
+      </thead>
+      <tbody>{rowData}</tbody>
+    </table>
+  );
 };
 
 export const SportPage = () => {
   return (
-    <table className="tableSport">
-      <thead>
-        <th className="sport">Exercise</th>
-        <th className="sport">Reps</th>
-        <th className="sport">Count</th>
-        <th className="sport">Laikas</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td className="sport">13</td>
-          <td className="sport">3</td>
-          <td className="sport">15</td>
-          <td className="sport">
-            <NavigationComponent second={6} />
-          </td>
-        </tr>
-        <tr className="sport">
-          <td className="sport">12</td>
-          <td className="sport">3</td>
-          <td className="sport">12</td>
-          <td className="sport">
-            <NavigationComponent second={24} />
-          </td>
-        </tr>
-        <tr>
-          <td className="sport">2</td>
-          <td className="sport">3</td>
-          <td className="sport">10</td>
-          <td className="sport">
-            <NavigationComponent second={45} />
-          </td>
-        </tr>
-        <tr>
-          <td className="sport">4</td>
-          <td className="sport">3</td>
-          <td className="sport">10</td>
-          <td className="sport">
-            <NavigationComponent second={64} />
-          </td>
-        </tr>
-        <tr>
-          <td className="sport">6</td>
-          <td className="sport">3</td>
-          <td className="sport">12</td>
-          <td className="sport">
-            <NavigationComponent second={87} />
-          </td>
-        </tr>
-        <tr>
-          <td className="sport">14</td>
-          <td className="sport">3</td>
-          <td className="sport">12</td>
-          <td className="sport">
-            <NavigationComponent second={116} />
-          </td>
-        </tr>
-        <tr>
-          <td className="sport">7</td>
-          <td className="sport">3</td>
-          <td className="sport">10</td>
-          <td className="sport">
-            <NavigationComponent second={145} />
-          </td>
-        </tr>
-        <tr>
-          <td className="sport">8</td>
-          <td className="sport">3</td>
-          <td className="sport">10</td>
-          <td className="sport">
-            <NavigationComponent second={162} />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div
+      style={{
+        marginLeft: "0.5rem",
+      }}
+    >
+      <span>1 diena</span>
+      <ExerciseTable data={day1} />
+    </div>
   );
 };

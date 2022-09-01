@@ -9,7 +9,7 @@ export const NavigationBar = () => {
       <thead>
         <tr>
           <th className="th" onClick={() => history.push("/")}>
-            Home
+            Sport
           </th>
           <th className="th" onClick={() => history.push("/rubik")}>
             Rubik
