@@ -6,7 +6,6 @@ import { RubikPage } from "./pages/rubik/RubikPage";
 import { ClockPage } from "./pages/clock/ClockPage";
 import { PuzzlePage } from "./pages/puzzle/PuzzlePage";
 import { GraphPage } from "./pages/graph/GraphPage";
-import { SportPage } from "./pages/sport/SportPage";
 
 export const App = () => {
   return (
@@ -16,7 +15,7 @@ export const App = () => {
         <NavigationBar />
         <Switch>
           <Route exact path="/">
-            <SportPage />
+            <GraphPage />
           </Route>
           <Route path="/sudoku">
             <SudokuPage />
@@ -29,9 +28,6 @@ export const App = () => {
           </Route>
           <Route path="/puzzle">
             <PuzzlePage />
-          </Route>
-          <Route path="/graph">
-            <GraphPage />
           </Route>
         </Switch>
       </div>

@@ -8,9 +8,6 @@ export const NavigationBar = () => {
     <table className="table">
       <thead>
         <tr>
-          <th className="th" onClick={() => history.push("/")}>
-            Sport
-          </th>
           <th className="th" onClick={() => history.push("/rubik")}>
             Rubik
           </th>
