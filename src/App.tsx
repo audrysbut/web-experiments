@@ -29,6 +29,9 @@ export const App = () => {
           <Route path="/puzzle">
             <PuzzlePage />
           </Route>
+          <Route exact path="/graph">
+            <GraphPage />
+          </Route>
         </Switch>
       </div>
     </Router>
