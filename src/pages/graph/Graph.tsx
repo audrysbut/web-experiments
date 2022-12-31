@@ -8,13 +8,13 @@ import {
 } from "./graph-calculation";
 import { select, Selection, BaseType } from "d3";
 
-export interface GraphParams {
-  graph: Node;
-  widthConst: number;
+export interface GraphParams<T> {
+  graph: Node<T>;
+  width: number;
 }
 
 let graphIndex = 0;
-export const Graph = (params: GraphParams) => {
+export const Graph = <T,>(params: GraphParams<T>) => {
   const containerRef = useRef(null);
   const [selected, setSelected] = useState("");
   const [width, setWidth] = useState(0);
@@ -42,17 +42,17 @@ export const Graph = (params: GraphParams) => {
       <svg id="content" width="100%" height="100%" ref={containerRef}>
         <g
           id={gIndex}
-          transform={`translate(0, ${params.widthConst * 0.52})`}
+          transform={`translate(0, ${params.width * 0.52})`}
         />
       </svg>
     </div>
   );
 };
 
-function drawConnections(
+function drawConnections<T>(
   g: Selection<BaseType, unknown, HTMLElement, any>,
-  nodes: NodeTree,
-  params: GraphParams
+  nodes: NodeTree<T>,
+  params: GraphParams<T>
 ) {
   const arc = g.selectAll("#connections").data(nodes.connections);
   arc
@@ -81,10 +81,10 @@ function drawConnections(
     .style("stroke-width", 2);
 }
 
-function drawCircles(
+function drawCircles<T>(
   g: Selection<BaseType, unknown, HTMLElement, any>,
-  nodes: NodeTree,
-  params: GraphParams,
+  nodes: NodeTree<T>,
+  params: GraphParams<T>,
   setSelected: Dispatch<SetStateAction<string>>,
   selected: string
 ) {
@@ -114,21 +114,21 @@ function drawCircles(
     .on("mouseout", () => setSelected(""));
 }
 
-function radius(params: GraphParams): number {
-  return params.widthConst / 2;
+function radius<T>(params: GraphParams<T>): number {
+  return params.width / 2;
 }
 
-function centerX(node: NodeDataPoint): number {
+function centerX<T>(node: NodeDataPoint<T>): number {
   return node.startPosition + node.width / 2;
 }
 
-function centerY(node: NodeDataPoint, params: GraphParams): number {
-  return params.widthConst * node.level * 1.5;
+function centerY<T>(node: NodeDataPoint<T>, params: GraphParams<T>): number {
+  return params.width * node.level * 1.5;
 }
 
-function x1(connection: NodeDataConnection, params: GraphParams) {
+function x1<T>(connection: NodeDataConnection<T>, params: GraphParams<T>) {
   const { dX, parentCenterX } = genericCalculation(connection, params);
-  let length = params.widthConst * 0.5; // * Math.cos(angle);
+  let length = params.width * 0.5; // * Math.cos(angle);
   if (dX < 0) {
     length = length * -1;
   } else if (dX === 0) {
@@ -137,30 +137,30 @@ function x1(connection: NodeDataConnection, params: GraphParams) {
   return parentCenterX - length;
 }
 
-function x2(connection: NodeDataConnection, params: GraphParams) {
+function x2<T>(connection: NodeDataConnection<T>, params: GraphParams<T>) {
   const { childCenterX } = genericCalculation(connection, params);
-  let length = params.widthConst * 0.5 * Math.cos(Math.PI * 0.5);
+  let length = params.width * 0.5 * Math.cos(Math.PI * 0.5);
   return childCenterX + length;
 }
 
-function y1(connection: NodeDataConnection, params: GraphParams) {
+function y1<T>(connection: NodeDataConnection<T>, params: GraphParams<T>) {
   const { dX, parentCenterY } = genericCalculation(connection, params);
-  let length = params.widthConst * 0 * Math.sin(-Math.PI / 2);
+  let length = params.width * 0 * Math.sin(-Math.PI / 2);
   if (dX === 0) {
-    length = -params.widthConst / 2;
+    length = -params.width / 2;
   }
   return parentCenterY - length;
 }
 
-function y2(connection: NodeDataConnection, params: GraphParams) {
+function y2<T>(connection: NodeDataConnection<T>, params: GraphParams<T>) {
   const { childCenterY } = genericCalculation(connection, params);
-  let length = params.widthConst * 0.5 * Math.sin(-Math.PI / 2);
+  let length = params.width * 0.5 * Math.sin(-Math.PI / 2);
   return childCenterY + length;
 }
 
-function genericCalculation(
-  connection: NodeDataConnection,
-  params: GraphParams
+function genericCalculation<T>(
+  connection: NodeDataConnection<T>,
+  params: GraphParams<T>
 ) {
   const { parent, child } = connection;
   const parentCenterY = centerY(parent, params);
@@ -191,10 +191,10 @@ function getOffset(dx: number, radius: number): number {
   return -radius;
 }
 
-function drawText(
+function drawText<T>(
   g: Selection<BaseType, unknown, HTMLElement, any>,
-  nodes: NodeTree,
-  params: GraphParams
+  nodes: NodeTree<T>,
+  params: GraphParams<T>
 ) {
   const text = g.selectAll("#nodeText").data(nodes.dataPoints);
   text
@@ -204,10 +204,10 @@ function drawText(
     .attr("x", (d) => centerX(d))
     .attr("y", (d) => centerY(d, params))
     .attr("fill", "black")
-    .attr("font-size", `${params.widthConst * 0.33}`)
+    .attr("font-size", `${params.width * 0.33}`)
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "middle")
     .style("user-select", "none")
     .style("pointer-events", "none")
-    .text((d) => d.id);
+    .text((d) => (d.content as any).title);
 }

@@ -1,27 +1,29 @@
 import { GraphParams } from "./Graph";
 
-export interface Node {
+export interface Node<T> {
   id: string;
-  nodes?: Node[];
+  content: T,
+  nodes?: Node<T>[];
 }
 
-export class NodeDataPoint {
+export class NodeDataPoint<T> {
   constructor(
     public readonly id: string,
+    public readonly content: T,
     public readonly width: number,
     public readonly level: number,
     public readonly startPosition: number
   ) {}
 }
 
-export interface NodeDataConnection {
-  parent: NodeDataPoint;
-  child: NodeDataPoint;
+export interface NodeDataConnection<T> {
+  parent: NodeDataPoint<T>;
+  child: NodeDataPoint<T>;
 }
-export class NodeTree {
+export class NodeTree<T> {
   constructor(
-    public readonly dataPoints: NodeDataPoint[],
-    public readonly connections: NodeDataConnection[],
+    public readonly dataPoints: NodeDataPoint<T>[],
+    public readonly connections: NodeDataConnection<T>[],
     public readonly width: number,
     public readonly height: number
   ) {}
@@ -37,19 +39,19 @@ interface NodeConnection {
   childId: string;
 }
 
-interface CalculationResult {
-  dataPoints: NodeDataPoint[];
+interface CalculationResult<T> {
+  dataPoints: NodeDataPoint<T>[];
   connections: NodeConnection[];
 }
 
-export function calculateGraph(params: GraphParams): NodeTree {
+export function calculateGraph<T>(params: GraphParams<T>): NodeTree<T> {
   const level = 0;
   const internalParams: GraphInternalParams = {
     globalStart: 0,
-    widthConst: params.widthConst,
+    widthConst: params.width,
   };
   const startPosition = 0;
-  const calculationResult: CalculationResult = {
+  const calculationResult: CalculationResult<T> = {
     dataPoints: [],
     connections: [],
   };
@@ -62,7 +64,7 @@ export function calculateGraph(params: GraphParams): NodeTree {
     startPosition
   );
   const nodes = new Map(dataPoints.map((i) => [i.id, i]));
-  const nodeDataConnections: NodeDataConnection[] = connections.map(
+  const nodeDataConnections: NodeDataConnection<T>[] = connections.map(
     ({ parentId, childId }) => ({
       parent: nodes.get(parentId)!,
       child: nodes.get(childId)!,
@@ -73,21 +75,22 @@ export function calculateGraph(params: GraphParams): NodeTree {
 
   const maxLevel = Math.max(...dataPoints.map((r) => r.level));
   const height =
-    (maxLevel + 1) * params.widthConst + 0.53 * maxLevel * params.widthConst;
+    (maxLevel + 1) * params.width + 0.53 * maxLevel * params.width;
   return new NodeTree(dataPoints, nodeDataConnections, rootWidth + 5, height);
 }
 
-function calculate(
-  parentNode: Node,
-  calculationResult: CalculationResult,
+function calculate<T>(
+  parentNode: Node<T>,
+  calculationResult: CalculationResult<T>,
   level: number,
   params: GraphInternalParams,
   startPosition: number
-): CalculationResult {
+): CalculationResult<T> {
   const nodesCount = parentNode.nodes?.length || 0;
   if (nodesCount === 0) {
     calculationResult.dataPoints.push({
       id: parentNode.id,
+      content: parentNode.content,
       level,
       startPosition,
       width: params.widthConst,
@@ -115,6 +118,7 @@ function calculate(
 
   calculationResult.dataPoints.push({
     id: parentNode.id,
+    content: parentNode.content,
     level,
     startPosition,
     width: childNodesWidth + (nodesCount - 1) * 0.5 * params.widthConst,
