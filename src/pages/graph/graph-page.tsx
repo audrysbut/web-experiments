@@ -1,7 +1,7 @@
 import { Node, NodeParams } from "./graph-calculation";
-import { Graph } from "./graph";
 import { Selection, BaseType } from "d3";
 import { NodeInfo } from "./data-point-calculation";
+import { Graph } from "./graph";
 
 interface TitleData {
   title: string;
