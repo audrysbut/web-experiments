@@ -4,7 +4,7 @@ import { GraphParams, getGraphData } from "./graph-calculation";
 import { ConnectionPoint } from "./connection-calculation";
 
 let graphIndex = 0;
-export const Graph = <T,>(params: GraphParams<T>) => {
+export const GraphView = <T,>(params: GraphParams<T>) => {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const containerRef = useRef(null);

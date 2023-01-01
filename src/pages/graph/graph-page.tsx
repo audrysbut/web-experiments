@@ -1,7 +1,7 @@
 import { Node, NodeParams } from "./graph-calculation";
 import { Selection, BaseType } from "d3";
 import { NodeInfo } from "./data-point-calculation";
-import { Graph } from "./graph";
+import { GraphView } from "./graph-view";
 
 interface TitleData {
   title: string;
@@ -129,10 +129,10 @@ export const GraphPage = () => {
     verticalGap: 25,
   };
   return (
-    <>
-      <Graph graph={graph} nodeParams={nodeParams} drawNode={drawNodes} />
-      <Graph graph={mbti} nodeParams={nodeParams} drawNode={drawNodes} />
-    </>
+    <div>
+      <GraphView graph={graph} nodeParams={nodeParams} drawNode={drawNodes} />
+      <GraphView graph={mbti} nodeParams={nodeParams} drawNode={drawNodes} />
+    </div>
   );
 };
 
