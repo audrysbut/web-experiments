@@ -5,7 +5,7 @@ import { NavigationBar } from "./NavigationBar";
 import { RubikPage } from "./pages/rubik/RubikPage";
 import { ClockPage } from "./pages/clock/ClockPage";
 import { PuzzlePage } from "./pages/puzzle/PuzzlePage";
-import { GraphPage } from "./pages/graph/GraphPage";
+import { GraphPage } from "./pages/graph/graph-page";
 
 export const App = () => {
   return (
