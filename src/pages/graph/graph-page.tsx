@@ -126,20 +126,14 @@ export const GraphPage = () => {
     height: 52,
     width: 50,
     horizontalGap: 25,
-    verticalGap: 25
-  }
-  return <>
-    <Graph
-      graph={graph}
-      nodeParams={nodeParams}
-      drawNode={drawNodes}
-    />
-    <Graph
-      graph={mbti}
-      nodeParams={nodeParams}
-      drawNode={drawNodes}
-    />
-  </>
+    verticalGap: 25,
+  };
+  return (
+    <>
+      <Graph graph={graph} nodeParams={nodeParams} drawNode={drawNodes} />
+      <Graph graph={mbti} nodeParams={nodeParams} drawNode={drawNodes} />
+    </>
+  );
 };
 
 function drawNodes(
