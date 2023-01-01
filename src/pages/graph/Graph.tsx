@@ -1,11 +1,11 @@
 import { BaseType, select } from "d3";
 import { useEffect, useRef, useState } from "react";
-import { Graph2Params, getGraphData } from "./graph-calculation";
+import { GraphParams, getGraphData } from "./graph-calculation";
 import { ConnectionPoint } from "./connection-calculation";
 import { Selection} from 'd3'
 
 let graphIndex = 0;
-export const Graph = <T,>(params: Graph2Params<T>) => {
+export const Graph = <T,>(params: GraphParams<T>) => {
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
     const containerRef = useRef(null);
@@ -14,7 +14,7 @@ export const Graph = <T,>(params: Graph2Params<T>) => {
       const g = select(`#${gIndex}`);
   
       const data = getGraphData(params);
-      params.drawNode(g, data.dataPoints, params)
+      params.drawNode(g, data.dataPoints, params.nodeParams)
       drawConnections<T>(g, data.connections, params)
       setWidth(data.width)
       setHeight(data.height)
@@ -37,7 +37,7 @@ export const Graph = <T,>(params: Graph2Params<T>) => {
   function drawConnections<T>(
     g: Selection<BaseType, unknown, HTMLElement, any>,
     connections: ConnectionPoint[],
-    params: Graph2Params<T>
+    params: GraphParams<T>
   ) {
     const radius = 10;
     const arc = g.selectAll("#connections").data(connections);

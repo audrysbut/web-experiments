@@ -25,26 +25,31 @@ export interface Node<T> {
 type DrawNode<T> = (
   g: Selection<BaseType, unknown, HTMLElement, any>,
   dataPoints: NodeInfo<T>[],
-  params: Graph2Params<T>
+  params: NodeParams
 ) => void;
-export interface Graph2Params<T> {
+
+export interface NodeParams {
   height: number;
   width: number;
   horizontalGap: number;
   verticalGap: number;
-  graph: Node<T>;
-  drawNode: DrawNode<T>;
 }
 
-export function getGraphData<T>(params: Graph2Params<T>): GraphInfo<T> {
+export interface GraphParams<T> {
+  nodeParams: NodeParams
+  graph: Node<T>
+  drawNode: DrawNode<T>
+}
+
+export function getGraphData<T>({ nodeParams, graph }: GraphParams<T>): GraphInfo<T> {
   const parameters: Params = {
-    height: params.height,
-    width: params.width,
-    horizontalGap: params.horizontalGap,
-    verticalGap: params.verticalGap,
+    height: nodeParams.height,
+    width: nodeParams.width,
+    horizontalGap: nodeParams.horizontalGap,
+    verticalGap: nodeParams.verticalGap,
   };
-  const dataPoints = getDataPoints<T>(params.graph, parameters);
-  const connections = getConnections<T>(params.graph, parameters);
+  const dataPoints = getDataPoints<T>(graph, parameters);
+  const connections = getConnections<T>(graph, parameters);
   const { height, width } = getDimensions(dataPoints, parameters);
   return { dataPoints, connections, height, width };
 }
@@ -57,5 +62,5 @@ function getDimensions<T>(
   const maxY = nodes.reduce((prev, next) => Math.max(prev, next.y), 0);
   const height = maxY + params.height + params.verticalGap;
   const width = maxX + params.width;
-  return { height: height * 1.01, width: width * 1.1 };
+  return { height: height * 1.01, width: width * 1.1 }
 }

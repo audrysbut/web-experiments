@@ -1,4 +1,4 @@
-import { Graph2Params, Node } from "./graph-calculation";
+import { Node, NodeParams } from "./graph-calculation";
 import { Graph } from "./graph";
 import { Selection, BaseType } from "d3";
 import { NodeInfo } from "./data-point-calculation";
@@ -122,21 +122,21 @@ const graph: Node<TitleData> = {
 };
 
 export const GraphPage = () => {
+  const nodeParams: NodeParams = {
+    height: 52,
+    width: 50,
+    horizontalGap: 25,
+    verticalGap: 25
+  }
   return <>
     <Graph
-      height={50}
-      width={50}
       graph={graph}
-      horizontalGap={25}
-      verticalGap={25}
+      nodeParams={nodeParams}
       drawNode={drawNodes}
     />
     <Graph
-      height={50}
-      width={50}
       graph={mbti}
-      horizontalGap={25}
-      verticalGap={25}
+      nodeParams={nodeParams}
       drawNode={drawNodes}
     />
   </>
@@ -145,7 +145,7 @@ export const GraphPage = () => {
 function drawNodes(
   g: Selection<BaseType, unknown, HTMLElement, any>,
   dataPoints: NodeInfo<TitleData>[],
-  params: Graph2Params<TitleData>
+  params: NodeParams
 ) {
   const nodes = g.selectAll("#nodes").data(dataPoints);
   nodes
