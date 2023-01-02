@@ -1,5 +1,5 @@
 import { Node, NodeParams } from "./graph-calculation";
-import { Selection, BaseType, selectAll, select } from "d3";
+import { Selection, BaseType, select } from "d3";
 import { NodeInfo } from "./data-point-calculation";
 import { GraphView } from "./graph-view";
 
