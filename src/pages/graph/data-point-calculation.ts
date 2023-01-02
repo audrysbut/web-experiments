@@ -20,7 +20,7 @@ export interface NodeInfo<T> {
   x: number;
   y: number;
   content: T
-  id: string
+  id?: string
 }
 
 function getNodeInfo<T>(

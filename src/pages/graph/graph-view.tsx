@@ -27,7 +27,7 @@ export const GraphView = <T,>(params: GraphParams<T>) => {
       }}
     >
       <svg id="content" width="100%" height="100%" ref={containerRef}>
-        <g id={gIndex} transform={`translate(5, 5)`} />
+        <g id={gIndex} transform={`translate(5, 0)`} />
       </svg>
     </div>
   );

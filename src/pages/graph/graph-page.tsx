@@ -1,5 +1,5 @@
 import { Node, NodeParams } from "./graph-calculation";
-import { Selection, BaseType } from "d3";
+import { Selection, BaseType, selectAll, select } from "d3";
 import { NodeInfo } from "./data-point-calculation";
 import { GraphView } from "./graph-view";
 
@@ -151,7 +151,13 @@ function drawNodes(
     .attr("r", params.width / 2)
     .attr("stroke", "black")
     .attr("stroke-width", 2)
-    .attr("fill", "lightgreen");
+    .attr("fill", "lightgreen")
+    .on("mouseenter", function () {
+      select(this).attr("fill", "salmon");
+    })
+    .on("mouseleave", function () {
+      select(this).attr("fill", "lightgreen");
+    });
 
   const text = g.selectAll("#nodeText").data(dataPoints);
   text

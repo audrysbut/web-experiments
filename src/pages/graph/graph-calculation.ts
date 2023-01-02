@@ -17,7 +17,7 @@ export interface Params {
 }
 
 export interface Node<T> {
-  id: string;
+  id?: string;
   content: T;
   nodes?: Node<T>[];
 }
