@@ -2,6 +2,7 @@
   "name": "web-projects",
   "version": "0.0.0",
   "license": "MIT",
+  "homepage": "https://audrysbut.github.io/web-experiments",
   "scripts": {
     "start": "nx serve web-experiments",
     "build": "nx build web-experiments --configuration=production",
