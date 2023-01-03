@@ -9,7 +9,7 @@ import { GraphPage } from "./pages/graph/graph-page";
 
 export const App = () => {
   return (
-    <Router basename="/">
+    <Router basename="/web-experiments">
       <div>
         {/* TODO: export those router parameters and reuse them in Navigation bar */}
         <NavigationBar />
