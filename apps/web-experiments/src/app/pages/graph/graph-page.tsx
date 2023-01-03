@@ -24,23 +24,54 @@ const mbti: Node<TitleData> = {
       content: { title: "Te" },
       nodes: [
         { id: "121", content: { title: "Si" } },
-        { id: "1211", content: { title: "Ni" } },
+        { id: "121", content: { title: "Ni" } },
       ],
     },
     {
       id: "13",
-      content: { title: "Si" },
+      content: { title: "Fi" },
       nodes: [
-        { id: "131", content: { title: "Te" } },
-        { id: "1311", content: { title: "Fe" } },
+        { id: "131", content: { title: "Ne" } },
+        { id: "132", content: { title: "Se" } },
       ],
     },
     {
       id: "14",
-      content: { title: "Fi" },
+      content: { title: "Se" },
       nodes: [
-        { id: "141", content: { title: "Ne" } },
-        { id: "1411", content: { title: "Se" } },
+        { id: "141", content: { title: "Ti" } },
+        { id: "142", content: { title: "Fi" } },
+      ],
+    },
+    {
+      id: "15",
+      content: { title: "Ne" },
+      nodes: [
+        { id: "151", content: { title: "Ti" } },
+        { id: "152", content: { title: "Fi" } },
+      ],
+    },{
+      id: "16",
+      content: { title: "Ti" },
+      nodes: [
+        { id: "161", content: { title: "Ne" } },
+        { id: "162", content: { title: "Se" } },
+      ],
+    }
+    ,{
+      id: "17",
+      content: { title: "Fe" },
+      nodes: [
+        { id: "171", content: { title: "Si" } },
+        { id: "172", content: { title: "Ti" } },
+      ],
+    },
+    {
+      id: "18",
+      content: { title: "Si" },
+      nodes: [
+        { id: "181", content: { title: "Te" } },
+        { id: "182", content: { title: "Fe" } },
       ],
     },
   ],
@@ -145,14 +176,14 @@ function drawNodes(
   nodes
     .enter()
     .append("circle")
-    .attr("id", "nodes")
+    .attr("id", (d) => `nodes`)
     .attr("cx", (d) => d.x + params.width / 2)
     .attr("cy", (d) => d.y + params.height / 2)
     .attr("r", params.width / 2)
     .attr("stroke", "black")
     .attr("stroke-width", 2)
     .attr("fill", "lightgreen")
-    .on("mouseenter", function () {
+    .on("mouseenter", function (i, d) {
       select(this).attr("fill", "salmon");
     })
     .on("mouseleave", function () {

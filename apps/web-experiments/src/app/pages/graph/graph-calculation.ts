@@ -25,7 +25,7 @@ export interface Node<T> {
 type DrawNode<T> = (
   g: Selection<BaseType, unknown, HTMLElement, any>,
   dataPoints: NodeInfo<T>[],
-  params: NodeParams
+  params: NodeParams,
 ) => void;
 
 export interface NodeParams {
