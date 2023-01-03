@@ -46,80 +46,80 @@ const mbti: Node<TitleData> = {
   ],
 };
 
-const graph: Node<TitleData> = {
-  id: "1",
-  content: { title: "1 " },
-  nodes: [
-    {
-      id: "11",
-      content: { title: "11" },
-      nodes: [
-        {
-          id: "111",
-          content: { title: "111" },
-          nodes: [
-            {
-              id: "1111",
-              content: { title: "1111" },
-            },
-            {
-              id: "1112",
-              content: { title: "1112" },
-            },
-            {
-              id: "1113",
-              content: { title: "1113" },
-            },
-          ],
-        },
-        {
-          id: "112",
-          content: { title: "112" },
-          nodes: [
-            {
-              id: "1121",
-              content: { title: "1121" },
-            },
-          ],
-        },
-        {
-          id: "113",
-          content: { title: "113" },
-        },
-        {
-          id: "114",
-          content: { title: "114" },
-        },
-        {
-          id: "115",
-          content: { title: "115" },
-          nodes: [
-            { id: "1151", content: { title: "1151" } },
-            { id: "1152", content: { title: "1152" } },
-          ],
-        },
-        {
-          id: "116",
-          content: { title: "116" },
-        },
-      ],
-    },
-    {
-      id: "12",
-      content: { title: "12" },
-      nodes: [
-        {
-          id: "121",
-          content: { title: "121" },
-        },
-        {
-          id: "122",
-          content: { title: "122" },
-        },
-      ],
-    },
-  ],
-};
+// const graph: Node<TitleData> = {
+//   id: "1",
+//   content: { title: "1 " },
+//   nodes: [
+//     {
+//       id: "11",
+//       content: { title: "11" },
+//       nodes: [
+//         {
+//           id: "111",
+//           content: { title: "111" },
+//           nodes: [
+//             {
+//               id: "1111",
+//               content: { title: "1111" },
+//             },
+//             {
+//               id: "1112",
+//               content: { title: "1112" },
+//             },
+//             {
+//               id: "1113",
+//               content: { title: "1113" },
+//             },
+//           ],
+//         },
+//         {
+//           id: "112",
+//           content: { title: "112" },
+//           nodes: [
+//             {
+//               id: "1121",
+//               content: { title: "1121" },
+//             },
+//           ],
+//         },
+//         {
+//           id: "113",
+//           content: { title: "113" },
+//         },
+//         {
+//           id: "114",
+//           content: { title: "114" },
+//         },
+//         {
+//           id: "115",
+//           content: { title: "115" },
+//           nodes: [
+//             { id: "1151", content: { title: "1151" } },
+//             { id: "1152", content: { title: "1152" } },
+//           ],
+//         },
+//         {
+//           id: "116",
+//           content: { title: "116" },
+//         },
+//       ],
+//     },
+//     {
+//       id: "12",
+//       content: { title: "12" },
+//       nodes: [
+//         {
+//           id: "121",
+//           content: { title: "121" },
+//         },
+//         {
+//           id: "122",
+//           content: { title: "122" },
+//         },
+//       ],
+//     },
+//   ],
+// };
 
 export const GraphPage = () => {
   const nodeParams: NodeParams = {
@@ -130,7 +130,7 @@ export const GraphPage = () => {
   };
   return (
     <div>
-      <GraphView graph={graph} nodeParams={nodeParams} drawNode={drawNodes} />
+      {/* <GraphView graph={graph} nodeParams={nodeParams} drawNode={drawNodes} /> */}
       <GraphView graph={mbti} nodeParams={nodeParams} drawNode={drawNodes} />
     </div>
   );
