@@ -5,19 +5,24 @@ import { ConnectionPoint } from "./connection-calculation";
 
 let graphIndex = 0;
 export const GraphView = <T,>(params: GraphParams<T>) => {
+  const containerRef = useRef(null);
+  const [g, setG] = useState<Selection<BaseType, unknown, HTMLElement, any> | null>(null)
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
-  const containerRef = useRef(null);
   const [gIndex] = useState(`g${graphIndex++}`);
-  useEffect(() => {
-    const g = select(`#${gIndex}`);
 
-    const data = getGraphData(params);
-    params.drawNode(g, data.dataPoints, params.nodeParams);
-    drawConnections<T>(g, data.connections, params);
-    setWidth(data.width);
-    setHeight(data.height);
-  }, [gIndex, params]);
+  useEffect(() => {
+    if (!g) {
+      setG(select(`#${gIndex}`))
+    } else {
+      console.log('effect')
+      const data = getGraphData(params);
+      params.drawNode(g, data.dataPoints, params.nodeParams);
+      drawConnections<T>(g, data.connections, params);
+      setWidth(data.width);
+      setHeight(data.height);
+    }
+  }, [gIndex, params, g]);
 
   return (
     <div
