@@ -1,85 +1,106 @@
-import { BaseType, select, Selection } from 'd3';
-import { useEffect, useRef, useState } from "react";
-import { GraphParams, getGraphData } from "./graph-calculation";
-import { ConnectionPoint } from "./connection-calculation";
+import { useState } from 'react';
+import { GenericGraphView } from './generic-graph-view';
+import { NodeParams, Node } from './graph-calculation';
 
-let graphIndex = 0;
-export const GraphView = <T,>(params: GraphParams<T>) => {
-  const containerRef = useRef(null);
-  const [g, setG] = useState<Selection<BaseType, unknown, HTMLElement, any> | null>(null)
-  const [width, setWidth] = useState(0);
-  const [height, setHeight] = useState(0);
-  const [gIndex] = useState(`g${graphIndex++}`);
+export interface TitleData {
+  title: string;
+  active?: boolean;
+}
 
-  useEffect(() => {
-    if (!g) {
-      setG(select(`#${gIndex}`))
-    } else {
-      console.log('effect')
-      const data = getGraphData(params);
-      params.drawNode(g, data.dataPoints, params.nodeParams);
-      drawConnections<T>(g, data.connections, params);
-      setWidth(data.width);
-      setHeight(data.height);
-    }
-  }, [gIndex, params, g]);
+interface GraphViewProps {
+  params: NodeParams;
+  graph: Node<TitleData>;
+}
+
+export const GraphView = ({ params, graph }: GraphViewProps) => {
+  const [state, setState] = useState(graph);
+
+  const setActiveNodes = (node?: Node<TitleData>) => {
+    setState((prev) => {
+      const newNode = Object.create(prev);
+      setActiveFalse(newNode);
+      if (node) {
+        const allParents = findAllparents(node, prev);
+        for (const p of allParents) {
+          p.content.active = true;
+        }
+      }
+      return newNode;
+    });
+  };
 
   return (
-    <div
-      style={{
-        height: `${height}px`,
-        width: `${width}px`,
+    <GenericGraphView
+      graph={state}
+      nodeParams={params}
+      drawNode={(g, dataPoints, params) => {
+        const nodes = g.selectAll('#nodes').data(dataPoints);
+        nodes
+          .enter()
+          .append('circle')
+          .attr('id', `nodes`)
+          .attr('cx', (d) => d.x + params.width / 2)
+          .attr('cy', (d) => d.y + params.height / 2)
+          .attr('r', params.width / 2)
+          .attr('stroke', 'black')
+          .attr('stroke-width', 2)
+          .attr('fill', 'lightgreen')
+          .on('mouseenter', function (i, d) {
+            setActiveNodes(d);
+          })
+          .on('mouseleave', function () {
+            setActiveNodes();
+          });
+
+        nodes.attr('fill', (d) => (d.content.active ? 'salmon' : 'lightgreen'));
+
+        const text = g.selectAll('#nodeText').data(dataPoints);
+        text
+          .enter()
+          .append('text')
+          .attr('id', 'nodeText')
+          .attr('x', (d) => d.x + params.width / 2)
+          .attr('y', (d) => d.y + params.height / 2)
+          .attr('fill', 'black')
+          .attr('font-size', `${params.width * 0.33}`)
+          .attr('text-anchor', 'middle')
+          .attr('dominant-baseline', 'middle')
+          .style('user-select', 'none')
+          .style('pointer-events', 'none')
+          .text((d) => d.content.title);
       }}
-    >
-      <svg id="content" width="100%" height="100%" ref={containerRef}>
-        <g id={gIndex} transform={`translate(5, 0)`} />
-      </svg>
-    </div>
+    />
   );
 };
 
-function drawConnections<T>(
-  g: Selection<BaseType, unknown, HTMLElement, any>,
-  connections: ConnectionPoint[],
-  params: GraphParams<T>
-) {
-  const radius = 10;
-  const arc = g.selectAll("#connections").data(connections);
-  arc
-    .enter()
-    .append("path")
-    .attr("id", "connections")
-    .attr("d", (d) => {
-      const x1 = d.parent.x;
-      const y1 = d.parent.y;
-
-      const x2 = d.child.x;
-      const y2 = d.child.y;
-
-      const dx = x2 - x1;
-      const xOffset = getOffset(dx, radius);
-
-      const m1x = x2 - xOffset;
-      const m1y = y1;
-      const arcStart = dx > 0 ? 1 : 0;
-      const m2x = x2;
-      const m2y = y1 + radius;
-      const arcPath =
-        dx === 0 ? "" : `A ${radius} ${radius} 0 0 ${arcStart} ${m2x} ${m2y}`;
-      return `M ${x1} ${y1} L ${m1x} ${m1y} ${arcPath} L ${x2} ${y2}`;
-    })
-    .style("fill", "transparent")
-    .style("stroke", "black")
-    .style("stroke-width", 2);
+function setActiveFalse(root: Node<TitleData>) {
+  root.content.active = false;
+  for (const c of root.nodes || []) {
+    setActiveFalse(c);
+  }
 }
 
-function getOffset(dx: number, radius: number): number {
-  if (dx === 0) {
-    return 0;
-  }
+function findAllparents<T>(origin: Node<T>, root: Node<T>): Node<T>[] {
+  const parentNodes: Node<T>[] = [origin];
+  findParents(origin, root, parentNodes);
+  return parentNodes;
+}
 
-  if (dx > 0) {
-    return radius;
+function findParents<T>(
+  originalNode: Node<T>,
+  parentNode: Node<T>,
+  parents: Node<T>[] = []
+): Node<T> | undefined {
+  for (const c of parentNode.nodes || []) {
+    if (c.id === originalNode.id) {
+      parents.push(parentNode);
+      return parentNode;
+    }
+    const parent = findParents(originalNode, c, parents);
+    if (parent) {
+      parents.push(parentNode);
+      return parentNode;
+    }
   }
-  return -radius;
+  return undefined;
 }
