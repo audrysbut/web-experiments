@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { GenericGraphView } from './generic-graph-view';
 import { NodeParams, Node } from './graph-calculation';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 export interface TitleData {
   title: string;
@@ -37,20 +38,20 @@ export const GraphView = ({ params, graph }: GraphViewProps) => {
         const nodes = g.selectAll('#nodes').data(dataPoints);
         nodes
           .enter()
-          .append('circle')
+          .append('rect')
           .attr('id', `nodes`)
-          .attr('cx', (d) => d.x + params.width / 2)
-          .attr('cy', (d) => d.y + params.height / 2)
-          .attr('r', params.width / 2)
+          .attr('x', (d) => d.x)
+          .attr('y', (d) => d.y)
+          .attr('rx', 5)
+          .attr('fill', (d) => (d.content.active ? 'salmon' : 'lightgreen'))
           .attr('stroke', 'black')
           .attr('stroke-width', 2)
-          .attr('fill', 'lightgreen')
-          .on('mouseenter', function (i, d) {
+          .attr('width', params.width)
+          .attr('height', params.height)
+          .on('mouseenter', (i, d) => {
             setActiveNodes(d);
           })
-          .on('mouseleave', function () {
-            setActiveNodes();
-          });
+          .on('mouseleave', () => setActiveNodes())
 
         nodes.attr('fill', (d) => (d.content.active ? 'salmon' : 'lightgreen'));
 

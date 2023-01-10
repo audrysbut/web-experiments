@@ -15,7 +15,6 @@ export const GenericGraphView = <T,>(params: GraphParams<T>) => {
     if (!g) {
       setG(select(`#${gIndex}`))
     } else {
-      console.log('effect')
       const data = getGraphData(params);
       params.drawNode(g, data.dataPoints, params.nodeParams);
       drawConnections<T>(g, data.connections, params);

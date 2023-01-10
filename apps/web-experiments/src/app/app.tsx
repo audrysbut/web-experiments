@@ -10,7 +10,6 @@ import { GraphPage } from "./pages/graph/graph-page";
 export const App = () => {
   return (
     <Router basename="/">
-      <div>
         {/* TODO: export those router parameters and reuse them in Navigation bar */}
         <NavigationBar />
         <Switch>
@@ -33,7 +32,6 @@ export const App = () => {
             <GraphPage />
           </Route>
         </Switch>
-      </div>
     </Router>
   );
 };
