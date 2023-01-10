@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { GenericGraphView } from './generic-graph-view';
 import { NodeParams, Node } from './graph-calculation';
-import { renderToStaticMarkup } from 'react-dom/server';
 
 export interface TitleData {
   title: string;
