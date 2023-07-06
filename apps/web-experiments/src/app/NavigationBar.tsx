@@ -23,6 +23,9 @@ export const NavigationBar = () => {
           <th className="th" onClick={() => history.push("/graph")}>
             Graph
           </th>
+          <th className="th" onClick={() => history.push("/route")}>
+            Route
+          </th>
         </tr>
       </thead>
     </table>
