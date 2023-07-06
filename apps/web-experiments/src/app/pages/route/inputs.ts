@@ -1,3 +1,5 @@
+import { findRoute } from './dijkstra';
+
 export const ROWS_COUNT = 30;
 export const COLUMNS_COUNT = 30;
 export const BLOCK_SIZE = 20;
@@ -7,7 +9,7 @@ export enum BlockType {
   obsticle = 'obsticle',
   origin = 'origin',
   destination = 'destination',
-  route = 'route'
+  route = 'route',
 }
 
 export interface BlockProps {
@@ -27,7 +29,7 @@ export function loadBlocks(): BlockProps[] {
   return blocks;
 }
 
-interface ObsticleData {
+export interface ObsticleData {
   i: number;
   j: number;
 }
@@ -43,6 +45,16 @@ function getObsticles(): ObsticleData[] {
       obsticles.push(...addObsticleBlock(iStart, iEnd, jStart, jEnd));
     }
   }
+  //TODO: remove bellow hardcoded obsticles
+  obsticles.push(
+    ...[
+      { i: 10, j: 0 },
+      { i: 10, j: 5 },
+      { i: 10, j: 6 },
+      { i: 10, j: 11 },
+      { i: 10, j: 12 },
+    ]
+  );
   return obsticles;
 }
 
@@ -74,9 +86,15 @@ function getBlockData(i: number, j: number) {
 
 const startPosition: ObsticleData = { i: 0, j: 0 };
 const destinationPosition: ObsticleData = { i: 28, j: 28 };
-
 const obsticles = getObsticles();
-const route: ObsticleData[] = []
+const route = findRoute(
+  startPosition,
+  destinationPosition,
+  obsticles,
+  COLUMNS_COUNT,
+  ROWS_COUNT
+);
+
 function getBlockType(i: number, j: number): BlockType {
   const isObsticle = obsticles.some((p) => p.i === i && p.j === j);
   if (isObsticle) {
@@ -84,17 +102,17 @@ function getBlockType(i: number, j: number): BlockType {
   }
 
   if (startPosition.i === i && startPosition.j === j) {
-    return BlockType.origin
+    return BlockType.origin;
   }
 
   if (destinationPosition.i === i && destinationPosition.j === j) {
-    return BlockType.destination
+    return BlockType.destination;
   }
 
-  const isRoute = route.some((r) => r.i === i && r.j === j)
+  const isRoute = route.some((r) => r.i === i && r.j === j);
   if (isRoute) {
-    return BlockType.route
+    return BlockType.route;
   }
-  
+
   return BlockType.empty;
 }

@@ -23,7 +23,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
 const EmptySpace: React.FC<BlockProps> = ({ x, y }) => {
   const [hover, setHover] = useState(false);
-  const fill = hover ? 'blue' : 'transparent';
+  const fill = hover ? 'yellow' : 'transparent';
   const onMouseEnter = () => setHover(true);
   const onMouseLeave = () => setHover(false);
   return (
