@@ -38,7 +38,7 @@ export function findRoute(
       );
       if (!isBottomRightObsticle) {
         const bottomRightNode = `${i + 1}_${j + 1}`;
-        map.set(bottomRightNode, 1.4);
+        map.set(bottomRightNode, 1.414);
       }
 
       const node = `${i}_${j}`;

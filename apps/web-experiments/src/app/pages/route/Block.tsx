@@ -32,7 +32,7 @@ const EmptySpace: React.FC<BlockProps> = ({ x, y }) => {
       y={y}
       width={BLOCK_SIZE}
       height={BLOCK_SIZE}
-      stroke="black"
+      // stroke="black"
       fill={fill}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -48,7 +48,8 @@ const Obsticle: React.FC<BlockProps> = ({ x, y }) => {
       width={BLOCK_SIZE}
       height={BLOCK_SIZE}
       stroke="black"
-      fill="Brown"
+      fill="gray"
+      rx={4}
     />
   );
 };
