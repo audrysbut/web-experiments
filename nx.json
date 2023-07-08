@@ -43,7 +43,7 @@
       "application": {
         "style": "css",
         "linter": "eslint",
-        "bundler": "webpack",
+        "bundler": "vite",
         "babel": true
       },
       "component": {
