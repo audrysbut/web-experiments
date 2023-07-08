@@ -1,7 +1,6 @@
-import { BLOCK_SIZE, COLUMNS_COUNT, ROWS_COUNT, loadBlocks } from './inputs';
-import { MapObject } from './v2/map-object';
-import { Position, findPath } from './v2/route-detection';
-import { Scaffolding } from './v2/scaffolding';
+import { MapObject } from './map-object';
+import { findPath } from './route-detection';
+import { Scaffolding } from './scaffolding';
 
 function loadMapObjects(): MapObject[] {
   const mapItems: MapObject[] = [];
