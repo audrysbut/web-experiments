@@ -1,59 +1,60 @@
 import Graph from 'node-dijkstra';
-import { ObsticleData } from './inputs';
+import { PositionData } from './inputs';
 
 export function findRoute(
-  start: ObsticleData,
-  end: ObsticleData,
-  obsticles: ObsticleData[],
+  start: PositionData,
+  end: PositionData,
+  obsticles: PositionData[],
   cols: number,
   rows: number
-): ObsticleData[] {
+): PositionData[] {
   const graph = new Graph();
-  for (let i = 0; i < cols - 1; i++) {
-    for (let j = 0; j < rows - 1; j++) {
-      const isObsticle = obsticles.some((inp) => inp.i === i && inp.j === j);
-      if (isObsticle) {
+  for (let currentRow = 0; currentRow < rows; currentRow++) {
+    for (let currentColumn = 0; currentColumn < cols; currentColumn++) {
+      const isCurrenPositionObsticle = obsticles.some(
+        (inp) => inp.row === currentRow && inp.column === currentColumn
+      );
+      if (isCurrenPositionObsticle) {
         continue;
       }
-
-      const isRightObsticle = obsticles.some(
-        (inp) => inp.i === i + 1 && inp.j === j
-      );
+      const node = `${currentRow}_${currentColumn}`;
       const map = new Map<string, number>();
-      if (!isRightObsticle) {
-        const rightNode = `${i + 1}_${j}`;
-        map.set(rightNode, 1);
-      }
+      for (let nextPositionRow = currentRow - 1; nextPositionRow < currentRow + 2; nextPositionRow++) {
+        for (let nextPostionColumn = currentColumn - 1; nextPostionColumn < currentColumn + 2; nextPostionColumn++) {
+          if (nextPositionRow < 0 || nextPositionRow > rows) {
+            continue;
+          }
+          if (nextPostionColumn < 0 || nextPostionColumn > cols) {
+            continue;
+          }
+          if (nextPostionColumn === currentColumn && nextPositionRow === currentRow) {
+            continue
+          }
 
-      const isBottomObsticle = obsticles.some(
-        (inp) => inp.i === i && inp.j === j + 1
-      );
-      if (!isBottomObsticle) {
-        const bottomNode = `${i}_${j + 1}`;
-        map.set(bottomNode, 1);
-      }
+          const isNextObsticle = obsticles.some(
+            (inp) => inp.row === nextPositionRow && inp.column === nextPostionColumn
+          );
+          if (!isNextObsticle) {
+            const nextNode = `${nextPositionRow}_${nextPostionColumn}`;
+            const isCrossPosition = nextPositionRow !== currentRow && nextPostionColumn !== currentColumn
+            const distance = isCrossPosition ? 1.414 : 1
+            map.set(nextNode, distance);
+          }
 
-      const isBottomRightObsticle = obsticles.some(
-        (inp) => inp.i === i + 1 && inp.j === j + 1
-      );
-      if (!isBottomRightObsticle) {
-        const bottomRightNode = `${i + 1}_${j + 1}`;
-        map.set(bottomRightNode, 1.414);
+        }
       }
-
-      const node = `${i}_${j}`;
       graph.addNode(node, map);
     }
   }
-  const startNode = `${start.i}_${start.j}`;
-  const destinationNode = `${end.i}_${end.j}`;
+  const startNode = `${start.row}_${start.column}`;
+  const destinationNode = `${end.row}_${end.column}`;
 
   const shortestRoute = graph.path(startNode, destinationNode);
   if (Array.isArray(shortestRoute)) {
     const routeString = shortestRoute as string[];
     return routeString.map((inp) => {
       const [i, j] = inp.split('_');
-      return { i: Number(i), j: Number(j) };
+      return { row: Number(i), column: Number(j) };
     });
   }
   return [];

@@ -29,13 +29,13 @@ export function loadBlocks(): BlockProps[] {
   return blocks;
 }
 
-export interface ObsticleData {
-  i: number;
-  j: number;
+export interface PositionData {
+  row: number;
+  column: number;
 }
 
-function getObsticles(): ObsticleData[] {
-  const obsticles: ObsticleData[] = [];
+function getObsticles(): PositionData[] {
+  const obsticles: PositionData[] = [];
   for (let row = 0; row < 8; row++) {
     const iStart = COLUMNS_COUNT - row * 4;
     const iEnd = iStart + 2;
@@ -48,11 +48,15 @@ function getObsticles(): ObsticleData[] {
   //TODO: remove bellow hardcoded obsticles
   obsticles.push(
     ...[
-      { i: 10, j: 0 },
-      { i: 10, j: 5 },
-      { i: 10, j: 6 },
-      { i: 10, j: 11 },
-      { i: 10, j: 12 },
+      { row: 10, column: 0 },
+      { row: 10, column: 5 },
+      { row: 10, column: 6 },
+      { row: 10, column: 11 },
+      { row: 10, column: 12 },
+      { row: 13, column: 16 },
+      { row: 12, column: 16 },
+      { row: 16, column: 16 },
+      { row: 17, column: 16 },
     ]
   );
   return obsticles;
@@ -63,11 +67,11 @@ function addObsticleBlock(
   iEnd: number,
   jStart: number,
   jEnd: number
-): ObsticleData[] {
-  const obsticles: ObsticleData[] = [];
+): PositionData[] {
+  const obsticles: PositionData[] = [];
   for (let i = iStart; i < iEnd; i++) {
     for (let j = jStart; j < jEnd; j++) {
-      const obsticle: ObsticleData = { i, j };
+      const obsticle: PositionData = { row: i, column: j };
       obsticles.push(obsticle);
     }
   }
@@ -84,8 +88,8 @@ function getBlockData(i: number, j: number) {
   return block;
 }
 
-const startPosition: ObsticleData = { i: 0, j: 0 };
-const destinationPosition: ObsticleData = { i: 28, j: 28 };
+const startPosition: PositionData = { row: 1, column: 1 };
+const destinationPosition: PositionData = { row: 12, column: 14 };
 const obsticles = getObsticles();
 const route = findRoute(
   startPosition,
@@ -96,20 +100,20 @@ const route = findRoute(
 );
 
 function getBlockType(i: number, j: number): BlockType {
-  const isObsticle = obsticles.some((p) => p.i === i && p.j === j);
+  const isObsticle = obsticles.some((p) => p.row === i && p.column === j);
   if (isObsticle) {
     return BlockType.obsticle;
   }
 
-  if (startPosition.i === i && startPosition.j === j) {
+  if (startPosition.row === i && startPosition.column === j) {
     return BlockType.origin;
   }
 
-  if (destinationPosition.i === i && destinationPosition.j === j) {
+  if (destinationPosition.row === i && destinationPosition.column === j) {
     return BlockType.destination;
   }
 
-  const isRoute = route.some((r) => r.i === i && r.j === j);
+  const isRoute = route.some((r) => r.row === i && r.column === j);
   if (isRoute) {
     return BlockType.route;
   }
