@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, } from 'react-router-dom';
 import { SudokuPage } from './pages/sudoku-solver/SudokuPage';
 import { NavigationBar } from './NavigationBar';
 import { RubikPage } from './pages/rubik/RubikPage';
@@ -10,7 +10,7 @@ import { RoutePage } from './pages/route/RoutePage';
 
 export const App = () => {
   return (
-    <Router basename="/web-experiments">
+    <Router basename="/">
       {/* TODO: export those router parameters and reuse them in Navigation bar */}
       <NavigationBar />
       <Switch>
