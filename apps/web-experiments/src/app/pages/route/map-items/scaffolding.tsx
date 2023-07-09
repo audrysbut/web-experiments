@@ -28,7 +28,13 @@ export class Scaffolding implements MapObject {
     return true;
   }
   toFC(): JSX.Element {
-    return <ScafoldingComponent originX={this.x} originY={this.y} />;
+    return (
+      <ScafoldingComponent
+        originX={this.x}
+        originY={this.y}
+        key={`SC${this.x}_${this.y}`}
+      />
+    );
   }
 }
 
@@ -45,7 +51,7 @@ const ScafoldingComponent: React.FC<ScafoldingComponentProps> = ({
     const x = originX + (i * WIDTH) / ROW_COUNT;
     for (let j = 0; j < COL_COUNT; j++) {
       const y = originY + (j * HEIGHT) / COL_COUNT;
-      const elem = <ScafoldBlock x={x} y={y} />;
+      const elem = <ScafoldBlock x={x} y={y} key={`SB${x}_${y}`} />;
       elements.push(elem);
     }
   }

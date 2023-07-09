@@ -19,7 +19,7 @@ export const NavigationPath: React.FC<NavigationPathProps> = ({
     y: 599,
   });
   const path = findShortestRoute(mapObjects, 7, 600, 600, origin[0], end);
-  const pathPoints = path.map(({ x, y }) => <NavigationPoint cx={x} cy={y} />);
+  const pathPoints = path.map(({ x, y }) => <NavigationPoint cx={x} cy={y} key={`nv${x}_${y}`} />);
   return (
     <g>
       {pathPoints}

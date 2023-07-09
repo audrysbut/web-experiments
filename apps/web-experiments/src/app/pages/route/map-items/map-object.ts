@@ -9,7 +9,7 @@ interface MouseMoveEvent {
 }
 type MouseMoveHandler = (e: MouseMoveEvent) => void;
 
-export const useBoardMouseMoveSubscribe = (): BoardContext => {
+export const useBoardContext = (): BoardContext => {
   const mouseMoveSubscribers = new Set<MouseMoveHandler>();
   const onMouseMove = (handler: MouseMoveHandler) => {
     mouseMoveSubscribers.add(handler);
