@@ -1,44 +1,51 @@
 import { useEffect, useState } from 'react';
 import { Position } from '../../route-detection';
-import { BoardContext } from '../map-object';
+import { BoardContext, MapObject } from '../map-object';
 
-interface OriginPointProps {
-  origin: [Position, React.Dispatch<React.SetStateAction<Position>>];
+interface TargetPointProps {
+  targetState: [Position, React.Dispatch<React.SetStateAction<Position>>];
   context: BoardContext;
+  color: string;
+  mapObjects: MapObject[];
 }
 
-export const OriginPoint: React.FC<OriginPointProps> = ({
-  origin,
+export const TargetPoint: React.FC<TargetPointProps> = ({
+  targetState,
   context,
+  color,
+  mapObjects,
 }) => {
-  const [{ x, y }, setOrigin] = origin;
+  const [{ x, y }, setTarget] = targetState;
   const [mouseDown, setMouseDown] = useState(false);
   const { onMouseMove: subscribe } = context;
   useEffect(() => {
     const unsubscribe = subscribe(({ x, y }) => {
       if (mouseDown) {
-        setOrigin({ x, y });
+        const isObsticle = mapObjects.some((o) =>
+          o.isCollision(x, y)
+        );
+        if (!isObsticle) {
+          setTarget({ x, y });
+        }
       }
     });
     return () => {
       unsubscribe();
     };
-  }, [mouseDown]);
+  }, [mouseDown, setTarget, subscribe]);
 
   return (
     <circle
-      cx={x - 2.5}
-      cy={y - 2.5}
-      r={10}
+      cx={x}
+      cy={y}
+      r={8}
       stroke="black"
       strokeWidth={1}
-      fill="blue"
+      fill={color}
       onMouseDown={() => {
-        // console.log('down');
         setMouseDown(true);
       }}
       onMouseUp={() => {
-        // console.log('up');
         setMouseDown(false);
       }}
     />

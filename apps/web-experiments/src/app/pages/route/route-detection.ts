@@ -14,6 +14,7 @@ export function findShortestRoute(
   end: Position
 ): Position[] {
   const graph = new Graph();
+  const lookupStep = 1 * step;
   for (let x = 0; x < width; x += step) {
     for (let y = 0; y < height; y += step) {
       const isCurrentPositionObsticle = mapObjects.some((o) =>
@@ -24,8 +25,8 @@ export function findShortestRoute(
         continue;
       }
       const map = new Map<string, number>();
-      for (let nextX = x - step; nextX <= x + step; nextX += step) {
-        for (let nextY = y - step; nextY <= y + step; nextY += step) {
+      for (let nextX = x - lookupStep; nextX <= x + lookupStep; nextX += step) {
+        for (let nextY = y - lookupStep; nextY <= y + lookupStep; nextY += step) {
           if (nextX < 0 || nextX > width) {
             continue;
           }
