@@ -1,7 +1,7 @@
 import { MapObject } from './map-items/map-object';
 import { Scaffolding } from './map-items/scaffolding';
 import { Board } from './board';
-import { RoutePath } from './map-items/route-path';
+import { NavigationMapObject } from './map-items/navigation-path/navigation-map-object';
 
 function loadMapObjects(): MapObject[] {
   const mapItems: MapObject[] = [];
@@ -18,7 +18,7 @@ function loadMapObjects(): MapObject[] {
 
 const mapObjects = loadMapObjects();
 export const RoutePage: React.FC = () => {
-  const route = new RoutePath(mapObjects, 4);
+  const route = new NavigationMapObject(mapObjects, 4);
   const mapObjectsAndRoute = [...mapObjects, route];
   return <Board mapObjects={mapObjectsAndRoute} />;
 };
