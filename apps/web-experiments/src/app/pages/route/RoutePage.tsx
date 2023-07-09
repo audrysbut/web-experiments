@@ -18,7 +18,7 @@ function loadMapObjects(): MapObject[] {
 
 const mapObjects = loadMapObjects();
 export const RoutePage: React.FC = () => {
-  const route = new NavigationMapObject(mapObjects, 4);
+  const route = new NavigationMapObject(mapObjects);
   const mapObjectsAndRoute = [...mapObjects, route];
   return <Board mapObjects={mapObjectsAndRoute} />;
 };

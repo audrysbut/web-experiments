@@ -5,7 +5,7 @@ export interface Position {
   x: number;
   y: number;
 }
-export function findPath(
+export function findShortestRoute(
   mapObjects: MapObject[],
   step: number,
   width: number,
@@ -14,7 +14,6 @@ export function findPath(
   end: Position
 ): Position[] {
   const graph = new Graph();
-  const substep = 1*step
   for (let x = 0; x < width; x += step) {
     for (let y = 0; y < height; y += step) {
       const isCurrentPositionObsticle = mapObjects.some((o) =>
@@ -25,8 +24,8 @@ export function findPath(
         continue;
       }
       const map = new Map<string, number>();
-      for (let nextX = x - substep; nextX <= x + substep; nextX += step) {
-        for (let nextY = y - substep; nextY <= y + substep; nextY += step) {
+      for (let nextX = x - step; nextX <= x + step; nextX += step) {
+        for (let nextY = y - step; nextY <= y + step; nextY += step) {
           if (nextX < 0 || nextX > width) {
             continue;
           }
