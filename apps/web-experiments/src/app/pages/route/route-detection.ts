@@ -1,4 +1,4 @@
-import { MapObject } from './map-object';
+import { MapObject } from './map-items/map-object';
 import Graph from 'node-dijkstra';
 
 export interface Position {
@@ -14,18 +14,19 @@ export function findPath(
   end: Position
 ): Position[] {
   const graph = new Graph();
+  const substep = 1*step
   for (let x = 0; x < width; x += step) {
     for (let y = 0; y < height; y += step) {
       const isCurrentPositionObsticle = mapObjects.some((o) =>
         o.isCollision(x, y)
       );
+      const node = coordinateToNode(x, y, step);
       if (isCurrentPositionObsticle) {
         continue;
       }
-      const node = coordinateToNode(x, y, step);
       const map = new Map<string, number>();
-      for (let nextX = x - step; nextX < x + 2 * step; nextX += step) {
-        for (let nextY = y - step; nextY < y + 2 * step; nextY += step) {
+      for (let nextX = x - substep; nextX <= x + substep; nextX += step) {
+        for (let nextY = y - substep; nextY <= y + substep; nextY += step) {
           if (nextX < 0 || nextX > width) {
             continue;
           }
@@ -35,10 +36,6 @@ export function findPath(
           if (nextX === x && nextY === y) {
             continue;
           }
-        //   if (nextX !== x && nextY !== y) {
-        //     continue
-        //   }
-
           const isNextObsticle = mapObjects.some((o) =>
             o.isCollision(nextX, nextY)
           );
