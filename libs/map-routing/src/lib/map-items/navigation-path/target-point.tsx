@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Position } from '../../route-detection';
-import { BoardContext, MapObject } from '../map-object';
+import {  MapObject } from '../map-object';
+import { useBoardContext } from '../board-context';
 
 interface TargetPointProps {
   targetState: [Position, React.Dispatch<React.SetStateAction<Position>>];
-  context: BoardContext;
   color: string;
   mapObjects: MapObject[];
 }
 
 export const TargetPoint: React.FC<TargetPointProps> = ({
   targetState,
-  context,
   color,
   mapObjects,
 }) => {
   const [{ x, y }, setTarget] = targetState;
   const [mouseDown, setMouseDown] = useState(false);
+  const context = useBoardContext()
   const { onMouseMove: subscribe } = context;
   useEffect(() => {
     const unsubscribe = subscribe(({ x, y }) => {

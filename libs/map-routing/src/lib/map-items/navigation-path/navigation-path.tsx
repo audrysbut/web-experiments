@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import { MapObject, BoardContext } from '../map-object';
+import { useState } from 'react';
+import { MapObject } from '../map-object';
 import { NavigationPoint } from './navigation-point';
 import { TargetPoint } from './target-point';
 import { Position, findShortestRoute } from '../../route-detection';
+import { useBoardContext } from '../board-context';
 
 interface NavigationPathProps {
   mapObjects: MapObject[];
-  context: BoardContext;
 }
 
 export const NavigationPath: React.FC<NavigationPathProps> = ({
   mapObjects,
-  context,
 }) => {
+  const { settings } = useBoardContext();
   const origin = useState<Position>({ x: 18, y: 22 });
   const destination = useState<Position>({
     x: 560,
@@ -20,9 +20,9 @@ export const NavigationPath: React.FC<NavigationPathProps> = ({
   });
   const path = findShortestRoute(
     mapObjects,
-    7,
-    600,
-    600,
+    settings.step,
+    settings.width,
+    settings.height,
     origin[0],
     destination[0]
   );
@@ -32,15 +32,9 @@ export const NavigationPath: React.FC<NavigationPathProps> = ({
   return (
     <g>
       {pathPoints}
-      <TargetPoint
-        targetState={origin}
-        context={context}
-        color="blue"
-        mapObjects={mapObjects}
-      />
+      <TargetPoint targetState={origin} color="blue" mapObjects={mapObjects} />
       <TargetPoint
         targetState={destination}
-        context={context}
         color="red"
         mapObjects={mapObjects}
       />

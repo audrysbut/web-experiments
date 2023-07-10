@@ -1,4 +1,4 @@
-import { MapObject, BoardContext } from '../map-object';
+import { MapObject } from '../map-object';
 import { NavigationPath } from './navigation-path';
 
 export class NavigationMapObject implements MapObject {
@@ -7,7 +7,7 @@ export class NavigationMapObject implements MapObject {
   isCollision(x: number, y: number): boolean {
     return false;
   }
-  toFC(context: BoardContext): JSX.Element {
-    return <NavigationPath mapObjects={this.mapObjects} context={context} />;
+  toFC(): JSX.Element {
+    return <NavigationPath mapObjects={this.mapObjects} />;
   }
 }

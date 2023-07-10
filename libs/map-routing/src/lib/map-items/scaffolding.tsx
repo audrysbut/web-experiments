@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { MapObject } from './map-object';
 
 const WIDTH = 40;

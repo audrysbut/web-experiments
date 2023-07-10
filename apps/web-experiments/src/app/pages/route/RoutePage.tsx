@@ -1,7 +1,9 @@
-import { MapObject } from './map-items/map-object';
-import { Scaffolding } from './map-items/scaffolding';
-import { Board } from './board';
-import { NavigationMapObject } from './map-items/navigation-path/navigation-map-object';
+import {
+  Board,
+  MapObject,
+  NavigationMapObject,
+  Scaffolding,
+} from '@web-projects/map-routing';
 
 function loadMapObjects(): MapObject[] {
   const mapItems: MapObject[] = [];
@@ -20,5 +22,10 @@ const mapObjects = loadMapObjects();
 export const RoutePage: React.FC = () => {
   const route = new NavigationMapObject(mapObjects);
   const mapObjectsAndRoute = [...mapObjects, route];
-  return <Board mapObjects={mapObjectsAndRoute} />;
+  return (
+    <Board
+      mapObjects={mapObjectsAndRoute}
+      settings={{ height: 600, width: 600, step: 7 }}
+    />
+  );
 };
