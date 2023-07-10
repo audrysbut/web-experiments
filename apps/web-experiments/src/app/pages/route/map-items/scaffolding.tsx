@@ -66,8 +66,6 @@ interface ScafoldBlockProps {
 const SCAFOLD_BLOCK_WIDTH = WIDTH / ROW_COUNT;
 const SCAFOLD_BLOCK_HEIGHT = HEIGHT / COL_COUNT;
 const ScafoldBlock: React.FC<ScafoldBlockProps> = ({ x, y }) => {
-  const [active, setActive] = useState(false);
-  const fill = active ? 'lightblue' : 'lightgray';
   return (
     <rect
       x={x}
@@ -75,11 +73,9 @@ const ScafoldBlock: React.FC<ScafoldBlockProps> = ({ x, y }) => {
       width={SCAFOLD_BLOCK_WIDTH}
       height={SCAFOLD_BLOCK_HEIGHT}
       stroke="black"
-      fill={fill}
+      fill={'lightblue'}
       strokeWidth={2}
       rx={3}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
     />
   );
 };
