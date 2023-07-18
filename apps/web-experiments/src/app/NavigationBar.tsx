@@ -26,6 +26,9 @@ export const NavigationBar = () => {
           <th className="th" onClick={() => history.push("/route")}>
             Route
           </th>
+          <th className="th" onClick={() => history.push("/physics")}>
+            Physics
+          </th>
         </tr>
       </thead>
     </table>

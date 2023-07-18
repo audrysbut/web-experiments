@@ -7,6 +7,7 @@ import { ClockPage } from './pages/clock/ClockPage';
 import { PuzzlePage } from './pages/puzzle/PuzzlePage';
 import { GraphPage } from './pages/graph/graph-page';
 import { RoutePage } from './pages/route/RoutePage';
+import { PhysicsPage } from './pages/physics/physics-page';
 
 export const App = () => {
   return (
@@ -35,6 +36,9 @@ export const App = () => {
           </Route>
           <Route exact path="/graph">
             <GraphPage />
+          </Route>
+          <Route exact path="/physics">
+            <PhysicsPage />
           </Route>
         </Switch>
       </Router>
