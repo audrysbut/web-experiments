@@ -1,29 +1,29 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./NavigationBar.css";
 
 export const NavigationBar = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
     <table className="table">
       <thead>
         <tr>
-          <th className="th" onClick={() => history.push("/rubik")}>
+          <th className="th" onClick={() => navigate("/rubik")}>
             Rubik
           </th>
-          <th className="th" onClick={() => history.push("/sudoku")}>
+          <th className="th" onClick={() => navigate("/sudoku")}>
             Sudoku solver
           </th>
-          <th className="th" onClick={() => history.push("/clock")}>
+          <th className="th" onClick={() => navigate("/clock")}>
             Clock
           </th>
-          <th className="th" onClick={() => history.push("/puzzle")}>
+          <th className="th" onClick={() => navigate("/puzzle")}>
             Puzzle
           </th>
-          <th className="th" onClick={() => history.push("/graph")}>
+          <th className="th" onClick={() => navigate("/graph")}>
             Graph
           </th>
-          <th className="th" onClick={() => history.push("/route")}>
+          <th className="th" onClick={() => navigate("/route")}>
             Route
           </th>
         </tr>
