@@ -1,11 +1,9 @@
 import {
   Board,
-  EmptySpaceMapObject,
   MapObject,
   NavigationMapObject,
   Scaffolding,
 } from '@web-projects/map-routing';
-import { BoardSettings } from 'libs/map-routing/src/lib/map-items/board-context';
 
 function loadMapObjects(): MapObject[] {
   const mapItems: MapObject[] = [];
@@ -20,34 +18,9 @@ function loadMapObjects(): MapObject[] {
   return mapItems;
 }
 
-// function loadSpace(
-//   obsticles: MapObject[],
-//   settings: BoardSettings
-// ): MapObject[] {
-//   const spaces: MapObject[] = [];
-//   for (let x = 0; x < settings.width; x += settings.step) {
-//     for (let y = 0; y < settings.height; y += settings.step) {
-//       const isObsticle = obsticles.some((o) => o.isCollision(x, y));
-//       if (!isObsticle) {
-//         const emptySpace = new EmptySpaceMapObject(
-//           x,
-//           y,
-//           settings.step,
-//           settings.step
-//         );
-//         spaces.push(emptySpace);
-//       }
-//     }
-//   }
-//   return spaces;
-// }
-
-const settings: BoardSettings = { height: 600, width: 600, step: 7 };
 const mapObjects = loadMapObjects();
-// const spaces = loadSpace(mapObjects, settings);
 export const RoutePage: React.FC = () => {
   const route = new NavigationMapObject(mapObjects);
-
   const mapObjectsAndRoute = [...mapObjects, route];
-  return <Board mapObjects={mapObjectsAndRoute} settings={settings} />;
+  return <Board mapObjects={mapObjectsAndRoute} settings={{ height: 600, width: 600, step: 7 }} />;
 };
