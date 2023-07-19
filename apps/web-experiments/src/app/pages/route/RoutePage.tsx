@@ -1,6 +1,5 @@
 import {
   Board,
-  BoardSettings,
   MapObject,
   NavigationMapObject,
   Scaffolding,
@@ -19,10 +18,9 @@ function loadMapObjects(): MapObject[] {
   return mapItems;
 }
 
-const settings: BoardSettings = { height: 600, width: 600, step: 7 };
 const mapObjects = loadMapObjects();
 export const RoutePage: React.FC = () => {
   const route = new NavigationMapObject(mapObjects);
   const mapObjectsAndRoute = [...mapObjects, route];
-  return <Board mapObjects={mapObjectsAndRoute} settings={settings} />;
+  return <Board mapObjects={mapObjectsAndRoute} settings={{ height: 600, width: 600, step: 7 }} />;
 };
