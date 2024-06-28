@@ -132,9 +132,15 @@ export const GraphPage = () => {
     verticalGap: 25,
   };
   return (
-    <>
-      <GraphView graph={mbti} params={params} />
-      <GraphView graph={graph} params={params} />
-    </>
+    <div style={{ width: 'fit-content', textAlign: 'center' }}>
+      <div>
+        <GraphView graph={mbti} params={params} />
+        MBTI graph
+      </div>
+      <div style={{ width: 'fit-content', textAlign: 'center' }}>
+        <GraphView graph={graph} params={params} />
+        Sample graph
+      </div>
+    </div>
   );
 };
